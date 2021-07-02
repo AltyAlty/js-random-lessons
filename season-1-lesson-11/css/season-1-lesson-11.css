@@ -1,0 +1,15 @@
+.first {
+    border: green 3px solid;
+}
+
+.second {
+    border: indigo 3px solid;
+}
+
+.third {
+    border-radius: 6px;
+}
+
+.fourth {
+    border: tomato 3px solid
+}
