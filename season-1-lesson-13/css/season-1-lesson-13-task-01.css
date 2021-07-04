@@ -1,0 +1,45 @@
+/*
+4 способа, как скрыть элемент:
+1) display: none;
+2) visibility: hidden;
+3) width/height: 0px;
+4) left/top: -1000000000px;  
+*/
+
+.first {    
+    border: green 3px solid;
+}
+
+.second {
+    border: indigo 3px solid;
+}
+
+.third {
+    border-radius: 6px;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: inline;
+}
+
+.some-window {
+    width: 1000px;
+    height: 50px;
+    background-color: black;
+    transition: 1s;
+}
+
+.hiding {
+    width: 0px;
+    transition: 1s; /*Используем это для того, чтобы переход был плавным. Чтобы плавный переход 
+    сработал нужно использовать "setTimeout()" в JS.*/
+}
+
+.showing {
+    width: 1000px;
+    transition: 1s;
+}
