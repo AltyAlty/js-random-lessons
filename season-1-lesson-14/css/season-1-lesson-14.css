@@ -1,0 +1,91 @@
+.some-window {
+    width: 1000px;
+    height: 50px;
+    background-color: black;
+    transition: 1s;
+}
+
+.hiding-some-window {
+    width: 0px;
+    transition: 1s; /*Используем это для того, чтобы переход был плавным. Чтобы плавный переход 
+    сработал нужно использовать "setTimeout()" в JS.*/
+}
+
+.showing-some-window {
+    width: 1000px;
+    transition: 1s;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+.invisible-status {
+    display: none;
+}
+
+.visible-status {
+    display: inline;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+.input-has-error {
+    border: red 3px solid;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+.main-image {
+    width: 895px;
+    height: 616;
+    border: black 2px solid;
+}
+
+.image-one, image-two, image-three {
+    width: 322px;
+    height: 227px;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+.sidebar-menu {
+    position: absolute;
+    width: 200px;
+    background-color: grey;
+    color: white;
+    top: 30px;
+    left: -180px;
+    transition: 1s;
+}
+
+.show-sidebar-menu-div {
+    width: 80px;
+    height: 220px;
+    background-color: blueviolet;
+    text-align: right;
+}
+
+.showing-sidebar-menu {
+    left: 0px;
+    transition: 1s;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+.main-menu-item .sub-menu { /*Элементы с классом "sub-menu" внутри элементов с классом "main-menu-item".*/
+    display: none;
+}
+  
+.main-menu-item.show-sub-menu .sub-menu { /*Элементы с классом "sub-menu" внутри элементов одновременно 
+    с двумя классами "main-menu-item" и "show-sub-menu".*/
+    display: block;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+.main-menu-item-two .sub-menu-two {
+    display: none;
+}
+  
+.main-menu-item-two.show-sub-menu-two .sub-menu-two {
+    display: block;
+}
