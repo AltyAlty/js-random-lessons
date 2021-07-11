@@ -1,0 +1,48 @@
+.whole-page {
+    text-align: center; /*"inline-block" элементы "div" можно центрировать, 
+    применив "text-align: center" к их родительскому элементу. */
+}
+
+.whole-slider {   
+    border: black 2px solid;
+    border-radius: 5px;            
+    background-color:rgb(188, 188, 240);
+    margin-top: 100px;
+    display: inline-block; /*Таким образом мы заставили элемент "div" быть не больше, 
+    чем его содержимое.*/
+}
+
+.button-prev-div,
+.button-next-div,
+.image-div {
+    display: inline-block;
+    height: 227px;
+}
+
+.button-prev-div,
+.button-next-div {
+    width: 90px;
+    vertical-align: top; /*Таким образом выравняли элементы "div", внутри которых
+    элементы "button", к верху.*/
+}
+
+.image-div {
+    width: 322px;
+    vertical-align: top; /*Таким образом выравняли элемент "div", внутри которого
+    элемент "img", к верху.*/
+}
+
+.button-prev,
+.button-next,
+.image {    
+    height: 227px;    
+}
+
+.button-prev,
+.button-next {
+    width: 90px;     
+}
+
+.image {
+    width: 322px;    
+}
