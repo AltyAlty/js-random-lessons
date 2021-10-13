@@ -1,0 +1,9 @@
+.car {
+    border: 1px green solid;
+    margin: 10px;
+    height: 100px;
+}
+
+.hide {
+    display: none;
+}

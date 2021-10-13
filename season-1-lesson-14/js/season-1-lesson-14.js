@@ -105,7 +105,6 @@ var inputHasErrorClass = 'input-has-error';
 
 var checkNumbersInputElement = document.getElementsByClassName(checkNumbersInputClass);
 
-
 checkNumbersInputElement[0].addEventListener('input', function () { /*Событие "input" означает 
 ввод чего-либо в HTML-элемент "input".*/
     checkNumbers(checkNumbersInputElement[0]);

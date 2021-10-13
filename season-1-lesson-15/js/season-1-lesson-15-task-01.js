@@ -68,7 +68,7 @@ function calculateSomething(operation) {
             } else {
                 var content = resultElement[0].innerText; /*Строки в JS "immutable", поэтому мы не можем просто изменить их,
                 то есть нельзя сделать так "resultElement[0].innerText[0] = '123'", нам нужно переназначить измененную версию 
-                обратно в "innerHTML/innerText".*/
+                обратно в "innerHTML.innerText".*/
                 resultElement[0].innerText = content.substr(1) /*Метод substr() возвращает указанное количество символов из строки, 
                 начиная с указанной позиции.*/
             };
