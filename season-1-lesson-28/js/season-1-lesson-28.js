@@ -60,9 +60,12 @@ Car2.prototype.changeSpeed = function () {
 };
 
 var car3 = new Car2('lel');
+
 console.log(car3.speed); /*0, берется из прототипа.*/
+
 car3.changeSpeed(); /*Поскольку в контексте объекта "car3" нет свойства "speed", то 
 оно там будет создано.*/
+
 console.log(car3.speed); /*5, берется уже из объекта поскольку в контексте 
 объекта "car3" уже есть свойство "speed".*/
 
