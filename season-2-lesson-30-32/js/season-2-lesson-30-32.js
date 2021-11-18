@@ -18,16 +18,13 @@ class Car {
         this._notCar = new notCar();
     };
 
-
     showSpeed() {
         console.log('We are using the method "showSpeed" from the object "car1": ' + this.speed);
     };
 
-
     showSpeedForButton() {
         console.log('We are using the method "showSpeedForButton()" from the object "car1": ' + this.getAttribute('speed'));
     };
-
 
     start() {
         let buttonEl = document.querySelector('.ok-button');
@@ -110,7 +107,6 @@ class Car {
         so the method "showSpeed()" uses the property "speed" from the object "car1".
         */
         buttonEl.addEventListener('click', this._notCar.showSpeed.bind(this));
-        
 
         /*
         Error.
@@ -275,8 +271,9 @@ class Car {
 
         /*"1" from the object "car1".*/
         window.addEventListener('click', this.showSpeed.bind(this));
-    };    
+    };
 };
+
 
 window.speed = 3;
 
@@ -285,4 +282,5 @@ function showSpeed() {
 };
 
 let car1 = new Car();
+
 car1.start();
