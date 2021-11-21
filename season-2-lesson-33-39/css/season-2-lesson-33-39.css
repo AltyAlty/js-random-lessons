@@ -1,0 +1,23 @@
+.div-button-log-zero,
+.div-button-log-three, 
+.div-button-log-four, 
+.div-button-log-five, 
+.div-button-log-six,
+.div-button-log-seven {
+    border: 1px solid black;
+    background-color: beige;
+    width: 300px;
+    height: 100px;
+    text-align: center;    
+}
+
+.button-log-zero,
+.button-log-three, 
+.button-log-four, 
+.button-log-five, 
+.button-log-six,
+.button-log-seven {
+    width: 150px;
+    height: 50px;    
+    margin-top: 25px;
+}
