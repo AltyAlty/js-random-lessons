@@ -27,7 +27,7 @@ function cleanup(element) {
   for (let property in element) {
     if (property.startsWith('on') && element[property] != null) {
       element[property] = null;
-      
+
       console.log('Listener (from HTML) has been removed from ' + element.nodeName, property);
     };
   };
@@ -370,5 +370,3 @@ buttonLogSevenElement.addEventListener('click', () => {
 setTimeout(() => {
   divButtonLogSevenElement.outerHTML = divButtonLogSevenElement.outerHTML;
 }, 2000);
-
-/*--------------------------------------------------------------------------------*/

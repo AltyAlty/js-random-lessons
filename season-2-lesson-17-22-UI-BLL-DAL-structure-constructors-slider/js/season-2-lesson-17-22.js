@@ -199,11 +199,11 @@ function SliderLogic() { /*Создаем конструктор, который
     уровень BLL нашего слайдера.*/
     var that = this; /*Сохраняем отдельно текущий контекст "this".*/
 
-    this._sliderDataService = new SliderDataService(); /*На основе конструктора 
-    "SliderDataService" создаем объект "_sliderDataService".*/
+    // this._sliderDataService = new SliderDataService(); /*На основе конструктора 
+    // "SliderDataService" создаем объект "_sliderDataService".*/
 
-    // this._sliderDataService = new SliderAjaxDataService(); /*На основе конструктора 
-    // "SliderAjaxDataService" создаем объект "_sliderDataService".*/
+    this._sliderDataService = new SliderAjaxDataService(); /*На основе конструктора 
+    "SliderAjaxDataService" создаем объект "_sliderDataService".*/
 
     this._imageArray = []; /*Свойство, которое будет хранить массив адресов
     на изображения.*/
@@ -236,7 +236,7 @@ function SliderLogic() { /*Создаем конструктор, который
     конструкторе "SliderView", в котором вызывается этот метод 
     "initializeLogic()".*/
 
-    this.getCurrentImage = function () {
+    this.getCurrentImage = function () {              
         return this._imageArray[this._currentImageID];
     }; /*Метод, который позволяет получить адрес текущего изображения из массива 
     адресов изображений.*/
@@ -322,20 +322,22 @@ function SliderAjaxDataService() { /*Создаем еще один констр
     отвечать за уровень DAL нашего слайдера, но брать данные из AJAX-запроса.
     Интерфейс работы у конструкторов "SliderDataService" и "SliderAjaxDataService"
     одинаковый, поэтому они легко взаимозаменяемы в конструкторе "SLiderLogic".*/
+    var that = this; /*Сохраняем отдельно текущий контекст "this".*/
+
+    this._imageArray = []; /*Свойство, которое будет хранить массив адресов
+    на изображения.*/
 
     this.getCurrentImageArray = function (callback) {
         $.ajax({
-            url: 'https://repetitora.net/api/35/Images',
-            succes: function (data) {
-                var imageArray = [];
+            url: 'https://jsonplaceholder.typicode.com/albums/1/photos',
+            success: function (data) {
+                data.forEach(element => {
+                    let tempURL = element.url;
 
-                for (let i = 0; i < data.length; i++) {
-                    const element = data[i];
-                    const url = element.original;
-                    imageArray.push(url);
-                };
+                    that._imageArray.push(tempURL);
+                });
 
-                callback(imageArray);
+                callback(that._imageArray);
             }
         });
     };
