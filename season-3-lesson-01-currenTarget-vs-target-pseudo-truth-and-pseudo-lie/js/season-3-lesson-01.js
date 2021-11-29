@@ -1,0 +1,65 @@
+/*Чтобы проанализоровать работу внутри функции в дебаггере, нужно
+ставить точку остановки внутри этой функции.*/
+
+/*--------------------------------------------------------------------------------*/
+
+/*Свойство "target" у объекта события указывает на элемент, в котором
+произошло событие, а свойство "currentTarget" указывает на элемент,
+который подписан на это событие.*/
+
+const tempDivElement = document.querySelector('.temp-div');
+
+function inspectTargets(e) {
+    console.log('e.target is');
+    console.log(e.target);
+
+    console.log('e.currentTarget is');
+    console.log(e.currentTarget);
+
+    e.currentTarget.className = 'temp-div-two';
+
+    e.target.innerHTML += ' PUSH ME AGAIN!';
+};
+
+tempDivElement.addEventListener('click', inspectTargets);
+
+/*--------------------------------------------------------------------------------*/
+
+if (3) console.log('numbers are pseudo truth');
+
+if (0) console.log('but zero is pseudo lie');
+
+if (-0) console.log('and negative zero is pseudo lie too');
+
+if ('text') console.log('not empty strings are pseudo truth');
+
+if ('   ') console.log('not empty strings full of spaces are pseudo truth too');
+
+if ('') console.log('but empty strings are pseudo lie');
+
+if ([1, 2, 3]) console.log('not empty arrays are pseudo truth');
+
+if ([]) console.log('empty arrays are pseudo truth too');
+
+if ({ k: 3 }) console.log('not empty objects are pseudo truth');
+
+if ({}) console.log('empty objects are pseudo truth too');
+
+if (null) console.log('null is pseudo lie');
+
+if (undefined) console.log('undefined is pseudo lie');
+
+if (NaN) console.log('NaN is pseudo lie');
+
+/*Функция-конструктор "Boolean" принимает значение и преобразовывает его
+в булево значение.*/
+
+if (Boolean(3)) console.log('Boolean(3) is true');
+
+if (Boolean(null)) console.log('Boolean(null) is false');
+
+if (new Boolean(null)) console.log('but new Boolean(null) is true because it is an object');
+
+if (!!3) console.log('!!3 is true. !! works as Boolean()');
+
+if (function () { }) console.log('functions are pseudo truth');

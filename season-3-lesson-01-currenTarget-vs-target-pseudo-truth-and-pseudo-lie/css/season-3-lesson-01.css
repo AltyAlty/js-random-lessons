@@ -1,0 +1,13 @@
+.temp-div {
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    background-color: beige;
+}
+
+.temp-div-two {
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    background-color: rgba(186, 245, 151, 0.829);
+}
