@@ -63,3 +63,26 @@ if (new Boolean(null)) console.log('but new Boolean(null) is true because it is 
 if (!!3) console.log('!!3 is true. !! works as Boolean()');
 
 if (function () { }) console.log('functions are pseudo truth');
+
+/*--------------------------------------------------------------------------------*/
+
+/*При сравнении строк идет посимвольное сравнение по ASCII значению до тех пор,
+пока не будет получено "true".*/
+if ('132' > '123') console.log('1');
+if ('132' > '12399999') console.log('2');
+if ('13' > '123') console.log('3');
+if ('123' > '013') console.log('4');
+if ('123' > '12') console.log('5');
+if ('back' > 'Back') console.log('6');
+if ('back' > 'Backk') console.log('7');
+if ('back' > 'Baak') console.log('8');
+if ('back' > 'baak') console.log('9');
+if ('cack' > 'back') console.log('10');
+if ('cack' > 'backk') console.log('11');
+if ('cack' > 'badck') console.log('12');
+if ('backk' > 'back') console.log('13');
+if ('back' > 'baack') console.log('14');
+if ('back' > 'bac') console.log('15');
+if ('c'> 'b') console.log('16');
+if ('c'> 'bb') console.log('17');
+if ('c' > 'bcccccc') console.log('18');
