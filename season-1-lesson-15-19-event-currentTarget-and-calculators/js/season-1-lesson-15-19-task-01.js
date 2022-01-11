@@ -22,7 +22,7 @@ function enterSomething(valueToEnter) {
 
 function enterButtonListener(event) {
     var elementInEvent = event.currentTarget;
-    var valueToEnter = elementInEvent.innerHTML;
+    var valueToEnter = elementInEvent.value;
     enterSomething(valueToEnter);
 };
 
@@ -37,13 +37,14 @@ function doAfterChoosingOperation(operation) {
         currentFirstNumber = Number(resultElement[0].innerText);
         resultElement[0].innerText = '';
     };
-    currentOperation = operation;
-    showInfo(); /*remove it*/
+
+    currentOperation = operation;    
+    showInfo(); 
 };
 
 function calcButtonOneListener(event) {
     var elementInEvent = event.currentTarget;
-    var operation = elementInEvent.innerHTML;
+    var operation = elementInEvent.value;
     doAfterChoosingOperation(operation);
 };
 
@@ -76,7 +77,7 @@ function calculateSomething(operation) {
         case 'C':
             resetNumbersAndOperation();
             resultElement[0].innerText = '';
-            showInfo(); /*remove it*/
+            showInfo();
             break;
         case '=':
             if (currentFirstNumber !== '' && currentOperation !== '') {
@@ -85,31 +86,31 @@ function calculateSomething(operation) {
                     case '+':
                         resultElement[0].innerText = currentFirstNumber + currentSecondNumber;
                         resetNumbersAndOperation();
-                        showInfo(); /*remove it*/
+                        showInfo();
                         break;
                     case '-':
                         resultElement[0].innerText = currentFirstNumber - currentSecondNumber;
                         resetNumbersAndOperation();
-                        showInfo(); /*remove it*/
+                        showInfo();
                         break;
                     case '*':
                         resultElement[0].innerText = currentFirstNumber * currentSecondNumber;
                         resetNumbersAndOperation();
-                        showInfo(); /*remove it*/
+                        showInfo();
                         break;
                     case ':':
                         if (Number(currentFirstNumber) !== 0 && Number(currentSecondNumber) !== 0) {
                             resultElement[0].innerText = currentFirstNumber / currentSecondNumber;
                             resetNumbersAndOperation();
-                            showInfo(); /*remove it*/
+                            showInfo();
                             break;
                         } else {
                             resetNumbersAndOperation();
                             resultElement[0].innerText = '';
-                            showInfo(); /*remove it*/
-                            console.log('Do not use 0 in division'); /*remove it*/
+                            showInfo();
+                            console.log('Do not use 0 in division');
                             break;
-                        };                        
+                        };
                     default:
                         break;
                 };
@@ -121,7 +122,7 @@ function calculateSomething(operation) {
 
 function calcButtonTwoListener(event) {
     var elementInEvent = event.currentTarget;
-    var operation = elementInEvent.innerHTML;
+    var operation = elementInEvent.value;
     calculateSomething(operation);
 };
 
@@ -132,16 +133,16 @@ for (var i = 0; i < calcButtonTwoElements.length; i++) {
 
 /*--------------------------------------------------------------------------------*/
 
-var currentFirstNumberIsClass = 'first-number-is'; /*remove it*/
-var currentOperationIsClass = 'current-operation-is'; /*remove it*/
-var currentSecondNumberIsClass = 'second-number-is'; /*remove it*/
+var currentFirstNumberIsClass = 'first-number-is';
+var currentOperationIsClass = 'current-operation-is';
+var currentSecondNumberIsClass = 'second-number-is';
 
-var currentFirstNumberIsElement = document.getElementsByClassName(currentFirstNumberIsClass); /*remove it*/
-var currentOperationIsElement = document.getElementsByClassName(currentOperationIsClass); /*remove it*/
-var currentSecondNumberIsElement = document.getElementsByClassName(currentSecondNumberIsClass); /*remove it*/
+var currentFirstNumberIsElement = document.getElementsByClassName(currentFirstNumberIsClass);
+var currentOperationIsElement = document.getElementsByClassName(currentOperationIsClass);
+var currentSecondNumberIsElement = document.getElementsByClassName(currentSecondNumberIsClass);
 
-function showInfo() { /*remove it*/
-    currentFirstNumberIsElement[0].innerHTML = currentFirstNumber; /*remove it*/
-    currentSecondNumberIsElement[0].innerHTML = currentSecondNumber; /*remove it*/
-    currentOperationIsElement[0].innerHTML = currentOperation; /*remove it*/
-}; /*remove it*/
+function showInfo() {
+    currentFirstNumberIsElement[0].innerHTML = currentFirstNumber;
+    currentSecondNumberIsElement[0].innerHTML = currentSecondNumber;
+    currentOperationIsElement[0].innerHTML = currentOperation;
+};
