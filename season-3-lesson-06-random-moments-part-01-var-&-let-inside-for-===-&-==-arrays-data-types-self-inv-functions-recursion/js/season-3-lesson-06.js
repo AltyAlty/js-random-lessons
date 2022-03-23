@@ -115,3 +115,8 @@ function letsRecurseOne() {
 };
 
 letsRecurseOne();
+
+/*-----------------------------------------------------------------------------------------------------*/
+
+let aaa = "true" == true;
+console.log(aaa); // false

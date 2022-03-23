@@ -62,12 +62,14 @@ Car2.prototype.changeSpeed = function () {
 var car3 = new Car2('lel');
 
 console.log(car3.speed); /*0, берется из прототипа.*/
+console.log(car3);
 
 car3.changeSpeed(); /*Поскольку в контексте объекта "car3" нет свойства "speed", то 
 оно там будет создано.*/
 
 console.log(car3.speed); /*5, берется уже из объекта поскольку в контексте 
 объекта "car3" уже есть свойство "speed".*/
+console.log(car3);
 
 console.log('--------------------------------------------------------------------------------');
 
@@ -103,8 +105,44 @@ Car3.prototype.changeSpeed = function () {
 
 var car4 = new Car3('kuk');
 console.log(car4.engine.speed); /*10, из прототипа.*/
+console.log(car4);
 car4.changeSpeed(); /*20, изменилось значение в прототипе.*/
+console.log(car4);
 
 var car5 = new Car3('lal');
 console.log(car5.engine.speed); /*20, из прототипа.*/
+console.log(car5);
 car5.changeSpeed(); /*20, снова изменилось значение в прототипе.*/
+console.log(car5);
+
+console.log('--------------------------------------------------------------------------------');
+
+/*--------------------------------------------------------------------------------*/
+
+function Garage(name) {
+    this.name = name;
+};
+
+Garage.prototype.cars = [];
+
+var garage1 = new Garage('first');
+var garage2 = new Garage('second');
+
+/*Но если в последнем случае не менять внутренности данных ссылочного типа
+в прототипе, а сделать переопределение, то прототип не изменится, а создастся
+новое свойство в экзмепляре класса.*/
+garage1.cars = [1, 2, 3];
+console.log(garage1); // Есть свойство "cars" равное [1, 2, 3]
+console.log(garage2); // Свойства "cars" нет
+console.log(garage2.cars); // [] из прототипа
+console.log(Garage.prototype.cars); // В "prototype" класса свойство "cars" равно []
+
+/*Хотя если опять попробуем все-таки изменить внутренности данных ссылочного типа
+в прототипе, то снова изменим сам прототип.*/
+garage2.cars.push(4);
+console.log(garage1); // Есть свойство "cars" равное [1, 2, 3]
+console.log(garage2); // Свойства "cars" нет
+console.log(garage2.cars); // [4] из прототипа
+console.log(Garage.prototype.cars); // В "prototype" класса свойство "cars" равно [4]
+
+/*Из стрелочных функций нельзя делать конструкторы.*/

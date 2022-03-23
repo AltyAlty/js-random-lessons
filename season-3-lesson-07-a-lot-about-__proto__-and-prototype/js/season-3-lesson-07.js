@@ -68,7 +68,7 @@ console.log('2------------------------------------------------------------------
 где-то вызываются такие конструкторы. Чтобы понять, что стоит за каким-либо "__proto___", нужно знать с 
 помощью какой функции-конструктора или класса был создан какой-то объект, "__proto___" которого нас 
 интересует. Стрелочная функция не является функцией-конструктором, то есть мы можем конструировать объекты
-при помощи классов или ключевого слова "function", но не при помощи стрелочный функций. "prototype" используется 
+при помощи классов или ключевого слова "function", но не при помощи стрелочных функций. "prototype" используется 
 при создании новых объектов оператором "new".*/
 let objThree = new Object({ a: 0 });
 console.log(objThree.__proto__); // Object { constructor: function Object() ... }
@@ -354,10 +354,116 @@ let aaa = {
 /*При помощи "Object.create()" можно создавать новые объекты на основе других.*/
 let bbb = Object.create(aaa);
 /*Методы "showC()" и "showB()" были найдены по цепочке "__proto__" благодаря замыканию.*/
+console.log(aaa); // Object { showC: showC() }
+console.log(bbb); // Object {  }
+console.log(aaa === bbb); // false
 bbb.showC(); // It's C!
 bbb.showB(); // It's B!
 
 console.log(bbb.__proto__); // Object { showC: function showC() ... } - то есть это объект "aaa"
 console.log(bbb.__proto__.__proto__); // Object { constructor: function Object(); showC: function showC() ... } - это 
-// функция-конструктор "Object"
+                                      // функция-конструктор "Object"
 console.log('28----------------------------------------------------------------------------------------------------');
+
+class SomeClassThree {
+
+};
+
+class SomeClassFour extends SomeClassThree {
+
+};
+
+console.log(SomeClassFour.prototype); // Object { constructor: class SomeClassFour {} ... }
+console.log(SomeClassFour.__proto__); // class SomeClassThree {}
+console.log(SomeClassThree === SomeClassFour.__proto__); // true
+console.log(SomeClassFour === SomeClassFour.prototype.constructor); // true
+
+let SomeClassFourObj = new SomeClassFour();
+console.log(SomeClassFourObj.__proto__.constructor === SomeClassFour); // true
+
+/*"__proto__" есть у всего, кроме "undefined" и "null".*/
+/*"prototype" может быть только у класса или функции, но не у стрелочной.*/
+/*"prototype" это всегда какой-то объект. "__proto__" может быть объектом, функцией или классом.*/
+/*"prototype" ссылается на объект, внутри которого есть свойство "constructor" со значением в виде
+ссылки на сущность, у которой было запрошено свойство "prototype".*/
+/*"__proto__" ссылается на объект, функцию или класс, от которых была создана сущность, у 
+которой было запрошено свойство "__proto__".*/
+console.log('29----------------------------------------------------------------------------------------------------');
+
+/*Классы также работают при помощи прототипов.*/
+class SomeClassFive {
+    constructor(name) {
+        this.name = name;
+    };
+
+    someMethod() {
+        console.log(this.name);
+    };
+};
+
+let SomeClassFiveObj = new SomeClassFive('SomeClassFiveObj');
+SomeClassFiveObj.someMethod(); // 'SomeClassFiveObj'
+console.log(SomeClassFiveObj); // У этого объекта нет метода "someMethod()"
+console.log(SomeClassFiveObj.__proto__); // Object { constructor: class SomeClassFive {} ... }
+console.log(SomeClassFiveObj.__proto__.constructor.prototype); // А в "prototype" класса есть метод "someMethod()"
+console.log('30----------------------------------------------------------------------------------------------------');
+
+console.log(({}).__proto__); // Object { constructor: function Object() ... }
+console.log((1).__proto__); // Number { 0; constructor: function Number() ... }
+console.log(('abc').__proto__); // String { ""; constructor: function String() ... }
+console.log((true).__proto__); // Boolean { false; constructor: function Boolean() ... }
+console.log(([1, 2, 3]).__proto__); // Array [ constructor: function Array() ... ]
+console.log((
+    function () {
+
+    }
+).__proto__); // function ( constructor: function Function() ... )
+console.log((new Promise(() => { })).__proto__); // Promise.prototype { constructor: function Promise() ... }
+console.log('31----------------------------------------------------------------------------------------------------');
+
+console.log(Promise); // function Promise()
+console.log(Object); // function Object()
+console.log(Function); // function Function()
+console.log(Boolean); // function Boolean()
+console.log(Number); // function Number()
+console.log(String); // function String()
+console.log(Array); // function Array()
+
+console.log(({}).__proto__.constructor === Object); // true
+console.log((1).__proto__.constructor === Number); // true
+console.log(('abc').__proto__.constructor === String); // true
+console.log((true).__proto__.constructor === Boolean); // true
+console.log(([1, 2, 3]).__proto__.constructor === Array); // true
+console.log((
+    function () {
+
+    }
+).__proto__.constructor === Function); // true
+console.log((new Promise(() => { })).__proto__.constructor === Promise); // true
+console.log('32----------------------------------------------------------------------------------------------------');
+
+console.log(({}).__proto__ === Object); // false
+console.log((1).__proto__ === Number); // false
+console.log(('abc').__proto__ === String); // false
+console.log((true).__proto__ === Boolean); // false
+console.log(([1, 2, 3]).__proto__ === Array); // false
+console.log((
+    function () {
+
+    }
+).__proto__ === Function); // false
+console.log((new Promise(() => { })).__proto__ === Promise); // false
+console.log('33----------------------------------------------------------------------------------------------------');
+
+/*Другими словами "__proto__" какой-то сущности ссылается на "prototype" своего родителя.*/
+console.log(({}).__proto__ === Object.prototype); // true
+console.log((1).__proto__ === Number.prototype); // true
+console.log(('abc').__proto__ === String.prototype); // true
+console.log((true).__proto__ === Boolean.prototype); // true
+console.log(([1, 2, 3]).__proto__ === Array.prototype); // true
+console.log((
+    function () {
+
+    }
+).__proto__ === Function.prototype); // true
+console.log((new Promise(() => { })).__proto__ === Promise.prototype); // true
