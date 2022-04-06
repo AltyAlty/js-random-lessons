@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "parcel": "^2.4.1",
+    "typescript": "^4.6.3"
+  },
+
+  "scripts": {    
+    "tsc": "tsc"
+ }
+}

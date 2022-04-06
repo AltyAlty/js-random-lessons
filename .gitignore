@@ -1,0 +1,6 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/season-3-lesson-18-deconstructing-react/.parcel-cache
+/season-3-lesson-18-deconstructing-react/dist
+/season-3-lesson-18-deconstructing-react/node_modules
