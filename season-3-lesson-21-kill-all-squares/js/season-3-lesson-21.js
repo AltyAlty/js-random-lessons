@@ -51,7 +51,7 @@ function chooseDifficulty(squares, timer) {
 let squareCount = 0;
 
 function addItem() {
-    if (squareCount < 15) {
+    if (squareCount < 14) {
         let square = document.createElement('div');
         square.classList.add('square', 'yellow');
         square.onclick = removeItem;

@@ -1,0 +1,105 @@
+body {    
+    image-rendering: pixelated; 
+}
+
+.background-one {
+    background: url('../src/background-one.png');
+    background-size: cover;
+}
+
+.background-two {
+    background: url('../src/background-two.png');
+    background-size: cover;
+}
+
+.randomizer {    
+    margin-top: 400px;
+    text-align: center;
+}
+
+.coin {
+    width: 38.7px;
+    height: 27.95px;
+}
+
+.roll {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border: 3px solid rgb(124, 124, 124); 
+    background-color: rgb(43, 43, 43);
+    border-radius: 6px;
+    width: 206px;
+    height: 40px;
+    font-size: 20px;
+    font-family: Georgia, serif;
+    color:rgb(212, 212, 212)
+}
+
+.roll:disabled,
+.roll[disabled]{
+    border: 3px solid rgb(43, 43, 43); 
+    background-color: rgb(29, 29, 29);
+    color: rgb(29, 29, 29);
+}
+
+.characters {
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 6px;
+    width: 200px;
+    height: 200px;
+}
+
+.character {
+    margin-top: 8.5px;
+    width: 180px;
+    height: 180px;
+}
+
+.hidden {
+    display: none;
+}
+
+.not-winner {
+    border: 3px solid rgb(43, 43, 43);
+}
+
+.winner-one {
+    border: 3px solid rgb(61, 47, 255);
+}
+
+.winner-two {
+    border: 3px solid rgb(221, 55, 13);
+}
+
+.winner-three {
+    border: 3px solid rgb(168, 79, 219);
+}
+
+.winner-four {
+    border: 3px solid rgb(255, 241, 47);
+}
+
+.winner-five {
+    border: 3px solid greenyellow;    
+}
+
+.play-background-music {
+    margin-top: 5px;    
+    border: 2px solid rgb(124, 124, 124); 
+    background-color: rgb(43, 43, 43);
+    border-radius: 6px;    
+    font-size: 20px;
+    font-family: Georgia, serif;
+    color:rgb(212, 212, 212)
+}
+
+.play-background-music:active,
+.play-background-music[active] {    
+    border: 2px solid rgb(104, 104, 104); 
+    background-color: rgb(32, 32, 32);
+    border-radius: 6px;    
+    font-size: 20px;
+    font-family: Georgia, serif;
+    color:rgb(179, 179, 179)
+}
