@@ -7,8 +7,7 @@
 .second-example,
 .third-example,
 .fourth-example,
-.fifth-example,
-.sixth-example {
+.fifth-example {
     margin-bottom: 200px;
 }
 
@@ -228,5 +227,3 @@ fixed элемент, двигаясь вместе с нашей прокрут
     margin-bottom: 100px;
     position: static;
 }
-
-/*-------------------------------------------------------------------------------------------------------------*/
