@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.first-example,
+.second-example,
+.third-example,
+.fourth-example,
+.fifth-example,
+.sixth-example {
+    margin-bottom: 200px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.first-div {
+    width: 1200px;
+    height: 800px;
+    border: 1px red solid;
+    margin-bottom: 20px;
+}
+
+/*Свойства "width" и "height" задают размера содержания элемента.
+Свойство "padding" добавляет к размерам содержания элемента пространство до границы.
+Свойство "border" задает размеры границы.
+Свойство "margin" добавляет пространство от границы элемента до соседних элементов или родительского элемента.*/
+.second-div {
+    width: 600px;
+    height: 300px;
+    border: 4px green solid;
+    padding: 200px 150px 100px 50px;
+    margin: 50px 100px 150px 200px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.third-div {
+    width: 200px;
+    height: 150px;
+    border: 1px red solid;
+    margin-bottom: 20px;
+}
+
+/*"margin: 0 auto;" позволяет центрировать элемент по горизонтали.*/
+.fourth-div {
+    width: 50px;
+    height: 50px;
+    border: 1px green solid;
+    margin: 0 auto;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.fifth-div {
+    width: 200px;
+    height: 400px;
+    border: 1px red solid;
+    margin-bottom: 20px;
+}
+
+/*Если у двух блочных элементов, который идут друг за другом, указаны вертикальные
+свойства "margin", то там где, эти элементы соприкасаются, эти вертикальные свойства
+"margin" не будут ссумироваться, а будут накладываться друг на друга, то есть в итоге
+расстояние между этими элементами будет равно больше из 2-х вертикальных свойств "margin".
+В данном случае расстояние между двумя элементами "div" будет 120px, а не 40px + 120px.*/
+.sixth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px green solid;
+    margin: 40px 48px 40px 48px;
+}
+
+.seventh-div {
+    width: 100px;
+    height: 100px;
+    border: 1px green solid;
+    margin: 120px 48px 120px 48px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.eighth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px red solid;
+    margin-bottom: 20px;
+}
+
+/*Свойство "max-width" устанавливает максимальную ширину элемента. Оно предотвращает финальное значение 
+свойства "width" от становления больше, чем значение, указанное для "max-width". То есть мы не можем
+в данном случае установить свойство "width" больше 100px. Также дочерние элементы не смогут растянуть
+наш элемент по ширине больше, чем 100px. Свойство "max-height" работает аналогичным образом.*/
+.ninth-div {
+    width: 200px;
+    height: 300px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px green solid;
+    margin-bottom: 20px;
+}
+
+.tenth-div {
+    width: 150px;
+    height: 200px;
+    border: 1px blue solid;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.eleventh-div {
+    width: 50px;
+    height: 50px;
+    border: 1px red solid;
+    margin-bottom: 20px;
+}
+
+/*Свойство "overflow" указывает, что должно происходит с дочерним элементом, если его размер больше своего
+родителя. Значение "visible" указывает, чтобы дочерний элемент отображался в свой полный размер. Значение
+"hidden" скрывает вытекающую часть дочернего элемента. Значение "scroll" не дает вытекать дочернему
+элементу из своего родителя, но добавляет скролл-бар для его просмотра.*/
+.twelfth-div {
+    width: 40px;
+    height: 40px;
+    border: 1px green solid;
+    overflow: scroll;
+}
+
+/*Свойство "min-width" устанавливает минимальную ширину элемента. Оно предотвращает финальное значение 
+свойства "width" от становления меньше, чем значение, указанное для "min-width". То есть мы не можем
+в данном случае установить свойство "width" меньше 100px. Свойство "min-height" работает аналогичным образом.*/
+.thirteenth-div {
+    width: 40px;
+    height: 40px;
+    min-width: 100px;
+    min-height: 100px;
+    border: 1px blue solid;
+    padding: 0;
+    margin: 0;
+}
+
+.fourteenth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px red solid;
+    padding: 0;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.fifteenth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px green solid;
+}
+
+/*Свойство "visibility" со значением "hidden" скрывает элемент, но оставляет занятое место элементом.*/
+.sixteenth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px red solid;
+    visibility: hidden;
+}
+
+.seventeenth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px violet solid;    
+}
+
+/*Свойство "display" со значением "none" скрывает элемент и не оставляет занятое место элементом.*/
+.eighteenth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px red solid;
+    display: none;
+}
+
+.nineteenth-div {
+    width: 100px;
+    height: 100px;
+    border: 1px blue solid;    
+}

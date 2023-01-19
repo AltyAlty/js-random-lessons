@@ -1,0 +1,20 @@
+.first-div, .second-div {
+    width: 100px;
+    height: 100px;
+}
+
+/*Элементы "div" с классом "first-div".*/
+div.first-div {
+    border: 2px red solid;
+}
+
+div.second-div {
+    border: 2px blue solid;
+}
+
+/*Элементы "div" внутри элементов с классом "first-div".*/
+.second-div div {
+    width: 50px;
+    height: 50px;
+    border: 2px green solid;
+}
