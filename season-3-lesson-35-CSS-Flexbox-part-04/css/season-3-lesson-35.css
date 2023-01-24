@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.main-container {
+    border: 1px solid red;
+    height: 800px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.title-container {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+
+    font-size: 80px;
+    font-style: italic;
+}
+
+.diff-container {
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.diff-description {
+    border: 1px solid black;
+    width: 10%;
+    max-height: 35px;
+    margin-left: 32%;
+
+    display: flex;
+    justify-content: center;
+
+    font-size: 30px;
+    overflow: hidden;
+}
+
+.diff-btns-container {
+    border: 1px solid black;
+    width: 10%;
+    margin-left: 32%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    overflow: hidden;
+}
+
+.btn-easy,
+.btn-medium,
+.btn-hard {
+    height: 80px;
+    min-width: 100px;
+    margin: 5px;
+
+    font-size: 30px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.root {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    overflow: hidden;
+    max-height: 50px;
+    overflow-y: hidden;
+}
+
+.one {
+    background-color: red;
+    height: 50px;
+}
+
+.two {
+    min-width: 400px;
+    background-color: green;
+}
+
+.three {
+    min-width: 300px;
+    background-color: yellow;
+    flex: 1;
+}
