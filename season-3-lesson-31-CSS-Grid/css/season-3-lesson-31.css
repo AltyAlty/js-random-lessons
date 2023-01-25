@@ -94,7 +94,10 @@ grid: grid элементы заполняют новые строки, доба
 
 .grid-container {
     display: grid;
-    width: 1000px;
+    /* width: 1000px; */
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
     height: 500px;
     border: 1px red solid;
 

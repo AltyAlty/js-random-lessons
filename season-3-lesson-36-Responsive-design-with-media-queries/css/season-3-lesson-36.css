@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+/* .title-container,
+.diff-container,
+.diff-description,
+.diff-btns-container {
+    border: 1px solid black;
+} */
+
+.main-container {
+    
+    height: 75%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+
+    font-size: 80px;
+    font-style: italic;
+}
+
+.diff-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.diff-description {
+    width: 10%;
+    max-height: 35px;
+    min-width: 120px;
+    margin-left: 32%;
+
+    display: flex;
+    justify-content: center;
+
+    font-size: 30px;
+    overflow: hidden;
+}
+
+.diff-btns-container {
+    width: 10%;
+    min-width: 120px;
+    margin-left: 32%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    overflow: hidden;
+}
+
+.btn-easy,
+.btn-medium,
+.btn-hard {
+    height: 80px;
+    min-width: 100px;
+    margin: 5px;
+
+    font-size: 30px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+/*Ctrl+Shift+M - Responsive Design Mode в Firefox DevTools.*/
+
+/*Медиавыражения позволяют адаптировать страницу для различных типов устройств, таких как: принтеры, 
+речевые браузеры, устройства Брайля, телевизоры и так далее. 
+
+Например, это правило для принтеров: 
+"@media print { ... }". 
+
+А это правило для экранов и принтеров: 
+"@media screen, print { ... }".
+
+Правило для всех устройств стоит по умолчанию: 
+"@media all { ... }".
+
+Правило, которое применяется только если ширина viewport меньше или равна 810px: 
+"@media (max-width: 810px) { ... }".
+
+Правило, которое применятся к любому устройству с цветным экраном: 
+"@media (color) { ... }".
+
+Правило, которое применятся к любому устройству с экраном с отношение 4/3: 
+"@media (aspect-ratio: 11/5) { ... }".
+
+Можно использовать логические операторы: "not", "and" и "only".
+
+Правило, которое применяется только если ширина viewport больше или равна 30em и ориентация экрана альбомная:
+"@media (min-width: 30em) and (orientation: landscape) { ... }".
+
+
+Правило, которое применяется только экранам, когда высота viewport больше или равна 680px, и ориентация 
+экрана портретная:
+"@media (min-height: 680px), screen and (orientation: portrait) { ... }".
+
+Ключевое слово "not" инвертирует смысл всего медиавыражения. Оно только отменяет конкретное медиавыраженик, 
+к которому он применяется.
+
+Следующие два медиавыражения одинаковые:
+"@media not screen and (orientation: landscape) { ... }"
+"@media not (screen and (orientation: landscape)) { ... }".
+
+Следующие два медиавыражения одинаковые:
+"@media not screen and (color), print and (color) { ... }"
+"@media (not (screen and (color))), print and (color) { ... }".
+
+Ключевое слово "only" не позволяет старым браузерам, которые не поддерживают медиавыражения с 
+медиа-функциями, применять заданные стили. Это не влияет на современные браузеры:
+"<link rel="stylesheet" media="only screen and (color)" href="modern-styles.css" />".
+
+"," или "or" работают одинаково, то есть если одно из условие верно, то правило применяется:
+"@media not screen and (color), print and (color) { ... }"
+"@media not screen and (color) or print and (color) { ... }".
+*/
+
+@media (min-width: 0px) and (max-width: 810px) {
+    .title-container {
+        font-size: 40px;
+    }
+
+    .diff-description {
+        font-size: 15px;
+    }
+
+    .btn-easy,
+    .btn-medium,
+    .btn-hard {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 810px) and (max-width: 2066px) {
+    .diff-description {
+        font-size: 17px;
+    }
+
+    .btn-easy,
+    .btn-medium,
+    .btn-hard {
+        font-size: 25px;
+    }
+}
