@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.container {
+    margin-top: 20px;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-one {
+    border: 1px solid red;
+}
