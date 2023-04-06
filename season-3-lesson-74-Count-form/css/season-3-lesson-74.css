@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+.container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-one {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Calibri;
+    font-size: 50px;
+    color: rgb(75, 194, 75);
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 40px;
+    height: 80px;
+}
+
+.decrease-ball-count,
+.increase-ball-count {
+    font-family: Calibri;
+    font-size: 24px;    
+    width: 50px;
+    height: 80px;
+}
