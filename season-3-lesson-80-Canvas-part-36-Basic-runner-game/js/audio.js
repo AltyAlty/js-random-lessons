@@ -1,6 +1,6 @@
 const audio = {
     volume: 0.1,
-    defaultBackgroundMusic: new Audio('./src/audio/02-Aerodynamite.mp3'),
+    defaultBackgroundMusic: new Audio('./src/audio/music.mp3'),
     loseSound: new Audio('./src/audio/lose-sound-default.wav'),
 
     playSound: function (sound) {

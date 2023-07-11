@@ -1,16 +1,17 @@
-let walls = [new Wall(0, 550, 1400, canvas.height - 400, helper.getRandomColor(), 1, 2)]; // Первую стенку создаем вручную.
+let walls = [new Wall(0, 550, 1400, canvas.height - 400, helper.getRandomColor(), helper.getRandomColor(), 1, 2)]; // Первую стенку создаем вручную.
 
 function Wall(
     x, y,
     width, height,
-    color, id,
-    type
+    color, strokecolor,
+    id, type
 ) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.color = color;
+    this.strokecolor = strokecolor;
     this.id = id;
     this.type = type;
 
@@ -42,6 +43,10 @@ function Wall(
         };
 
         ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = this.strokecolor;
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
 
         // this.drawWallsCoordinates();
         this.drawWallsID();

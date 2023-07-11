@@ -79,8 +79,8 @@ const world = {
             newWall = new Wall(
                 newWallX + newWallShift, this.height - newWallHeight,
                 this.wallWidth, newWallHeight,
-                helper.getRandomColor(), this.tempWallID,
-                2
+                helper.getRandomColor(), helper.getRandomColor(),
+                this.tempWallID, 2
             );
 
             /* и указываем, что последняя созданная стена имеет пропасть,*/
@@ -90,8 +90,8 @@ const world = {
             newWall = new Wall(
                 newWallX, this.height - newWallHeight,
                 this.wallWidth, newWallHeight,
-                helper.getRandomColor(), this.tempWallID,
-                2
+                helper.getRandomColor(), helper.getRandomColor(),
+                this.tempWallID, 2
             );
 
             /* и указываем, что последняя созданная стена не имеет пропасти.*/
