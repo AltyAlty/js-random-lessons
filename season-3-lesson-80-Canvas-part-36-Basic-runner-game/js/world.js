@@ -17,6 +17,9 @@ const world = {
     distanceTravelled: worldDefaultSettings.distanceTravelled,
     wallsPassed: worldDefaultSettings.wallsPassed,
 
+    drawDiscoSlowingRate: worldDefaultSettings.drawDiscoSlowingRate,
+    discoFrames: 0, // Переменная, отслеживающая сколько кадров смены цвета стен мы отрисовали.
+
     /*Метод для указания, что мир больше не прокручивается.*/
     stopWorld: function () {
         this.autoScroll = false;
@@ -64,9 +67,9 @@ const world = {
 
         let newWall; // Создаем переменную, которая будет хранить данный для следующей стены.
 
-        /*Если текущая последняя стена не самая первая в игре, id текущей последней стены кратен указанному показателю и текущая последняя стена
+        /*Если текущая последняя стена имеет id больше или равно 40, id текущей последней стены кратен указанному показателю и текущая последняя стена
         не имеет перед собой пропасти, то */
-        if (currentLastWall.id !== 0 && currentLastWall.id % Math.floor(Math.random() * 6) === 0 && !this.isLastWallAHole) {
+        if (currentLastWall.id >= 40 && currentLastWall.id % Math.floor(Math.random() * 6) === 0 && !this.isLastWallAHole) {
 
             /*высчитываем на сколько сдвинем по X следующую стену, чтобы создать пропасть,*/
             let newWallShift = Math.floor(Math.random() * this.wallWidth);
@@ -144,8 +147,29 @@ const world = {
         ctx.fillRect(0, canvas.height / 2, canvas.width, 1);
     },
 
+    /*Метод для динамической смены цветов стен.*/
+    drawTickDisco: function () {
+        /*Если игрок активный, то меняем динамически цвет стен.*/
+        if (players.playerOne.isActive) {
+            this.discoFrames++;  // Указываем, что сменили цвет стен на 1 кадр больше.
+            
+            /*Если игрок прошел уже 40 стен и количество отрисованных кадров смены цветов стен кратен
+            указанному показателю, то меняем цвет стен.*/
+            if (this.wallsPassed >= 40 && this.discoFrames % this.drawDiscoSlowingRate === 0) {
+                for (let i = 0; i < walls.length; i++) {
+                    walls[i].color = helper.getRandomColor();
+                };
+            };
+        } else {
+            this.discoFrames = 0;
+        };
+
+    },
+
     draw: function () {
         // this.drawMiddleLine();
         for (let i = 0; i < walls.length; i++) { walls[i].draw(); };
+
+        this.drawTickDisco();
     }
 };

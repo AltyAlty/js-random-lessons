@@ -19,7 +19,8 @@ const worldDefaultSettings = {
     isLastWallAHole: false, // Указывает является ли последняя созданная стена стеной с дырой.
     tempWallID: 2,  // ID для стен при их создании.
     distanceTravelled: 0, // Пройденное расстояние.
-    wallsPassed: 0 // Количество пройденных стен.
+    wallsPassed: 0, // Количество пройденных стен.
+    drawDiscoSlowingRate: 19 // Переменная, указывающая во сколько раз смена цвета стен должна быть меньше скорости работы всей игры.
 };
 
 const playerDefaultSettings = {
@@ -35,7 +36,8 @@ const playerDefaultSettings = {
     accelerationX: 1,
     friction: 0.6,
     color: 'orange',
-    isActive: true
+    isActive: true,
+    drawSlowingRate: 4 // Переменная, указывающая во сколько раз анимация должна быть меньше скорости работы всей игры.
 };
 
 const backgroundDefaultSettings = {

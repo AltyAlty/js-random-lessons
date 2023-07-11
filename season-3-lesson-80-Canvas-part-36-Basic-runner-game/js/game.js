@@ -18,7 +18,7 @@ const game = {
     reset: function () {
         players.playerOne.isActive = playerDefaultSettings.isActive;
         players.playerOne.y = playerDefaultSettings.y;
-        walls = [new Wall(0, 550, 1400, canvas.height - 400, helper.getRandomColor(), 1, 2)];
+        walls = [new Wall(0, 550, 1400, canvas.height - 400, helper.getRandomColor(), helper.getRandomColor(), 1, 2)];
         world.worldSpeed = worldDefaultSettings.worldSpeed;
         world.autoScroll = worldDefaultSettings.autoScroll;
         world.distanceTravelled = worldDefaultSettings.distanceTravelled;

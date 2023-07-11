@@ -35,7 +35,7 @@ function Player(
     this.xGIFcoordinate = 0; /*Координата сдвига по Х оригинального изображения, чтобы двигать его внутри области изображения на холсте, 
     с целью имитации анимации.*/
     this.gifFrames = 0; // Переменная, отслеживающая сколько кадров анимации мы отрисовали.
-    this.drawSlowingRate = 4; // Переменная, указывающая во сколько раз анимация должна быть меньше скорости работы всей игры.
+    this.drawSlowingRate = playerDefaultSettings.drawSlowingRate;
 
     /*Метод для проверки не упал ли игрок в яму.*/
     this.checkIfPlayerIsInAHole = function () {
