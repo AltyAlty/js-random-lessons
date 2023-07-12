@@ -24,6 +24,10 @@ function Player(
     this.color = playerDefaultSettings.color;
     this.isActive = playerDefaultSettings.isActive;
     this.jumpedDistance = 0; // Переменная для подсчета какое расстояние игрок проделал находясь в воздухе во время прыжка.
+    this.maximumJumpedDistance = playerDefaultSettings.maximumJumpedDistance;
+    this.jumpUpgrades = playerDefaultSettings.jumpUpgrades;
+    this.jumpUpgradeDistance = playerDefaultSettings.jumpUpgradeDistance;
+    this.upgradeJumpTickDivisor = playerDefaultSettings.upgradeJumpTickDivisor;
 
     this.predictedHorizontalWayToTheRight = null;
     this.predictedHorizontalWayToTheLeft = null;
@@ -223,7 +227,7 @@ function Player(
                 /*Если находясь в воздухе, расстояние, которые мы в нем прошли, больше установленного ограничения, то мы запрещаем игроку
                 дальше прыгать и сбрасываем расстояние, которые мы прошли в воздухе во время прыжка, чтобы в следующем прыжке начать
                 отсчет сначала.*/
-                if (this.jumpedDistance >= this.height * 10) {
+                if (this.jumpedDistance >= this.maximumJumpedDistance) {
                     this.color = 'red';
                     this.currentAccelerationY = 0;
                     this.jumpedDistance = 0;
@@ -322,16 +326,16 @@ function Player(
         /*Если мы в воздухе и у нас больше нет возможности прыгать еще выше, то отрисовывам всю полоску красной.*/
         if (this.currentAccelerationY === 0 && this.jumpedDistance === 0) {
             ctx.fillStyle = 'red';
-            ctx.fillRect(500, 40, this.height * 10, 30);
+            ctx.fillRect(10, 14, this.maximumJumpedDistance, 30);
         } else { /*Если мы в воздухе и все еще можем прыгать, то отрисовываем оранжвым цвет определенную часть полосы.*/
             ctx.fillStyle = 'orange';
-            ctx.fillRect(500, 40, this.jumpedDistance, 30);
+            ctx.fillRect(10, 14, this.jumpedDistance, 30);
         };
 
         /*Делаем обводку для полосы прыжка.*/
         ctx.lineWidth = 2;
         ctx.strokeStyle = 'violet';
-        ctx.strokeRect(498, 38, this.height * 10 + 4, 34)
+        ctx.strokeRect(8, 12, this.maximumJumpedDistance + 4, 34)
     };
 
     this.draw = function () {

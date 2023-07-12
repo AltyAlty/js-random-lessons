@@ -49,6 +49,6 @@ function Wall(
         ctx.strokeRect(this.x, this.y, this.width, this.height);
 
         // this.drawWallsCoordinates();
-        this.drawWallsID();
+        // this.drawWallsID();
     };
 };

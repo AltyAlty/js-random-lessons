@@ -12,13 +12,16 @@ const world = {
     playerHeightMultiplayer: worldDefaultSettings.playerHeightMultiplayer,
     differnceBetweenCurrentLastWallAndNewWall: worldDefaultSettings.differnceBetweenCurrentLastWallAndNewWall,
     newWallLowHeightEnhancer: worldDefaultSettings.newWallLowHeightEnhancer,
+    firstWallWithHoleID: worldDefaultSettings.firstWallWithHoleID,
+    addingHoleDivisor: worldDefaultSettings.addingHoleDivisor,
     isLastWallAHole: worldDefaultSettings.isLastWallAHole,
+    minimumHoleWidth: worldDefaultSettings.minimumHoleWidth,
     tempWallID: worldDefaultSettings.tempWallID,
     distanceTravelled: worldDefaultSettings.distanceTravelled,
     wallsPassed: worldDefaultSettings.wallsPassed,
 
-    drawDiscoSlowingRate: worldDefaultSettings.drawDiscoSlowingRate,
-    discoFrames: 0, // Переменная, отслеживающая сколько кадров смены цвета стен мы отрисовали.
+    tickTimeoutDisco: null,
+    tickRateDisco: 1000 / 3,
 
     /*Метод для указания, что мир больше не прокручивается.*/
     stopWorld: function () {
@@ -31,7 +34,10 @@ const world = {
         playerHeightMultiplayer,
         minimumWallHeight,
         differnceBetweenCurrentLastWallAndNewWall,
-        newWallLowHeightEnhancer
+        newWallLowHeightEnhancer,
+        firstWallWithHoleID,
+        addingHoleDivisor,
+        minimumHoleWidth
     ) {
         /*Если уже есть данные для минимум 4 стен, то ничего не делаем.*/
         if (walls.length >= maximumWallsAtOneTIme) {
@@ -67,15 +73,15 @@ const world = {
 
         let newWall; // Создаем переменную, которая будет хранить данный для следующей стены.
 
-        /*Если текущая последняя стена имеет id больше или равно 40, id текущей последней стены кратен указанному показателю и текущая последняя стена
+        /*Если текущая последняя стена имеет id больше указанного показателя, id текущей последней стены кратен указанному показателю и текущая последняя стена
         не имеет перед собой пропасти, то */
-        if (currentLastWall.id >= 40 && currentLastWall.id % Math.floor(Math.random() * 6) === 0 && !this.isLastWallAHole) {
+        if (currentLastWall.id >= firstWallWithHoleID && currentLastWall.id % Math.floor(Math.random() * addingHoleDivisor) === 0 && !this.isLastWallAHole) {
 
             /*высчитываем на сколько сдвинем по X следующую стену, чтобы создать пропасть,*/
             let newWallShift = Math.floor(Math.random() * this.wallWidth);
 
-            if (newWallShift < 400) {
-                newWallShift = 400;
+            if (newWallShift < minimumHoleWidth) {
+                newWallShift = minimumHoleWidth;
             };
 
             /*создаем данные для стены, перед которой будет пропасть*/
@@ -149,27 +155,19 @@ const world = {
 
     /*Метод для динамической смены цветов стен.*/
     drawTickDisco: function () {
-        /*Если игрок активный, то меняем динамически цвет стен.*/
-        if (players.playerOne.isActive) {
-            this.discoFrames++;  // Указываем, что сменили цвет стен на 1 кадр больше.
-            
-            /*Если игрок прошел уже 40 стен и количество отрисованных кадров смены цветов стен кратен
-            указанному показателю, то меняем цвет стен.*/
-            if (this.wallsPassed >= 40 && this.discoFrames % this.drawDiscoSlowingRate === 0) {
-                for (let i = 0; i < walls.length; i++) {
-                    walls[i].color = helper.getRandomColor();
-                };
-            };
-        } else {
-            this.discoFrames = 0;
-        };
+        window.clearTimeout(world.tickTimeoutDisco);
 
+        if (world.autoScroll) {
+            for (let i = 0; i < walls.length; i++) {
+                walls[i].color = helper.getRandomColor();
+            };
+
+            world.tickTimeoutDisco = window.setTimeout('world.drawTickDisco()', world.tickRateDisco);
+        };
     },
 
     draw: function () {
         // this.drawMiddleLine();
         for (let i = 0; i < walls.length; i++) { walls[i].draw(); };
-
-        this.drawTickDisco();
     }
 };

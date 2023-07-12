@@ -1,5 +1,5 @@
 const audio = {
-    volume: 0.1,
+    volume: audioDefaultSettings.volume,
     defaultBackgroundMusic: new Audio('./src/audio/music.mp3'),
     loseSound: new Audio('./src/audio/lose-sound-default.wav'),
 
