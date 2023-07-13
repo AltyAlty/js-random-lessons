@@ -231,6 +231,7 @@ function Player(
                     this.color = 'red';
                     this.currentAccelerationY = 0;
                     this.jumpedDistance = 0;
+                    this.currentSpeedY = this.gravity;
                 };
             };
 

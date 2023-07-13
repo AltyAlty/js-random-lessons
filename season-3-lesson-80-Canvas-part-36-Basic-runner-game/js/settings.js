@@ -33,25 +33,25 @@ const playerDefaultSettings = {
     width: 32,
     height: 64,
     maxSpeedX: 10,
-    maxSpeedY: 26,
-    currentAccelerationY: 20, // Текущее ускорение игрока по Y.
-    accelerationY: 20, // Стандартное ускорение игрока по Y.
-    gravity: 3,
+    maxSpeedY: 25,
+    currentAccelerationY: 15, // Текущее ускорение игрока по Y.
+    accelerationY: 15, // Стандартное ускорение игрока по Y.
+    gravity: 2,
     accelerationX: 1,
     friction: 0.6,
     color: 'orange',
     isActive: true,
     drawSlowingRate: 4, // Переменная, указывающая во сколько раз анимация должна быть меньше скорости работы всей игры.
-    maximumJumpedDistance: 640, // Переменная, указывающая какое максимальное суммарное расстояние можно пройти вверх будучи в прыжке.
+    maximumJumpedDistance: 400, // Переменная, указывающая какое максимальное суммарное расстояние можно пройти вверх будучи в прыжке.
     jumpUpgrades: 0, // Количество улучшений прыжка.
-    jumpUpgradeDistance: 200, // Указывает на сколько увеличивается прыжок за одно улучшение.
+    jumpUpgradeDistance: 300, // Указывает на сколько увеличивается прыжок за одно улучшение.
     upgradeJumpTickDivisor: 3000 // Число, определяющее через какое количество тиков должен улучшаться прыжок игрока.
 };
 
 const backgroundDefaultSettings = {
     parallaxSpeedX: 1, // Скорость движения фона.
     parallaxAccelerationX: 0.025, // Ускорение движения фона.
-    increaseParallaxSpeedXDivisor: 10
+    increaseParallaxSpeedXDivisor: 5 // Показатель, указывающий через каждые сколько пройденных стен должна увеличиться скорость движения фона.
 };
 
 const audioDefaultSettings = {

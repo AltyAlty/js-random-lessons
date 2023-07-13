@@ -1,7 +1,7 @@
 const game = {
     tickTimeout: null,
     tickRate: gameDefaultSettings.tickRate,
-    ticks: gameDefaultSettings.ticks,    
+    ticks: gameDefaultSettings.ticks,
 
     tick: function () {
         window.clearTimeout(game.tickTimeout);
@@ -33,7 +33,7 @@ const game = {
         world.tempWallID = worldDefaultSettings.tempWallID;
 
         audio.defaultBackgroundMusic.currentTime = 0;
-        
+
         background.parallaxSpeedX = backgroundDefaultSettings.parallaxSpeedX;
     },
 
@@ -67,7 +67,7 @@ const game = {
         if (world.autoScroll) { // Пока прокручивается мир, двигаем стены.
             for (let i = 0; i < walls.length; i++) { walls[i].move(world.worldSpeed); };
             world.distanceTravelled += world.worldSpeed; // Высчитываем пройденный путь.
-            this.ticks ++; // Увеличиваем таймер.
+            this.ticks++; // Увеличиваем таймер.
         };
     },
 
@@ -88,7 +88,7 @@ const game = {
         if (players.playerOne.isActive) {
             /*Увеличиваем скорость движения фона каждое указанное количество пройденных стен.*/
             if (world.wallsPassed > 0 && world.wallsPassed % background.increaseParallaxSpeedXDivisor === 0) { background.parallaxSpeedX += background.parallaxAccelerationX; };
-            background.draw(background.parallaxSpeedX);            
+            background.draw(background.parallaxSpeedX);
             world.draw();
             players.playerOne.draw();
             game.drawScore();

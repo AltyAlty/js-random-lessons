@@ -5,6 +5,7 @@ const background = {
     y2: 0,
     parallaxSpeedX: backgroundDefaultSettings.parallaxSpeedX,
     parallaxAccelerationX: backgroundDefaultSettings.parallaxAccelerationX,
+    increaseParallaxSpeedXDivisor: backgroundDefaultSettings.increaseParallaxSpeedXDivisor,
 
     /*Метод для отрисовки фона.*/
     draw: function (speed) {
