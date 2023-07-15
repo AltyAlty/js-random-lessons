@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.whole-calculater {
+    margin-top: 50px;
+    width: 23%;
+    height: 600px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    border: black 2px solid;
+    border-radius: 5px;
+    background-color: rgb(188, 188, 240);
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.whole-calculater .result-container {
+    width: 75%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 40px;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    border: black 1px solid;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.whole-calculater .show-info-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.whole-calculater .show-info-container .show-info-divs {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    height: 37px;
+
+    text-align: center;
+    font-size: 35px;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.whole-calculater .operations-one-container,
+.whole-calculater .operations-two-container,
+.whole-calculater .numbers-first-row-container,
+.whole-calculater .numbers-second-row-container {
+    width: 70%;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.whole-calculater .operations-one-container div,
+.whole-calculater .operations-two-container div,
+.whole-calculater .numbers-first-row-container div,
+.whole-calculater .numbers-second-row-container div {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 30px;
+
+    background-color: lavender;
+    border-radius: 4px;
+    border: black 1px solid;
+}
+
+.whole-calculater .operations-one-container div:hover,
+.whole-calculater .operations-two-container div:hover,
+.whole-calculater .numbers-first-row-container div:hover,
+.whole-calculater .numbers-second-row-container div:hover {
+    font-size: 40px;
+
+    background-color: rgb(205, 205, 248);
+    border-radius: 4px;
+    border: black 1px solid;
+}
