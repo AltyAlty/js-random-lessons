@@ -1,5 +1,5 @@
 const classes = {
-    enterNumberButtonClass: 'enter-number-button', /*Это класс, указывающий на кнопки c цифрами 0-9 и операцией ".".*/
+    enterNumberAndDotButtonClass: 'enter-number-and-dot-button', /*Это класс, указывающий на кнопки c цифрами 0-9 и операцией ".".*/
     calcButtonOneClass: 'calc-button-one', /*Это класс, указывающий на кнопки операций в первом ряду ("+", "-", "*", ":").*/
     calcButtonTwoClass: 'calc-button-two', /*Это класс, указывающий на кнопки операций во втором ряду ("+/-", "=", "С").*/
     eraseClass: 'erase', /*Это класс, указывающий на кнопку удаления цифр из поля для вывода в калькуляторе.*/
@@ -13,7 +13,7 @@ const classes = {
 
 const calculator = {
     elements: {
-        enterNumberButtonElements: document.getElementsByClassName(classes.enterNumberButtonClass),
+        enterNumberAndDotButtonElements: document.getElementsByClassName(classes.enterNumberAndDotButtonClass),
         calcButtonOneElements: document.getElementsByClassName(classes.calcButtonOneClass),
         calcButtonTwoElements: document.getElementsByClassName(classes.calcButtonTwoClass),
         eraseElement: document.getElementsByClassName(classes.eraseClass)[0],
@@ -57,7 +57,7 @@ const calculator = {
     },
 
     /*Это функция-подписчик для ввода данных в поле вывода в калькуляторе. Эта функция принимает какое-то значение и дописывает его в поле, а не перезатирает предыдущее значение.*/
-    enterButtonListener: function (event) {
+    enterNumberAndDotButtonListener: function (event) {
         /*Если длина числа больше 20 знаков, то укорачиваем ее.*/
         if (calculator.elements.resultElement.innerText.length > 20) {
             calculator.elements.resultElement.innerText = calculator.elements.resultElement.innerText.substring(0, 20);
@@ -514,8 +514,8 @@ const calculator = {
 
     initializeListeners: function () {
         /*Здесь мы пробегаемся по всем нашим кнопкам с цифрами 0-9 и точкой, и подписываем их на событие "click", при срабатывании, которого будет вызываться функция "enterButtonListener()".*/
-        for (let i = 0; i < this.elements.enterNumberButtonElements.length; i++) {
-            this.elements.enterNumberButtonElements[i].addEventListener('click', this.enterButtonListener);
+        for (let i = 0; i < this.elements.enterNumberAndDotButtonElements.length; i++) {
+            this.elements.enterNumberAndDotButtonElements[i].addEventListener('click', this.enterNumberAndDotButtonListener);
         };
 
         /*Здесь мы пробегаемся по всем нашим кнопкам с операциями "+", "-", "*", ":" и подписываем их на событие "click", при срабатывании, которого будет вызываться функция "calcButtonOneListener()".*/
@@ -543,47 +543,47 @@ const calculator = {
         document.onkeydown = function (event) {
             switch (event.key) {
                 case '0':
-                    buttonListener(calculator.enterButtonListener, '0');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '0');
                     break;
 
                 case '1':
-                    buttonListener(calculator.enterButtonListener, '1');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '1');
                     break;
 
                 case '2':
-                    buttonListener(calculator.enterButtonListener, '2');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '2');
                     break;
 
                 case '3':
-                    buttonListener(calculator.enterButtonListener, '3');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '3');
                     break;
 
                 case '4':
-                    buttonListener(calculator.enterButtonListener, '4');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '4');
                     break;
 
                 case '5':
-                    buttonListener(calculator.enterButtonListener, '5');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '5');
                     break;
 
                 case '6':
-                    buttonListener(calculator.enterButtonListener, '6');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '6');
                     break;
 
                 case '7':
-                    buttonListener(calculator.enterButtonListener, '7');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '7');
                     break;
 
                 case '8':
-                    buttonListener(calculator.enterButtonListener, '8');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '8');
                     break;
 
                 case '9':
-                    buttonListener(calculator.enterButtonListener, '9');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '9');
                     break;
 
                 case '.':
-                    buttonListener(calculator.enterButtonListener, '.');
+                    buttonListener(calculator.enterNumberAndDotButtonListener, '.');
                     break;
 
                 case '+':
