@@ -9,7 +9,7 @@ const world = {
     collisionMapWidth: 8000,
     collisionMapHeight: 480,
     worldGrid: [],
-    worldGridCellSize: 80,
+    worldGridCellSize: 20,
 
     loadLevelImage: function () {
         this.levelImage = new Image();
@@ -41,23 +41,32 @@ const world = {
 
                     this.worldGrid[i].push(
                         [
-                            j * this.worldGridCellSize,
-                            i * this.worldGridCellSize,
-                            this.worldGridCellSize,
-                            this.worldGridCellSize,
-                            true
+                            j * this.worldGridCellSize, // 0
+                            i * this.worldGridCellSize, // 1
+                            this.worldGridCellSize, // 2
+                            this.worldGridCellSize, // 3
+                            true, // 4
+                            new Set() // 5
                         ]
                     );
+
+                    for (let k = this.worldGrid[i][j][0]; k <= this.worldGrid[i][j][0] + this.worldGrid[i][j][2]; k++) { // x
+                        for (let l = this.worldGrid[i][j][1]; l < this.worldGrid[i][j][1] + this.worldGrid[i][j][3]; l++) { // y
+                            if (this.findIfPixelIsSolidSurface(k, l)) {
+                                this.worldGrid[i][j][5].add({ x: k, y: l }); 
+                            };                            
+                        };
+                    };
 
                 } else {
 
                     this.worldGrid[i].push(
                         [
-                            j * this.worldGridCellSize,
-                            i * this.worldGridCellSize,
-                            this.worldGridCellSize,
-                            this.worldGridCellSize,
-                            false
+                            j * this.worldGridCellSize, // 0
+                            i * this.worldGridCellSize, // 1
+                            this.worldGridCellSize, // 2
+                            this.worldGridCellSize, // 3
+                            false // 4
                         ]
                     );
 
@@ -120,7 +129,7 @@ const world = {
 
         if (!game.finished) { ctx.drawImage(this.levelImage, drawAtX, 0) };
 
-        this.drawWordlGrid(drawAtX);
+        // this.drawWordlGrid(drawAtX);
     }
 };
 
