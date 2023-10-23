@@ -1,7 +1,7 @@
 const world = {
     screenWidth: canvas.width,
     screenHeight: canvas.height,
-    gravity: 10,
+    gravity: worldDefaultSettings.gravity,
     distanceTravelledFromSpawnPoint: 0,
     levelImage: null,
     collisionMapImage: null,
@@ -18,8 +18,8 @@ const world = {
 
     loadCollisionMapCanvas2DContext: function () {
         this.collisionMapImage = new Image();
-        this.collisionMapImage.src = collisionMapImageBase64;
-        // this.collisionMapImage.src = './src/level/map-three.png';
+        // this.collisionMapImage.src = collisionMapImageBase64;
+        this.collisionMapImage.src = './src/level/map-three.png';
         this.collisionMapImage.onload = function () {
             let hiddenCanvas = document.createElement('canvas');
             hiddenCanvas.setAttribute('width', this.width); // 8000
@@ -95,7 +95,8 @@ const world = {
     prepareWorldData: function () {
         if (!this.levelImage) { this.loadLevelImage() };
         if (!this.collisionMapCanvas2DContext) { this.loadCollisionMapCanvas2DContext() };
-        this.distanceTravelledFromSpawnPoint += player.character.currentSpeedX;
+        // this.distanceTravelledFromSpawnPoint += player.character.currentSpeedX;
+        this.distanceTravelledFromSpawnPoint = player.character.x - playerDefaultSettings.x;
     },
 
     findXOfBeginningOfLevelEnd: function () { return this.levelImage.width - this.screenWidth },
@@ -127,6 +128,6 @@ const world = {
         if (!game.finished) { ctx.drawImage(this.levelImage, drawAtX, 0) };
 
         // this.drawWordlGrid(drawAtX);
-    }
+    },
 };
 

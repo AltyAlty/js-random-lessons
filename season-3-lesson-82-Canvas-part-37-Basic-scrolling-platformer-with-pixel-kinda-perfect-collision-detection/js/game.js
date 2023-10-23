@@ -42,5 +42,5 @@ const game = {
         audio.pauseSound(audio.backgroundMusic);
         window.clearTimeout(this.setTimeoutID);
         alert(reason === 'win' ? 'You won!' : 'You lost!');
-    }
+    },
 };

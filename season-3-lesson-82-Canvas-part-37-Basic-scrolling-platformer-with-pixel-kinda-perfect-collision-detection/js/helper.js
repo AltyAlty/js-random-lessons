@@ -52,5 +52,5 @@ const helper = {
         };
 
         return null;
-    }
+    },
 };

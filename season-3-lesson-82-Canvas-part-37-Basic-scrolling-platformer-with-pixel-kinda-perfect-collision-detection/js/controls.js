@@ -17,5 +17,5 @@ const controls = {
     initializePlayersControlsListening: function () {
         window.addEventListener('keydown', function (event) { controls.buttonPress(event) }, false);
         window.addEventListener('keyup', function (event) { controls.buttonRelease(event) }, false);
-    }
+    },
 };

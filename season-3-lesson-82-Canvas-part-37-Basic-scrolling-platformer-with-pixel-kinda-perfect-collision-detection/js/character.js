@@ -23,6 +23,10 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.applyMovementY();
 
         // this.applyGravity();
+        // this.applyMovementXOld5();
+        // this.applyMovementYOld5();
+
+        // this.applyGravity();
         // this.applyMovementXOld4();
         // this.applyMovementYOld4();
 
@@ -41,6 +45,39 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         // this.applyMovementOld1();
     };
 
+    /*--------------------------*/
+
+    this.calculateIntersection = function (predictedPosition, worldGridCell) { // function to calculate data about an intersection
+        let currentIntersection = {};
+
+        currentIntersection.x = predictedPosition.x >= worldGridCell[0] ? predictedPosition.x : worldGridCell[0]; // X-coordinate
+
+        currentIntersection.farX = predictedPosition.x + predictedPosition.width <= worldGridCell[0] + worldGridCell[2] ?
+            predictedPosition.x + predictedPosition.width : worldGridCell[0] + worldGridCell[2]; // far X-coordinate
+
+        currentIntersection.y = predictedPosition.y >= worldGridCell[1] ? predictedPosition.y : worldGridCell[1]; // Y-coordinate
+
+        currentIntersection.farY = predictedPosition.y + predictedPosition.height <= worldGridCell[1] + worldGridCell[3] ?
+            predictedPosition.y + predictedPosition.height : worldGridCell[1] + worldGridCell[3]; // far Y-coordinate
+
+        currentIntersection.width = currentIntersection.farX - currentIntersection.x; // width
+        currentIntersection.height = currentIntersection.farY - currentIntersection.y; // height
+
+        return currentIntersection;
+    };
+
+    this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell = function (currentIntersection, worldGridCell) { // function to check if any pixel inside an intersection is a solid one
+        for (let k = currentIntersection.x; k <= currentIntersection.x + currentIntersection.width; k++) { // iterate through X-Axis from left to right
+            for (let l = currentIntersection.y; l <= currentIntersection.y + currentIntersection.height; l++) { // iterate through Y-Axis from top to bottom
+                for (let value of worldGridCell[5]) { // iterate through every solid pixel in the cell
+                    if (value.x === k && value.y === l) { return true }; // check if a pixel in the intersection is a solid one
+                };
+            };
+        };
+
+        return false;
+    };
+
     this.applyGravity = function () {
         if (this.findIfCharacterIsJumping()) {
             this.currentJumpHeight += this.downwardForce * -1;
@@ -54,7 +91,283 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         };
     };
 
-    this.applyMovementX = function () { // the third non-bugged version with separating X-movement and Y-movement, intersection and sets, the best optimization at this point
+    this.applyMovementX = function () { // the fourth more non-bugged version with separating X-movement and Y-movement, intersection and sets, this version allows movement on speeds greater than the character's width (still bugged), the same optimization
+        let nextX = this.x + this.currentSpeedX;
+        let isPredictedPositionMoved = false;
+
+        if (this.currentSpeedX !== 0) { // if we have any X-movement
+            let predictedHorizontalWayToTheRight = null;
+            let predictedHorizontalWayToTheLeft = null;
+
+            if (Math.abs(this.currentSpeedX) > this.width) { // in order to prevent from teleportation through objects we check if our speed is greater than our width
+                if (this.currentSpeedX > 0) { // if we move to the right we prepare data about the way we are going to make
+                    predictedHorizontalWayToTheRight = {
+                        x: this.x + this.width,
+                        y: this.y,
+                        width: this.currentSpeedX - this.width,
+                        height: this.height
+                    };
+                };
+
+                if (this.currentSpeedX < 0) { // if we move to the left we prepare data about the way we are going to make
+                    predictedHorizontalWayToTheLeft = {
+                        x: this.x - Math.abs(this.currentSpeedX) + this.width,
+                        y: this.y,
+                        width: Math.abs(this.currentSpeedX) - this.width,
+                        height: this.height
+                    };
+                };
+
+                if (predictedHorizontalWayToTheRight) { // if we move to the right
+                    // iterate through every cell
+                    for (let i = 0; i < world.worldGrid.length; i++) { // y - iterate through every row
+                        for (let j = 0; j < world.worldGrid[i].length; j++) { // x - iterate through every column
+                            if (
+                                helper.checkIntersectionBetweenTwoNotRotatedRectangles(
+                                    predictedHorizontalWayToTheRight.x + predictedHorizontalWayToTheRight.width, world.worldGrid[i][j][0],
+                                    predictedHorizontalWayToTheRight.x, world.worldGrid[i][j][0] + world.worldGrid[i][j][2],
+                                    predictedHorizontalWayToTheRight.y + predictedHorizontalWayToTheRight.height, world.worldGrid[i][j][1],
+                                    predictedHorizontalWayToTheRight.y, world.worldGrid[i][j][1] + world.worldGrid[i][j][3]
+                                ) && world.worldGrid[i][j][4] === true // check if the predicted position collides with a cell and if the cell contains any solid pixels
+                            ) {
+
+                                let currentIntersection = this.calculateIntersection(predictedHorizontalWayToTheRight, world.worldGrid[i][j]); // for better optimization we are going to use data about solid pixels in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                                if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.currentSpeedX > 0) { // ⇒
+                                    while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                        predictedHorizontalWayToTheRight.x -= Math.sign(this.currentSpeedX);
+                                        currentIntersection = this.calculateIntersection(predictedHorizontalWayToTheRight, world.worldGrid[i][j]);
+                                    };
+
+                                    nextX = predictedHorizontalWayToTheRight.x + predictedHorizontalWayToTheRight.width - this.width;
+                                    isPredictedPositionMoved = true;
+                                };
+                            };
+                        };
+                    };
+                } else if (predictedHorizontalWayToTheLeft) { // if we move to the left
+                    // iterate through every cell
+                    for (let i = 0; i < world.worldGrid.length; i++) { // y - iterate through every row
+                        for (let j = 0; j < world.worldGrid[i].length; j++) { // x - iterate through every column
+                            if (
+                                helper.checkIntersectionBetweenTwoNotRotatedRectangles(
+                                    predictedHorizontalWayToTheLeft.x + predictedHorizontalWayToTheLeft.width, world.worldGrid[i][j][0],
+                                    predictedHorizontalWayToTheLeft.x, world.worldGrid[i][j][0] + world.worldGrid[i][j][2],
+                                    predictedHorizontalWayToTheLeft.y + predictedHorizontalWayToTheLeft.height, world.worldGrid[i][j][1],
+                                    predictedHorizontalWayToTheLeft.y, world.worldGrid[i][j][1] + world.worldGrid[i][j][3]
+                                ) && world.worldGrid[i][j][4] === true // check if the predicted position collides with a cell and if the cell contains any solid pixels
+                            ) {
+
+                                let currentIntersection = this.calculateIntersection(predictedHorizontalWayToTheLeft, world.worldGrid[i][j]); // for better optimization we are going to use data about solid pixels in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                                if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.currentSpeedX < 0) { // ⇐
+                                    while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                        predictedHorizontalWayToTheLeft.x -= Math.sign(this.currentSpeedX);
+                                        currentIntersection = this.calculateIntersection(predictedHorizontalWayToTheLeft, world.worldGrid[i][j]);
+                                    };
+
+                                    nextX = predictedHorizontalWayToTheLeft.x;
+                                    isPredictedPositionMoved = true;
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+
+            if (!isPredictedPositionMoved) { // if we have not corrected our position yet
+                let predictedHorizontalPosition = { // predict our position
+                    x: nextX,
+                    y: this.y,
+                    width: this.width,
+                    height: this.height
+                };
+
+                // iterate through every cell
+                for (let i = 0; i < world.worldGrid.length; i++) { // y - iterate through every row
+                    for (let j = 0; j < world.worldGrid[i].length; j++) { // x - iterate through every column
+                        if (
+                            helper.checkIntersectionBetweenTwoNotRotatedRectangles(
+                                predictedHorizontalPosition.x + predictedHorizontalPosition.width, world.worldGrid[i][j][0],
+                                predictedHorizontalPosition.x, world.worldGrid[i][j][0] + world.worldGrid[i][j][2],
+                                predictedHorizontalPosition.y + predictedHorizontalPosition.height, world.worldGrid[i][j][1],
+                                predictedHorizontalPosition.y, world.worldGrid[i][j][1] + world.worldGrid[i][j][3]
+                            ) && world.worldGrid[i][j][4] === true // check if the predicted position collides with a cell and if the cell contains any solid pixels
+                        ) {
+
+                            let currentIntersection = this.calculateIntersection(predictedHorizontalPosition, world.worldGrid[i][j]); // for better optimization we are going to use data about solid pixels in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                            if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.currentSpeedX > 0) { // ⇒
+                                while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                    predictedHorizontalPosition.x -= Math.sign(this.currentSpeedX);
+                                    currentIntersection = this.calculateIntersection(predictedHorizontalPosition, world.worldGrid[i][j]);
+                                };
+
+                                nextX = predictedHorizontalPosition.x
+                                isPredictedPositionMoved = true;
+                            };
+
+                            if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.currentSpeedX < 0) { // ⇐
+                                while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                    predictedHorizontalPosition.x -= Math.sign(this.currentSpeedX);
+                                    currentIntersection = this.calculateIntersection(predictedHorizontalPosition, world.worldGrid[i][j]);
+                                };
+
+                                nextX = predictedHorizontalPosition.x
+                                isPredictedPositionMoved = true;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+
+        if (isPredictedPositionMoved) { this.currentSpeedX = 0 }; // if we have corrected our position, it means that we hit a solid object, so we need to stop
+        this.x = nextX;
+    };
+
+    this.applyMovementY = function () { // // the fourth more non-bugged version with separating X-movement and Y-movement, intersection and sets, this version allows movement on speeds greater than the character's height (still bugged), the same optimization
+        let nextY = this.y + this.downwardForce;
+        let isPredictedPositionMoved = false;
+
+        if (this.downwardForce !== 0) { // if we have any Y-movement
+            let predictedVerticalWayDown = null;
+            let predictedVerticalWayUp = null;
+
+            if (Math.abs(this.downwardForce) > this.height) { // in order to prevent from teleportation through objects we check if our speed is greater than our height
+                if (this.downwardForce > 0) { // if we move down we prepare data about the way we are going to make
+                    predictedVerticalWayDown = {
+                        x: this.x,
+                        y: this.y + this.height,
+                        width: this.width,
+                        height: this.downwardForce - this.height
+                    };
+                };
+
+                if (this.downwardForce < 0) { // if we move up we prepare data about the way we are going to make
+                    predictedVerticalWayUp = {
+                        x: this.x,
+                        y: this.y - Math.abs(this.downwardForce) + this.height,
+                        width: this.width,
+                        height: Math.abs(this.downwardForce) - this.height
+                    };
+                };
+
+                if (predictedVerticalWayDown) { // if we move down
+                    // iterate through every cell
+                    for (let i = 0; i < world.worldGrid.length; i++) { // y - iterate through every row
+                        for (let j = 0; j < world.worldGrid[i].length; j++) { // x - iterate through every column
+                            if (
+                                helper.checkIntersectionBetweenTwoNotRotatedRectangles(
+                                    predictedVerticalWayDown.x + predictedVerticalWayDown.width, world.worldGrid[i][j][0],
+                                    predictedVerticalWayDown.x, world.worldGrid[i][j][0] + world.worldGrid[i][j][2],
+                                    predictedVerticalWayDown.y + predictedVerticalWayDown.height, world.worldGrid[i][j][1],
+                                    predictedVerticalWayDown.y, world.worldGrid[i][j][1] + world.worldGrid[i][j][3]
+                                ) && world.worldGrid[i][j][4] === true // check if the predicted position collides with a cell and if the cell contains any solid pixels
+                            ) {
+
+                                let currentIntersection = this.calculateIntersection(predictedVerticalWayDown, world.worldGrid[i][j]); // for better optimization we are going to use data about solid pixels in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                                if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.downwardForce > 0) { // ⇓
+                                    while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                        predictedVerticalWayDown.y -= Math.sign(this.downwardForce);
+                                        currentIntersection = this.calculateIntersection(predictedVerticalWayDown, world.worldGrid[i][j]);
+                                    };
+
+                                    nextY = predictedVerticalWayDown.y + predictedVerticalWayDown.height - this.height;
+                                    isPredictedPositionMoved = true;
+                                };
+                            };
+                        };
+                    };
+                } else if (predictedVerticalWayUp) { // if we move up
+                    // iterate through every cell
+                    for (let i = 0; i < world.worldGrid.length; i++) { // y - iterate through every row
+                        for (let j = 0; j < world.worldGrid[i].length; j++) { // x - iterate through every column
+                            if (
+                                helper.checkIntersectionBetweenTwoNotRotatedRectangles(
+                                    predictedVerticalWayUp.x + predictedVerticalWayUp.width, world.worldGrid[i][j][0],
+                                    predictedVerticalWayUp.x, world.worldGrid[i][j][0] + world.worldGrid[i][j][2],
+                                    predictedVerticalWayUp.y + predictedVerticalWayUp.height, world.worldGrid[i][j][1],
+                                    predictedVerticalWayUp.y, world.worldGrid[i][j][1] + world.worldGrid[i][j][3]
+                                ) && world.worldGrid[i][j][4] === true // check if the predicted position collides with a cell and if the cell contains any solid pixels
+                            ) {
+
+                                let currentIntersection = this.calculateIntersection(predictedVerticalWayUp, world.worldGrid[i][j]); // for better optimization we are going to use data about solid pixels in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                                if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.downwardForce < 0) { // ⇑
+                                    while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                        predictedVerticalWayUp.y -= Math.sign(this.downwardForce);
+                                        currentIntersection = this.calculateIntersection(predictedVerticalWayUp, world.worldGrid[i][j]);
+                                    };
+
+                                    nextY = predictedVerticalWayUp.y;
+                                    isPredictedPositionMoved = true;
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+
+            if (!isPredictedPositionMoved) { // if we have not corrected our position yet
+                let predictedVerticalPosition = { // predict our position
+                    x: this.x,
+                    y: nextY,
+                    width: this.width,
+                    height: this.height
+                };
+
+                // iterate through every cell
+                for (let i = 0; i < world.worldGrid.length; i++) { // y - iterate through every row
+                    for (let j = 0; j < world.worldGrid[i].length; j++) {// x - iterate through every column
+                        if (
+                            helper.checkIntersectionBetweenTwoNotRotatedRectangles(
+                                predictedVerticalPosition.x + predictedVerticalPosition.width, world.worldGrid[i][j][0],
+                                predictedVerticalPosition.x, world.worldGrid[i][j][0] + world.worldGrid[i][j][2],
+                                predictedVerticalPosition.y + predictedVerticalPosition.height, world.worldGrid[i][j][1],
+                                predictedVerticalPosition.y, world.worldGrid[i][j][1] + world.worldGrid[i][j][3]
+                            ) && world.worldGrid[i][j][4] === true // check if the predicted position collides with a cell and if the cell contains any solid pixels
+                        ) {
+
+                            let currentIntersection = this.calculateIntersection(predictedVerticalPosition, world.worldGrid[i][j]); // for better optimization we are going to use data about solid pixels in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                            if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.downwardForce < 0) { // ⇑
+                                while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                    predictedVerticalPosition.y -= Math.sign(this.downwardForce);
+                                    currentIntersection = this.calculateIntersection(predictedVerticalPosition, world.worldGrid[i][j]);
+                                };
+
+                                if (predictedVerticalPosition.y > nextY) { nextY = predictedVerticalPosition.y };
+                                isPredictedPositionMoved = true;
+                            };
+
+                            if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j]) && this.downwardForce > 0) { // ⇓
+                                while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[i][j])) {
+                                    predictedVerticalPosition.y -= Math.sign(this.downwardForce);
+                                    currentIntersection = this.calculateIntersection(predictedVerticalPosition, world.worldGrid[i][j]);
+                                };
+
+                                if (predictedVerticalPosition.y < nextY) { nextY = predictedVerticalPosition.y };
+                                isPredictedPositionMoved = true;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+
+        if (isPredictedPositionMoved) { // if we have corrected our position, it means that we hit a solid object, so we need to stop
+            this.downwardForce = 0;
+            this.currentJumpHeight = 0;
+        };
+
+        this.y = nextY;
+    };
+
+    /*--------------------------*/
+
+    this.applyMovementXOld5 = function () { // the third non-bugged version with separating X-movement and Y-movement, intersection and sets, much better optimization
         let nextX = this.x + this.currentSpeedX;
 
         if (this.currentSpeedX !== 0) { // if we have any X-movement
@@ -136,7 +449,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.x = nextX;
     };
 
-    this.applyMovementY = function () { // the third non-bugged version with separating X-movement and Y-movement, intersection and sets, the best optimization at this point
+    this.applyMovementYOld5 = function () { // the third non-bugged version with separating X-movement and Y-movement, intersection and sets, much better optimization
         let nextY = this.y + this.downwardForce;
 
         if (this.downwardForce !== 0) { // if we have any Y-movement
@@ -361,7 +674,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
 
         this.y = nextY;
     };
-    
+
     /*--------------------------*/
 
     this.applyMovementXOld3 = function () { // the first non-bugged version with separating X-movement and Y-movement but without sets and intersection, not the best optimization
@@ -722,12 +1035,24 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         ctx.strokeStyle = 'rgb(234, 0, 255)';
         ctx.lineWidth = 1;
         ctx.strokeRect(drawAtX, this.y, this.width, this.height);
+    };
 
-        // ctx.strokeStyle = 'blue';
-        // ctx.strokeRect(drawAtX + 4, this.y, this.width, this.height);
-        // ctx.strokeRect(drawAtX - 4, this.y, this.width, this.height);
-        // ctx.strokeRect(drawAtX, this.y + 5, this.width, this.height);
-        // ctx.strokeRect(drawAtX, this.y - 5, this.width, this.height);
+    this.drawSpawnPosition = function () {
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'blue';
+        ctx.beginPath();
+        ctx.moveTo(playerDefaultSettings.x, 0);
+        ctx.lineTo(playerDefaultSettings.x, 480);
+        ctx.stroke();
+    };
+
+    this.drawPredictedWays = function (drawAtX) {
+        ctx.strokeStyle = 'green';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(drawAtX + this.width, this.y, playerDefaultSettings.currentSpeedXToTheRight - this.width, this.height); // ⇒
+        ctx.strokeRect(drawAtX - Math.abs(playerDefaultSettings.currentSpeedXToTheLeft) + this.width, this.y, Math.abs(playerDefaultSettings.currentSpeedXToTheLeft) - this.width, this.height); // ⇐
+        ctx.strokeRect(drawAtX, this.y + this.height, this.width, worldDefaultSettings.gravity - this.height); // ⇓
+        ctx.strokeRect(drawAtX, this.y - Math.abs(playerDefaultSettings.downwardForce) + this.height, this.width, Math.abs(playerDefaultSettings.downwardForce) - this.height); // ⇑
     };
 
     this.defineDirectionXForDrawing = function () {
@@ -752,7 +1077,9 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         else if (this.currentDirectionXForDrawing === 'left') { sprite = this.runningSpriteLeft };
 
         if (!game.finished) {
-            // this.drawHitbox(drawAtX);
+            this.drawHitbox(drawAtX);
+            this.drawSpawnPosition();
+            this.drawPredictedWays(drawAtX);
 
             if (this.findIfCharacterIsJumping() || this.isFalling()) {
                 sprite.drawFrame(4, drawAtX, this.y, this.width, this.height);

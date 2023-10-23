@@ -33,18 +33,18 @@ function Enemy(x, y, maxJumpHeight) {
 const enemies = {
     enemiesList: [
         // new Enemy(500, 100, 120),
-        new Enemy(1000, 100, 120),
-        new Enemy(1020, 100, 120),
-        new Enemy(1040, 100, 120),
-        new Enemy(1040, 100, 120),
-        new Enemy(1040, 100, 120),
-        new Enemy(1060, 100, 120),
-        new Enemy(2000, 100, 120),
-        new Enemy(3700, 100, 120),
-        new Enemy(4000, 100, 120),
-        new Enemy(5600, 100, 120),
-        new Enemy(6500, 100, 120),
-        new Enemy(7600, 100, 120)
+        // new Enemy(1000, 100, 120),
+        // new Enemy(1020, 100, 120),
+        // new Enemy(1040, 100, 120),
+        // new Enemy(1040, 100, 120),
+        // new Enemy(1040, 100, 120),
+        // new Enemy(1060, 100, 120),
+        // new Enemy(2000, 100, 120),
+        // new Enemy(3700, 100, 120),
+        // new Enemy(4000, 100, 120),
+        // new Enemy(5600, 100, 120),
+        // new Enemy(6500, 100, 120),
+        // new Enemy(7600, 100, 120)
     ],
 
     prepareEnemiesData: function () {

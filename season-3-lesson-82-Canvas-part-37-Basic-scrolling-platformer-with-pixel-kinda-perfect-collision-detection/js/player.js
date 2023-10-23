@@ -1,8 +1,8 @@
 const player = {
     character: new Character(
-        320, 100,
-        20, 20,
-        150,
+        playerDefaultSettings.x, playerDefaultSettings.y,
+        playerDefaultSettings.width, playerDefaultSettings.height,
+        playerDefaultSettings.maxJumpHeight,
         new Animation('./src/cat/cat', 5), new Animation('./src/cat/backwards/cat.backwards', 5)
     ),
 
@@ -21,12 +21,12 @@ const player = {
     },
 
     processControls: function () {
-        if (controls.isRightKeyDown) { this.character.currentSpeedX = 4 };
-        if (controls.isLeftKeyDown) { this.character.currentSpeedX = -4 };
+        if (controls.isRightKeyDown) { this.character.currentSpeedX = playerDefaultSettings.currentSpeedXToTheRight };
+        if (controls.isLeftKeyDown) { this.character.currentSpeedX = playerDefaultSettings.currentSpeedXToTheLeft };
         if ((controls.isRightKeyDown && controls.isLeftKeyDown) || (!controls.isLeftKeyDown && !controls.isRightKeyDown)) { this.character.currentSpeedX = 0 };
 
         if (controls.isUpKeyDown && this.character.findIfPlayerIsStandingOnAPlatform()) {
-            this.character.downwardForce = -5;
+            this.character.downwardForce = playerDefaultSettings.downwardForce;
             audio.playSound(audio.jumpSound);
         };
     },
