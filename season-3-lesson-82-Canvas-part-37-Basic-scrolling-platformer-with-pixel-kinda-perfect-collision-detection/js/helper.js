@@ -33,6 +33,22 @@ const helper = {
         return smallestElement;
     },
 
+    findTheBiggestElementInArrayOfNumbers: function (arr) {
+        let biggestElement = null;
+
+        if (arr.length > 0) {
+            for (let i = 0; i < arr.length; i++) {
+                if (!biggestElement) {
+                    biggestElement = arr[i];
+                } else if (arr[i] > biggestElement) {
+                    biggestElement = arr[i];
+                };
+            };
+        };
+
+        return biggestElement;
+    },
+
     getRandomColor: function () {
         let letters = '0123456789ABCDEF';
         let color = '#';

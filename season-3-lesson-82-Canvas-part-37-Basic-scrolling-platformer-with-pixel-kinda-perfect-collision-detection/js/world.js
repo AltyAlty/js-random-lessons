@@ -9,7 +9,7 @@ const world = {
     collisionMapWidth: 8000,
     collisionMapHeight: 480,
     worldGrid: [],
-    worldGridCellSize: 20,
+    worldGridCellSize: worldDefaultSettings.worldGridCellSizeForNormalSpeeds, // if you have a high speed, then the smaller the size is, the better the optimization is (for example 5)
 
     loadLevelImage: function () {
         this.levelImage = new Image();
@@ -30,6 +30,15 @@ const world = {
     },
 
     fillWorldGrid: function () { // method to get data about solid pixels by using sets in order to have better optimization
+        if (Math.abs(playerDefaultSettings.currentSpeedXToTheRight) > playerDefaultSettings.width ||
+            Math.abs(playerDefaultSettings.currentSpeedXToTheLeft) > playerDefaultSettings.width ||
+            Math.abs(playerDefaultSettings.downwardForce) > playerDefaultSettings.height ||
+            Math.abs(worldDefaultSettings.gravity) > playerDefaultSettings.height) {
+            this.worldGridCellSize = worldDefaultSettings.worldGridCellSizeForHighSpeeds;
+        } else {
+            this.worldGridCellSize = worldDefaultSettings.worldGridCellSizeForNormalSpeeds;
+        };
+
         let rows = this.collisionMapHeight / this.worldGridCellSize;
         let columns = this.collisionMapWidth / this.worldGridCellSize;
 
@@ -95,7 +104,6 @@ const world = {
     prepareWorldData: function () {
         if (!this.levelImage) { this.loadLevelImage() };
         if (!this.collisionMapCanvas2DContext) { this.loadCollisionMapCanvas2DContext() };
-        // this.distanceTravelledFromSpawnPoint += player.character.currentSpeedX;
         this.distanceTravelledFromSpawnPoint = player.character.x - playerDefaultSettings.x;
     },
 
