@@ -1,3 +1,5 @@
+/*#1*/
+
 document.addEventListener('blur', function (event) {
     // Validate the field
     const isValid = event.target.validity.valid;
