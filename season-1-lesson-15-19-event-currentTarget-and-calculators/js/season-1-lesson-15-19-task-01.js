@@ -14,7 +14,7 @@ var currentFirstNumber = '';
 var currentSecondNumber = '';
 var currentOperation = '';
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 function enterSomething(valueToEnter) {
     resultElement[0].innerText = resultElement[0].innerText + valueToEnter;
@@ -30,7 +30,7 @@ for (var i = 0; i < enterButtonElements.length; i++) {
     enterButtonElements[i].addEventListener('click', enterButtonListener);
 };
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 function doAfterChoosingOperation(operation) {
     if (currentFirstNumber === '' && resultElement[0].innerText != '') {
@@ -53,7 +53,7 @@ for (var i = 0; i < calcButtonOneElements.length; i++) {
     calcButtonOneElements[i].addEventListener('click', calcButtonOneListener);
 };
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 function resetNumbersAndOperation() {
     currentOperation = '';
@@ -67,11 +67,11 @@ function calculateSomething(operation) {
             if (resultElement[0].innerText[0] != '-') {
                 resultElement[0].innerText = '-' + resultElement[0].innerText;
             } else {
-                var content = resultElement[0].innerText; /*Строки в JS "immutable", поэтому мы не можем просто изменить их,
-                то есть нельзя сделать так "resultElement[0].innerText[0] = '123'", нам нужно переназначить измененную версию 
-                обратно в "innerHTML.innerText".*/
-                resultElement[0].innerText = content.substr(1) /*Метод substr() возвращает указанное количество символов из строки, 
-                начиная с указанной позиции.*/
+                var content = resultElement[0].innerText; /*Строки в JS "immutable", поэтому мы не можем просто изменить
+                их, то есть нельзя сделать так "resultElement[0].innerText[0] = '123'", нам нужно переназначить
+                измененную версию обратно в "innerHTML.innerText".*/
+                resultElement[0].innerText = content.substr(1) /*Метод substr() возвращает указанное количество
+                символов из строки, начиная с указанной позиции.*/
             };
             break;
         case 'C':
@@ -131,7 +131,7 @@ for (var i = 0; i < calcButtonTwoElements.length; i++) {
     calcButtonTwoElements[i].addEventListener('click', calcButtonTwoListener);
 };
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 var currentFirstNumberIsClass = 'first-number-is';
 var currentOperationIsClass = 'current-operation-is';

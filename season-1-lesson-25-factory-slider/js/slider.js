@@ -17,9 +17,9 @@ var sliderFactory = {
 
             getButtonPrev: function () {
                 var that = this;
-                this.buttonPrev = this.wholeSlider.querySelector(that.buttonPrevClass); /*А здесь мы уже вызываем "querySelector()"
-                относительно "wholeSlider", чтобы найти только те элементы с классом "button-prev", которые находятся
-                внутри этого элемента "wholeSlider".*/
+                this.buttonPrev = this.wholeSlider.querySelector(that.buttonPrevClass); /*А здесь мы уже вызываем
+                "querySelector()" относительно "wholeSlider", чтобы найти только те элементы с классом "button-prev",
+                которые находятся внутри этого элемента "wholeSlider".*/
             },
 
             getImage: function () {

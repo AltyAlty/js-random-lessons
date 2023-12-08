@@ -1,6 +1,6 @@
-<input value='First Name' class='firstNameEl' />
-<input value='Last Name' class='lastNameEl' />
-<input value='Email' class='emailEl' />
+<input value='First Name' class='firstNameEl'/>
+<input value='Last Name' class='lastNameEl'/>
+<input value='Email' class='emailEl'/>
 
 <select class='selectEl'>
     <option>moscow</option>
@@ -12,7 +12,7 @@
 
 <div class='divEl'>
     something inside
-    <img alt='nothing' src='somelink' class='imgEl' />
+    <img alt='nothing' src='somelink' class='imgEl'/>
 </div>
 
 <script>
@@ -41,15 +41,22 @@
     console.log('value of firstNameElElement is ' + firstNameElElement[0].value);
     console.log('value of lastNameElElement is ' + lastNameElElement[0].value);
     console.log('value of emailElElement is ' + emailElElement[0].value);
-    console.log('value of selectElElement is ' + selectElElement[0].value); /*Таким образом получаем значение выбранного HTML-элемента "option".*/
-    console.log('value of textareaElElement is ' + textareaElElement[0].value); /*Таким образом получаем текст внутри HTML-элемента "textarea".*/
-    console.log('value of divElElement is ' + divElElement[0].value); /*У HTML-элемента "div" никак не получить его "value". "value" есть только у элементов, 
-    с помощью которых пользователь может вводить какие-то данные (впечатывать, выбирать) в UI.*/
+    /*Таким образом получаем значение выбранного HTML-элемента "option".*/
+    console.log('value of selectElElement is ' + selectElElement[0].value);
+    /*Таким образом получаем текст внутри HTML-элемента "textarea".*/
+    console.log('value of textareaElElement is ' + textareaElElement[0].value);
+    /*У HTML-элемента "div" никак не получить его "value". "value" есть только у элементов, с помощью которых
+    пользователь может вводить какие-то данные (впечатывать, выбирать) в UI.*/
+    console.log('value of divElElement is ' + divElElement[0].value);
 
-    console.log('innerHTML of divElElement is ' + divElElement[0].innerHTML); /*А вот так "innerHTML" можно получить у HTML-элемента "div".*/
+    /*А вот так "innerHTML" можно получить у HTML-элемента "div".*/
+    console.log('innerHTML of divElElement is ' + divElElement[0].innerHTML);
     console.log('innerHTML of selectElElement is ' + selectElElement[0].innerHTML);
-    console.log('innerHTML of textareaElElement is ' + textareaElElement[0].innerHTML); /*Текст внутри HTML-элемента "textarea" еще можно получить при помощи "innerHTML".*/
+    /*Текст внутри HTML-элемента "textarea" еще можно получить при помощи "innerHTML".*/
+    console.log('innerHTML of textareaElElement is ' + textareaElElement[0].innerHTML);
 
-    console.log('src of imgElElement is ' + imgElElement[0].getAttribute('src')); /*Получаем таким образом значение атрибута "src" HTML-элемента "img".*/
-    console.log('alt of imgElElement is ' + imgElElement[0].getAttribute('alt')); /*Получаем таким образом значение атрибута "alt" HTML-элемента "img".*/
+    /*Получаем таким образом значение атрибута "src" HTML-элемента "img".*/
+    console.log('src of imgElElement is ' + imgElElement[0].getAttribute('src'));
+    /*Получаем таким образом значение атрибута "alt" HTML-элемента "img".*/
+    console.log('alt of imgElElement is ' + imgElElement[0].getAttribute('alt'));
 </script>

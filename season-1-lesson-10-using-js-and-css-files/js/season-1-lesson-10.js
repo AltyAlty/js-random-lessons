@@ -14,31 +14,33 @@ var formElement = document.getElementsByClassName(formClass);
 var magicElement = document.getElementsByClassName(magicClass);
 
 magicElement[0].onclick = function () {
-    /*Создаем функцию, которую будем использовать для отключения стандартного поведения
-    HTML-элемента "form", когда при потверждении данных формы обновляется страница.*/
+    /*Создаем функцию, которую будем использовать для отключения стандартного поведения HTML-элемента "form", когда при
+    потверждении данных формы обновляется страница.*/
     function stopDefualtBehavior(event) {
         event.preventDefault();
     };
 
-    /*Таким образом указываем, что при срабатывании события "onClick" в нашей форме будет срабатывать
-    функция "stopDefualtBehavior".*/
+    /*Таким образом указываем, что при срабатывании события "onClick" в нашей форме будет срабатывать функция
+    "stopDefualtBehavior()".*/
     formElement[0].addEventListener(
         'click', stopDefualtBehavior, false
     );
 
     /*Попробуем изменить атрибут "value" у "firstElement".*/
-    /*Изменяем атрибут "value" при помощи ".value". Такая запись не изменяет то, что выводится в инспекторе в браузере, но изменяет то, что
-    выводится в окне браузера.*/
+    /*Изменяем атрибут "value" при помощи ".value". Такая запись не изменяет то, что выводится в инспекторе в браузере,
+    но изменяет то, что выводится в окне браузера.*/
     firstElement[0].value = 'kek';
 
-    /*Изменяем атрибут "value" при помощи "setAttribute()". Такая запись изменяет и то, что выводится в инспекторе в браузере, и то, что
-    выводится в окне браузера. Но если мы уже меняли атрибут при помощи "value", то при использовании "setAttribute()" изменится только
-    то, что выводится в инспекторе в браузере, а то, что выводится в окне браузера не изменится, так как "setAttribute()" работает непоследовательно.*/
+    /*Изменяем атрибут "value" при помощи "setAttribute()". Такая запись изменяет и то, что выводится в инспекторе в
+    браузере, и то, что выводится в окне браузера. Но если мы уже меняли атрибут при помощи "value", то при
+    использовании "setAttribute()" изменится только то, что выводится в инспекторе в браузере, а то, что выводится в
+    окне браузера не изменится, так как "setAttribute()" работает непоследовательно.*/
     firstElement[0].setAttribute('value', 'lol');
 
-    console.log('value from ".value" is ' + firstElement[0].value); /*Выведет "kek".*/
-    console.log('value from "getAttribute()" is ' + firstElement[0].getAttribute('value')); /*Выведет "lol". В итоге в окне браузера будет "kek", 
-        а в инспекторе браузера будет "lol".*/
+    /*Выведет "kek".*/
+    console.log('value from ".value" is ' + firstElement[0].value);
+    /*Выведет "lol". В итоге в окне браузера будет "kek", а в инспекторе браузера будет "lol".*/
+    console.log('value from "getAttribute()" is ' + firstElement[0].getAttribute('value'));
 
     /*Меняем атрибут "class" у "firstElement".*/
     firstElement[0].className = secondClass;
@@ -48,7 +50,8 @@ magicElement[0].onclick = function () {
 
     selectElement[0].value = 'moscow';
 
-    setTimeout(function () { /*Таким образом указали, что код внутри сработает через секунду после работы остального кода.*/
+    setTimeout(function () { /*Таким образом указали, что код внутри сработает через секунду после работы
+    остального кода.*/
         selectElement[0].value = 'london'; /*Если указать то, чего нет среди ни одного HTML-элемента "option" внутри
         HTML-элемента "select", то будет пустое поле.*/
     }, 1000);

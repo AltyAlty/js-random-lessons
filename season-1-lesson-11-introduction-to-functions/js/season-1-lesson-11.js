@@ -5,8 +5,8 @@ var magicElement = document.getElementsByClassName(magicClass);
 magicElement[0].onclick = function () {
     debugger; /*Когда выполнение программы доходит до дебаггера, то приостанавливается работы программы.*/
 
-    function logSomething(info) { /*Это функция. Код внутри будет выполнен только когда функция 
-        будет где-то вызвана.*/
+    function logSomething(info) { /*Это функция. Код внутри будет выполнен только когда функция будет где-то
+    вызвана.*/
         console.log(info);
     };
 

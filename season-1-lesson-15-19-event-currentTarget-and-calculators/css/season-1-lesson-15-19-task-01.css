@@ -4,7 +4,7 @@
     border-radius: 5px;
     margin: 0 auto;
     margin-top: 50px;
-    background-color:rgb(188, 188, 240);
+    background-color: rgb(188, 188, 240);
 }
 
 .operations-one {
@@ -13,7 +13,7 @@
     margin-right: auto;
     width: 33%;
     margin-top: 5px;
-    margin-bottom: 5px;    
+    margin-bottom: 5px;
 }
 
 .operations-two {
@@ -22,7 +22,7 @@
     margin-right: auto;
     width: 33%;
     margin-top: 5px;
-    margin-bottom: 5px;    
+    margin-bottom: 5px;
 }
 
 .numbers {
@@ -31,7 +31,7 @@
     margin-right: auto;
     width: 42%;
     margin-top: 5px;
-    margin-bottom: 5px;   
+    margin-bottom: 5px;
 }
 
 .whole-calculater .operations-one button,
@@ -53,17 +53,17 @@
     margin-top: 20px;
 }
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 .show-info {
     display: block;
     margin-left: auto;
-    margin-right: auto;    
+    margin-right: auto;
     margin-top: 5px;
-    margin-bottom: 5px;        
+    margin-bottom: 5px;
 }
 
-.show-info-divs {  
+.show-info-divs {
     height: 19px;
-    text-align: center;  
+    text-align: center;
 }
