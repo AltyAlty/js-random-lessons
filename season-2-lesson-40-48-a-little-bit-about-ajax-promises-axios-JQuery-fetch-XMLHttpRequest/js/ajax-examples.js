@@ -52,10 +52,9 @@ putSomethingWithAxios();
 deleteSomethingWithAxios();
 patchSomethingWithAxios();
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
-/*Еще одна версия запросов POST, PUT, DELETE и PATCH, созданных при помощи "axios".
-Более "низкоуровневая".*/
+/*Еще одна версия запросов POST, PUT, DELETE и PATCH, созданных при помощи "axios". Более "низкоуровневая".*/
 function postSomethingWithAxiosTwo() {
     const promise = axios({
         method: 'post',
@@ -124,10 +123,10 @@ putSomethingWithAxiosTwo();
 deleteSomethingWithAxiosTwo();
 patchSomethingWithAxiosTwo();
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
-/*Запросы POST, PUT, DELETE и PATCH, созданные при помощи "JQuery". Способом, указанным
-здесь, можно сделать только POST-запрос.*/
+/*Запросы POST, PUT, DELETE и PATCH, созданные при помощи "JQuery". Способом, указанным здесь, можно сделать только
+POST-запрос.*/
 function postSomethingWithJQuery() {
     const promise = $.post(`https://jsonplaceholder.typicode.com/posts`, {
         title: 'kek',
@@ -178,10 +177,9 @@ function postSomethingWithJQuery() {
 
 postSomethingWithJQuery();
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
-/*Еще одна версия запросов POST, PUT, DELETE и PATCH, созданных при помощи "JQuery".
-Более "низкоуровневая".*/
+/*Еще одна версия запросов POST, PUT, DELETE и PATCH, созданных при помощи "JQuery". Более "низкоуровневая".*/
 function postSomethingWithJQueryTwo() {
     const promise = $.ajax({
         url: `https://jsonplaceholder.typicode.com/posts`,
@@ -250,7 +248,7 @@ putSomethingWithJQueryTwo();
 deleteSomethingWithJQueryTwo();
 patchSomethingWithJQueryTwo();
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Запросы POST, PUT, DELETE и PATCH, созданные при помощи метода "fetch()".*/
 async function postSomethingWithFetch() {
@@ -326,7 +324,7 @@ putSomethingWithFetch();
 deleteSomethingWithFetch();
 patchSomethingWithFetch();
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Запросы POST, PUT, DELETE и PATCH, созданные при помощи конструктора "XMLHttpRequest".*/
 function postSomethingWithXMLHttpRequest() {

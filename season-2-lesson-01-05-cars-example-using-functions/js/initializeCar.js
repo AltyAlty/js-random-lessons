@@ -2,8 +2,8 @@
 function initializeCar(carID) {
     /*Создаем внутри функцию, которая будет отрисовывать HTML-разметку для каждой машины.*/
     function renderCar() {
-        var car = document.getElementById(carID); /*Находим элемент с указаным идентификатором 
-        в HTML-разметке.*/
+        var car = document.getElementById(carID); /*Находим элемент с указаным идентификатором в
+        HTML-разметке.*/
 
         /*Добавляем в "innerHTML" найденного элемента HTML-разметку для машины.*/
         car.innerHTML = `
@@ -25,20 +25,23 @@ function initializeCar(carID) {
     /*Вызываем функцию, которая будет отрисовывать HTML-разметку для каждой машины.*/
     renderCar();
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     var startCarID = "[data-role='start-car']";
     var carStatusID = "[data-role='car-status']";
     var gearBoxValueID = "[data-role='gear-box-value']";
 
-    var startCarElements = document.getElementById(carID).querySelectorAll(startCarID); /*Кнопки запуска машин.*/
-    var carStatusElements = document.getElementById(carID).querySelectorAll(carStatusID); /*Статусы машины.*/
-    var gearBoxValueElements = document.getElementById(carID).querySelectorAll(gearBoxValueID); /*Коробки передач машин.*/
+    /*Кнопки запуска машин.*/
+    var startCarElements = document.getElementById(carID).querySelectorAll(startCarID);
+    /*Статусы машины.*/
+    var carStatusElements = document.getElementById(carID).querySelectorAll(carStatusID);
+    /*Коробки передач машин.*/
+    var gearBoxValueElements = document.getElementById(carID).querySelectorAll(gearBoxValueID);
 
-    var gearBoxInterval; /*Специальная переменная, которая будет хранить функцию "setInterval()",
-    чтобы мы имели возможность выключить ее в нужный для нас момент.*/
+    var gearBoxInterval; /*Специальная переменная, которая будет хранить функцию "setInterval()", чтобы мы имели
+    возможность выключить ее в нужный для нас момент.*/
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     /*Функция, которая будет вызываться при попытке завести машину.*/
     function carStartListener() {
@@ -48,11 +51,11 @@ function initializeCar(carID) {
             startCar();
         } else {
             failToStartCar()
-        }; /*Если наше псевдо-случайное число "randomNumber" больше 0.5, то машина заводится, 
-        если меньше 0.5, то машина не заводится.*/
+        }; /*Если наше псевдо-случайное число "randomNumber" больше 0.5, то машина заводится, если меньше 0.5, то
+        машина не заводится.*/
     };
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     /*Функция, которая вызывается, чтобы показать, что машина завелась.*/
     function startCar() {
@@ -60,9 +63,8 @@ function initializeCar(carID) {
 
         processElementsInArray(startCarElements, function (arrayElement) {
             arrayElement.classList.add('hide');
-        }); /*Скрываем кнопку старта машины после ее запуска. Здесь мы при помощи нашей 
-        вспомогательной функции "processElementsInArray()" для всех элементов массива 
-        "startCarElements" добавляем класс "hide".*/
+        }); /*Скрываем кнопку старта машины после ее запуска. Здесь мы при помощи нашей вспомогательной функции
+        "processElementsInArray()" для всех элементов массива "startCarElements" добавляем класс "hide".*/
 
         startGearBox(); /*Включаем коробку передач.*/
 
@@ -75,29 +77,27 @@ function initializeCar(carID) {
 
         processElementsInArray(gearBoxValueElements, function (arrayElement) {
             arrayElement.innerHTML = currentGearBoxValue;
-        }); /*Указываем начальное значение коробки передач для каждой машины. Здесь мы при помощи 
-        нашей вспомогательной функции "processElementsInArray()" для всех элементов массива 
-        "gearBoxValueElements" указываем "innerHTML".*/
+        }); /*Указываем начальное значение коробки передач для каждой машины. Здесь мы при помощи нашей вспомогательной
+        функции "processElementsInArray()" для всех элементов массива "gearBoxValueElements" указываем "innerHTML".*/
 
         /*Внутри создаем специальную функцию, которая будет увеличивать значение коробки передач.*/
         function increasGearBoxValue() {
             if (currentGearBoxValue < 5) {
-                currentGearBoxValue++; /*Если значение коробки передачи не 5 или больше, то 
-                увеличиваем на это значение на 1.*/
+                currentGearBoxValue++; /*Если значение коробки передачи не 5 или больше, то увеличиваем на это значение
+                на 1.*/
 
-                /*Указываем увеличенное на 1 значение коробки передач для каждой машины. Здесь 
-                мы при помощи нашей вспомогательной функции "processElementsInArray()" для всех 
-                элементов массива "gearBoxValueElements" указываем "innerHTML".*/
+                /*Указываем увеличенное на 1 значение коробки передач для каждой машины. Здесь мы при помощи нашей
+                вспомогательной функции "processElementsInArray()" для всех элементов массива "gearBoxValueElements"
+                указываем "innerHTML".*/
                 processElementsInArray(gearBoxValueElements, function (arrayElement) {
                     arrayElement.innerHTML = currentGearBoxValue;
                 });
             };
         };
 
-        gearBoxInterval = window.setInterval(increasGearBoxValue, 1000); /*Вызываем каждую 
-        секунду после запуска машины нашу функцию "increasGearBoxValue". Сохранили в переменную 
-        "gearBoxInterval" эту функцию "setInterval()", чтобы можно было ее выключить в нужный 
-        для нас момент.*/
+        gearBoxInterval = window.setInterval(increasGearBoxValue, 1000); /*Вызываем каждую секунду после запуска
+        машины нашу функцию "increasGearBoxValue". Сохранили в переменную "gearBoxInterval" эту функцию "setInterval()",
+        чтобы можно было ее выключить в нужный для нас момент.*/
     };
 
     /*Функция, которая вызывается, чтобы сломать двигатель машины.*/
@@ -108,48 +108,47 @@ function initializeCar(carID) {
 
             processElementsInArray(startCarElements, function (arrayElement) {
                 arrayElement.classList.remove('hide');
-            }); /*Показываем кнопку старта машины. Здесь мы при помощи нашей 
-            вспомогательной функции "processElementsInArray()" для всех элементов 
-            массива "startCarElements" убираем класс "hide".*/
+            }); /*Показываем кнопку старта машины. Здесь мы при помощи нашей вспомогательной функции
+            "processElementsInArray()" для всех элементов массива "startCarElements" убираем класс "hide".*/
 
-            window.clearInterval(gearBoxInterval); /*Очищаем наш "gearBoxInterval", чтобы 
-            значение коробки передач перестало увеличиваться.*/
+            window.clearInterval(gearBoxInterval); /*Очищаем наш "gearBoxInterval", чтобы значение коробки передач
+            перестало увеличиваться.*/
 
             processElementsInArray(gearBoxValueElements, function (arrayElement) {
                 arrayElement.innerHTML = 'N';
-            }); /*Сбрасываем на "N" значение коробки передач для каждой машины. Здесь мы при 
-            помощи нашей вспомогательной функции "processElementsInArray()" для всех 
-            элементов массива "gearBoxValueElements" указываем "innerHTML".*/
+            }); /*Сбрасываем на "N" значение коробки передач для каждой машины. Здесь мы при помощи нашей
+            вспомогательной функции "processElementsInArray()" для всех элементов массива "gearBoxValueElements"
+            указываем "innerHTML".*/
         };
 
-        window.setTimeout(breakEngine, 2000); /*Указываем, чтобы двигатель машины сломался 
-        через 2 секунды после того, как она завелась.*/
+        window.setTimeout(breakEngine, 2000); /*Указываем, чтобы двигатель машины сломался через 2 секунды после
+        того, как она завелась.*/
 
         showCarStatus('Engine breakdown in 2.. 1..'); /*Это выведется вторым.*/
     };
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     /*Функция, которая вызывается, чтобы показать, что машина не завелась.*/
     function failToStartCar() {
         showCarStatus('Car has not started');
     };
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
-    /*Функция, которая будет вызываться, чтобы показать статус каждой нашей машины. Здесь мы
-    при помощи нашей вспомогательной функции "processElementsInArray()" для всех элементов 
-    массива "carStatusElements" указываем "innerHTML".*/
+    /*Функция, которая будет вызываться, чтобы показать статус каждой нашей машины. Здесь мы при помощи нашей
+    вспомогательной функции "processElementsInArray()" для всех элементов массива "carStatusElements" указываем
+    "innerHTML".*/
     function showCarStatus(status) {
         processElementsInArray(carStatusElements, function (arrayElement) {
             arrayElement.innerHTML = status;
         });
     };
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
-    /*Написали вспомогательную функцию, которая будет пробегаться по элементам любого массива 
-    и применять к каждому элементу какую-то функцию, которую мы укажем вторым параметром.*/
+    /*Написали вспомогательную функцию, которая будет пробегаться по элементам любого массива и применять к каждому
+    элементу какую-то функцию, которую мы укажем вторым параметром.*/
     function processElementsInArray(array, process) {
         for (var i = 0; i < array.length; i++) {
             var arrayElement = array[i];
@@ -157,11 +156,10 @@ function initializeCar(carID) {
         };
     };
 
-    /*--------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
-    /*При помощи нашей вспомогательной функции "processElementsInArray()" подписываем на событие 
-    "click" все элементы массива "startCarElements", то есть каждую машину теперь можно попытаться
-    завести, нажав на кнопку запуска машины.*/
+    /*При помощи нашей вспомогательной функции "processElementsInArray()" подписываем на событие "click" все элементы
+    массива "startCarElements", то есть каждую машину теперь можно попытаться завести, нажав на кнопку запуска машины.*/
     processElementsInArray(startCarElements, function (arrayElement) {
         arrayElement.addEventListener('click', carStartListener);
     });

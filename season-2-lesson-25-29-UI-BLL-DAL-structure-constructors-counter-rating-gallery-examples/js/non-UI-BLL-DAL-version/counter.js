@@ -5,7 +5,7 @@ bindCounterWidgetToClickEvent(counterWidgetElement, counteValueElement);
 
 restoreCounterValueFromLocalStorage(counteValueElement);
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 function findCounterWidgetElement() {
     let counterWidget = document.querySelector('.js-counter');

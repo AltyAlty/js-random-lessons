@@ -1,23 +1,24 @@
-.widgets {    
+.widgets {
     margin: auto; /*Центрируем элемент "div".*/
 
-    text-align: center; /*"inline-block" элементы "div" можно центрировать, 
-    применив "text-align: center" к их родительскому элементу.*/
+    text-align: center;
+    /*"inline-block" элементы "div" можно центрировать, применив "text-align: center" к их родительскому элементу.*/
 
     border: black 1px solid;
     width: 320px;
 }
 
 .widget {
-    display: inline-block; /*Делаем эти элементы "inline-block", чтобы центрировать их, 
-    применив "text-align: center" к их родительскому элементу (то есть к ".widgets").*/
-    
-    border: black 1px solid;    
+    display: inline-block;
+    /*Делаем эти элементы "inline-block", чтобы центрировать их, применив "text-align: center" к их родительскому
+    элементу (то есть к ".widgets").*/
+
+    border: black 1px solid;
     width: 300px;
     margin-bottom: 10px;
     margin-top: 10px;
 
-    text-align: center;   
+    text-align: center;
 }
 
 .stars img {

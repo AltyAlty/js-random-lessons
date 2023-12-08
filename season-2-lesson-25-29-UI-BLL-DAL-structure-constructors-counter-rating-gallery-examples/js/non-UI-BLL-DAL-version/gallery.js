@@ -8,7 +8,7 @@ bindInputToEnterKeyUpEvent(photoURLInputElement, photoContainerElement, photosUR
 
 restorePhotosFromLocalStorage(photoContainerElement, photosURL);
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 function findPhotoURLInputElement() {
     return document.querySelector('.js-new-photo-url');

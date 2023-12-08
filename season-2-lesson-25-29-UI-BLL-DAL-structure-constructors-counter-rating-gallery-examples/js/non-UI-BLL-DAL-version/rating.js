@@ -4,7 +4,7 @@ bindStarsToClickEvent(starsElements);
 
 restoreRatingValueFromLocalStorage(starsElements);
 
-/*--------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 function findStarsElements() {
     let stars = document.querySelectorAll('.js-stars img');
