@@ -17,5 +17,3 @@ function specifyBallCountOption(el) {
 
     document.getElementsByClassName('input-one')[0].innerHTML = game.ballCountOption;
 };
-
-/*-------------------------------------------------------------------------------------------------------------*/

@@ -1,5 +1,5 @@
-body {    
-    image-rendering: pixelated; 
+body {
+    image-rendering: pixelated;
 }
 
 .background-one {
@@ -12,7 +12,7 @@ body {
     background-size: cover;
 }
 
-.randomizer {    
+.randomizer {
     margin-top: 400px;
     text-align: center;
 }
@@ -25,19 +25,19 @@ body {
 .roll {
     margin-top: 3px;
     margin-bottom: 3px;
-    border: 3px solid rgb(124, 124, 124); 
+    border: 3px solid rgb(124, 124, 124);
     background-color: rgb(43, 43, 43);
     border-radius: 6px;
     width: 206px;
     height: 40px;
     font-size: 20px;
     font-family: Georgia, serif;
-    color:rgb(212, 212, 212)
+    color: rgb(212, 212, 212)
 }
 
 .roll:disabled,
-.roll[disabled]{
-    border: 3px solid rgb(43, 43, 43); 
+.roll[disabled] {
+    border: 3px solid rgb(43, 43, 43);
     background-color: rgb(29, 29, 29);
     color: rgb(29, 29, 29);
 }
@@ -81,25 +81,25 @@ body {
 }
 
 .winner-five {
-    border: 3px solid greenyellow;    
+    border: 3px solid greenyellow;
 }
 
 .play-background-music {
-    margin-top: 5px;    
-    border: 2px solid rgb(124, 124, 124); 
+    margin-top: 5px;
+    border: 2px solid rgb(124, 124, 124);
     background-color: rgb(43, 43, 43);
-    border-radius: 6px;    
+    border-radius: 6px;
     font-size: 20px;
     font-family: Georgia, serif;
-    color:rgb(212, 212, 212)
+    color: rgb(212, 212, 212)
 }
 
 .play-background-music:active,
-.play-background-music[active] {    
-    border: 2px solid rgb(104, 104, 104); 
+.play-background-music[active] {
+    border: 2px solid rgb(104, 104, 104);
     background-color: rgb(32, 32, 32);
-    border-radius: 6px;    
+    border-radius: 6px;
     font-size: 20px;
     font-family: Georgia, serif;
-    color:rgb(179, 179, 179)
+    color: rgb(179, 179, 179)
 }

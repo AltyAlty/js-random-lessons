@@ -18,7 +18,8 @@ class MenuComponent {
         let menuItems = this._element.querySelectorAll('.menu-item');
 
         menuItems.forEach((item) => item.addEventListener('click', (e) => {
-            e.preventDefault(); // Отключаем станадартное поведение HTML-элемента "a", когда происходит изменение адреса.
+            e.preventDefault(); /* Отключаем станадартное поведение HTML-элемента "a", когда происходит изменение
+            адреса.*/
             this._showPage(e.currentTarget.getAttribute('href'));
         }));
     }

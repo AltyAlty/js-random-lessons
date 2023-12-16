@@ -1,7 +1,7 @@
 const canvas = document.getElementsByClassName('canvas-one')[0];
 const ctx = canvas.getContext('2d');
 
-/*-------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Создаем изображение и отрисовываем его при загрузке на нашем холсте.*/
 const img = new Image();
@@ -14,8 +14,7 @@ img.addEventListener('load', () => {
     img.style.display = 'none';
 });
 
-/*Получаем доступ к двум элементам "div", который будут отображать данные пикселя, на который будет указывать
-курсор.*/
+/*Получаем доступ к двум элементам "div", который будут отображать данные пикселя, на который будет указывать курсор.*/
 const hoveredColor = document.getElementsByClassName('hovered-color')[0];
 const selectedColor = document.getElementsByClassName('selected-color')[0];
 

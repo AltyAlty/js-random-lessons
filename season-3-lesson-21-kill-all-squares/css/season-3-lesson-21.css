@@ -1,6 +1,6 @@
 body {
     background-color: antiquewhite;
-    text-align: center;    
+    text-align: center;
 }
 
 .theGame {
@@ -9,7 +9,7 @@ body {
     width: 50%;
     font-size: 50px;
     font-family: Georgia, serif;
-    text-align: center;    
+    text-align: center;
 }
 
 button {
@@ -22,7 +22,7 @@ button {
     font-size: 20px;
 }
 
-.basket {   
+.basket {
     width: 1180px;
     height: 85px;
     border: 2px solid black;
@@ -34,27 +34,27 @@ button {
 
 .square {
     width: 70px;
-    height: 70px;    
+    height: 70px;
     margin: 5px;
     display: inline-block;
 }
 
-.yellow {    
+.yellow {
     background-color: rgb(228, 213, 6);
     border: 2px solid black;
 }
 
-.blue {    
+.blue {
     background-color: rgb(83, 46, 219);
     border: 2px solid rgb(228, 213, 6);
 }
 
-.green {    
+.green {
     background-color: chartreuse;
     border: 2px solid rgb(83, 46, 219);
 }
 
-.red {    
+.red {
     background-color: rgb(255, 72, 0);
     border: 2px solid chartreuse;
 }
