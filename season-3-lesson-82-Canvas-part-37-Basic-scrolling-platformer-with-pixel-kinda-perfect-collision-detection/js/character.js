@@ -389,7 +389,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.applyMovementXOld6 = function () { // the fourth more non-bugged version with separating X-movement and Y-movement, intersection and sets, this version allows movement on speeds greater than the character's width (still bugged), the same optimization
         let nextX = this.x + this.currentSpeedX;
@@ -665,7 +665,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.applyMovementXOld5 = function () { // the third non-bugged version with separating X-movement and Y-movement, intersection and sets, much better optimization
         let nextX = this.x + this.currentSpeedX;
@@ -833,7 +833,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.applyMovementXOld4 = function () { // the second non-bugged version with separating X-movement and Y-movement and intersection but without sets, slightly better optimization
         let nextX = this.x + this.currentSpeedX;
@@ -975,7 +975,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.applyMovementXOld3 = function () { // the first non-bugged version with separating X-movement and Y-movement but without sets and intersection, not the best optimization
         let nextX = this.x + this.currentSpeedX;
@@ -1081,13 +1081,13 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.applyMovementOld2 = function () { // the second unfinished bugged version without sets, intersection and separating X-movement and Y-movement
         let nextX = this.x + this.currentSpeedX;
         let nextY = this.y + this.downwardForce;
 
-        /*------------------------------------------------------*/
+        /*------------------------------------------------------------------------------------------------------------*/
 
         if (this.currentDirectionX === 'right' && this.currentDirectionY === 'noYdirection') { // ⇒
             let solidDot = null;
@@ -1188,7 +1188,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
             };
         };
 
-        /*------------------------------------------------------*/
+        /*------------------------------------------------------------------------------------------------------------*/
 
         // if (this.findIfCharacterIsJumping()) {
         //     let solidDot = null;
@@ -1204,7 +1204,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.applyGravityOld1 = function () { // gravity for the first unfinished bugged version
         if (this.findIfCharacterIsJumping()) {
@@ -1300,7 +1300,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.y = nextY;
     };
 
-    /*--------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.findIfCharacterIsJumping = function () { return this.downwardForce < 0 };
     this.isFalling = function () { return this.downwardForce > 0 };
