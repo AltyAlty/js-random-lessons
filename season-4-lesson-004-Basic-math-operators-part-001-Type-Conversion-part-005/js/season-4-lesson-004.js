@@ -33,7 +33,7 @@ console.log('--------------------------------------');
 
 let d = 1;
 console.log(d += 1); // 2
-console.log(d = + 1); // 1, здесь унарный "+"
+console.log(d = +1); // 1, здесь унарный "+"
 console.log(d /= 2); // 0.5
 console.log(d **= 2); // 0.25
 
