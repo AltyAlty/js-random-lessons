@@ -55,7 +55,6 @@ for (const key in obj2) {
     console.log(key);
     console.log(obj2[key]);
 }
-;
 
 /*А вот "Object.assign()", в отличие от цикла for..in, копирует и строковые, и символьные свойства.*/
 
