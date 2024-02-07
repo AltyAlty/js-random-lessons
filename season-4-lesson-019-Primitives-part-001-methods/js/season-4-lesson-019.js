@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
@@ -57,20 +57,15 @@ console.log('abc'.a); // undefined
 let string1 = 'abc';
 console.log(string1.a); // undefined
 
-string1.a = 10;
+// string1.a = 10;
+console.log(string1.a); // undefined
 
 /*Свойство будет добавляться к объекту-обертке, а не к самому примитиву. В нестрогом режиме будет undefined, иначе 
 ошибка: can't assign to property "a" on "abc": not an object. Так происходит поскольку строгий режим запрещает менять
 встроенные объекты-обертки. В итоге можно сказать, что примитивы это все-таки не объекты.*/
-// console.log(string1.a);
-// String.a;
-// Number.a;
-// Boolean.a;
-// Symbol.a;
-// BigInt.a;
 
-/*Хотя используя new в нестрогом режиме можно указать свойство примитиву, так как он будет считаться объектом.*/
+/*Хотя используя new можно указать свойство примитиву, так как он будет считаться объектом.*/
 let string2 = new String('abc');
 console.log(typeof string2); // object
 string2.a = 10;
-// console.log(string2.a); // 10
+console.log(string2.a); // 10
