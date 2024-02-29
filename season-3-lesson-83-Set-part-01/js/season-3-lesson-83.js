@@ -1,8 +1,3 @@
-const canvas = document.getElementsByClassName('canvas-one')[0];
-const ctx = canvas.getContext('2d');
-
-/*-------------------------------------------------------------------------------------------------------------------*/
-
 let hashSet = new Set();
 
 hashSet.add('Миша');
