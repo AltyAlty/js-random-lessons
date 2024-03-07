@@ -35,7 +35,7 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Map может использовать объекты в качестве ключей.*/
-let obj1 = { a: 1 };
+let obj1 = {a: 1};
 let map2 = new Map();
 map2.set(obj1, 2);
 console.log(map2.get(obj1)); // 2
@@ -86,15 +86,15 @@ console.log(map4); // Map(3) { a → 1, b → 2, c → 3 }
 
 for (const k of map4.keys()) {
     console.log(k); // 'a' => 'b' => 'c'
-};
+}
 
 for (const v of map4.values()) {
     console.log(v); // 1 => 2 => 3
-};
+}
 
 for (const e of map4.entries()) {
     console.log(e); // Array [ "a", 1 ] => Array [ "b", 2 ] => Array [ "c", 3 ]
-};
+}
 
 console.log('--------------------------------------');
 
@@ -119,7 +119,7 @@ console.log('--------------------------------------');
 
 /*Чтобы из обычного объекта получить Map, можно использовать метод "Object.entries()". Метод "Object.entries()" 
 возвращает массив массивов пар ключ-значение.*/
-let obj2 = { a: 1, b: 2, c: 3 };
+let obj2 = {a: 1, b: 2, c: 3};
 console.log(Object.entries(obj2));
 let map6 = new Map(Object.entries(obj2));
 console.log(map6); // Map(3) { a → 1, b → 2, c → 3 }
@@ -171,9 +171,9 @@ Set лучше оптимизировано для добавлений, оно 
 5) "set.clear()" – удаляет все имеющиеся значения.
 6) "set.size" – возвращает количество элементов в множестве.*/
 let set1 = new Set();
-let obj6 = { a: 1 };
-let obj7 = { b: 2 };
-let obj8 = { c: 3 };
+let obj6 = {a: 1};
+let obj7 = {b: 2};
+let obj8 = {c: 3};
 set1.add(obj6);
 set1.add(obj7);
 set1.add(obj8);
@@ -184,7 +184,7 @@ console.log(set1); // Set(3) [ {…}, {…}, {…} ]
 
 for (const value of set1) {
     console.log(value); // { a: 1 } => { b: 2 } => { c: 3 }
-};
+}
 
 console.log('--------------------------------------');
 
@@ -222,12 +222,12 @@ let set3 = new Set([
 
 for (const v of set3.values()) {
     console.log(v); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
-};
+}
 
 for (const k of set3.keys()) {
     console.log(k); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
-};
+}
 
 for (const e of set3.entries()) {
     console.log(e); // Array [ [ "a", 1 ] [ "a", 1 ] ] => Array [ [ "b", 2 ] [ "b", 2 ] ] => Array [ [ "c", 3 ] [ "c", 3 ] ]
-};
+}

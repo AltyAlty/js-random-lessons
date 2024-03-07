@@ -28,17 +28,17 @@ obj1[Symbol.iterator] = function () {
 
         next() {
             if (this.current <= this.last) {
-                return { done: false, value: this.current++ };
+                return {done: false, value: this.current++};
             } else {
-                return { done: true };
-            };
+                return {done: true};
+            }
         }
     };
 };
 
 for (const num of obj1) {
     console.log(num); // 1 => 2 => 3 => 4
-};
+}
 
 console.log('--------------------------------------');
 
@@ -58,10 +58,10 @@ let obj2 = {
 
             next() {
                 if (this.current <= this.last) {
-                    return { done: false, value: this.current++ };
+                    return {done: false, value: this.current++};
                 } else {
-                    return { done: true };
-                };
+                    return {done: true};
+                }
             }
         };
     }
@@ -72,8 +72,8 @@ for (const num of obj2) {
 
     for (const num of obj2) {
         console.log(`inner ${num}`); // 5 => 6 => 7 => 8
-    };
-};
+    }
+}
 
 console.log('--------------------------------------');
 
@@ -96,7 +96,7 @@ while (true) {
     console.log(result);
 
     if (result.done) break;
-};
+}
 
 console.log('--------------------------------------');
 
@@ -141,10 +141,10 @@ obj5[Symbol.iterator] = function () {
 
         next() {
             if (this.current <= this.last) {
-                return { done: false, value: this.current++ };
+                return {done: false, value: this.current++};
             } else {
-                return { done: true };
-            };
+                return {done: true};
+            }
         }
     };
 };
@@ -199,7 +199,9 @@ console.log('--------------------------------------');
 let obj6 = {
     0: 'A',
     1: 'B',
-    2: function () { console.log(this) },
+    2: function () {
+        console.log(this)
+    },
 
     length: 3,
 
@@ -214,10 +216,10 @@ let obj6 = {
         console.log(this === obj6); // true
 
         if (this.i < this.length) {
-            return { done: false, value: this[this.i++] };
+            return {done: false, value: this[this.i++]};
         } else {
-            return { done: true };
-        };
+            return {done: true};
+        }
     }
 };
 
@@ -226,4 +228,4 @@ obj6.length++;
 
 for (const value of obj6) {
     console.log(value); // 'A' => 'B' => function 2() => 'C'
-};
+}
