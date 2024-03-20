@@ -18,15 +18,21 @@ console.log('--------------------------------------');
 значение.*/
 let obj1 = {
     a: 1,
-    b: 4
+    b: 6
 };
 
+/*У самого объекта "obj1" нет метода "next()". Вместо этого другой объект, так называемый "итератор", создается вызовом 
+"obj1[Symbol.iterator]()", и именно его метод "next()" генерирует значения. Таким образом, объект итератор отделен от 
+самого итерируемого объекта.*/
 obj1[Symbol.iterator] = function () {
+    console.log('Symbol.iterator'); // вызовется только один раз.
+
     return {
-        current: this.a,
-        last: this.b,
+        current: this.a, // 1 => 2 => 3 => 4 => 5 => 6 => 7
+        last: this.b, // 6
 
         next() {
+            console.log('next'); // вызовется 7 раз.
             if (this.current <= this.last) {
                 return {done: false, value: this.current++};
             } else {
@@ -37,41 +43,62 @@ obj1[Symbol.iterator] = function () {
 };
 
 for (const num of obj1) {
-    console.log(num); // 1 => 2 => 3 => 4
+    console.log(num); // 1 => 2 => 3 => 4 => 5 => 6
 }
 
 console.log('--------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-/*Можно указать метод "[Symbol.iterator]" изначально в самом объекте, но тогда мы не можем использовать этот объект в 
-двух параллельных циклах "for..of", так как у них будет общее текущее состояние итерации, потому что теперь существует 
-лишь один итератор – сам объект.*/
+/*Можно указать метод "next()" изначально в самом объекте, но тогда мы не сможем использовать этот объект в двух 
+параллельных циклах "for..of", так как у них будет общее текущее состояние итерации, потому что теперь существует лишь 
+один итератор – сам объект.*/
+
+// let obj2 = {
+//     a: 5,
+//     b: 8,
+
+//     [Symbol.iterator]: function () {
+//         return {
+//             current: this.a,
+//             last: this.b,
+
+//             next() {
+//                 if (this.current <= this.last) {
+//                     return {done: false, value: this.current++};
+//                 } else {
+//                     return {done: true};
+//                 }
+//             }
+//         };
+//     }
+// };
+
 let obj2 = {
     a: 5,
     b: 8,
 
-    [Symbol.iterator]: function () {
-        return {
-            current: this.a,
-            last: this.b,
+    [Symbol.iterator]() {
+        this.current = this.a;
+        return this;
+    },
 
-            next() {
-                if (this.current <= this.last) {
-                    return {done: false, value: this.current++};
-                } else {
-                    return {done: true};
-                }
-            }
-        };
+    next() {
+        if (this.current <= this.b) {
+            return {done: false, value: this.current++};
+        } else {
+            return {done: true};
+        }
     }
 };
 
 for (const num of obj2) {
-    console.log(`------ OUTER ${num}`); // 5 => 6 => 7 => 8
+    console.log(`------ OUTER ${num}`); // 5
+    console.log(obj2.current); // 6
 
     for (const num of obj2) {
         console.log(`inner ${num}`); // 5 => 6 => 7 => 8
+        console.log(obj2.current); // 6 => 7 => 8 => 9
     }
 }
 
@@ -92,9 +119,7 @@ console.log(iterator1);
 
 while (true) {
     let result = iterator1.next();
-
     console.log(result);
-
     if (result.done) break;
 }
 
@@ -104,7 +129,7 @@ console.log('--------------------------------------');
 
 /*Итерируемые объекты – это объекты, которые реализуют метод "Symbol.iterator". Псевдомассивы – это объекты, у которых 
 есть индексы и свойство "length", то есть, они выглядят как массивы. Строки это и то и то. Объекты выше это только
-итерируемый объекты, но не псевдомассивы. Но можно сделать объект, который является псевдомассивом, но его нельзя
+итерируемые объекты, но не псевдомассивы. Но можно сделать объект, который является псевдомассивом, но его нельзя
 итерировать.*/
 let obj3 = {
     0: 'a',
@@ -117,8 +142,7 @@ let obj3 = {
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*И итерируемые объекты, и псевдомассивы – это обычно не массивы, у них нет методов "push()", "pop()" и так далее. Но
-Есть метод "Array.from()", который принимает итерируемый объект или псевдомассив и делает из него «настоящий» 
-массив.*/
+есть метод "Array.from()", который принимает итерируемый объект или псевдомассив и делает из него "настоящий" массив.*/
 let obj4 = {
     0: 'a',
     1: 'b',
@@ -200,14 +224,14 @@ let obj6 = {
     0: 'A',
     1: 'B',
     2: function () {
-        console.log(this)
+        console.log(this);
     },
 
     length: 3,
 
     [Symbol.iterator]: function () {
         this.i = 0;
-        console.log(this === obj6); // сам объект "obj6".
+        console.log(this === obj6); // true, сам объект "obj6".
         console.log(this);
         return this;
     },
