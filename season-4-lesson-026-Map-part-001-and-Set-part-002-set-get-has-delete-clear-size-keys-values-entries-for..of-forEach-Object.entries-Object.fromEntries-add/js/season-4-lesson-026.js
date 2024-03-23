@@ -8,23 +8,44 @@
 
 /*Методы и свойства Map:
 1) "new Map()" – создает коллекцию.
-2) "map.set(key, value)"" – записывает по ключу "key" значение "value".
+2) "map.set(key, value)" – записывает по ключу "key" значение "value".
 3) "map.get(key)" – возвращает значение по ключу или undefined, если ключ "key" отсутствует.
 4) "map.has(key)" – возвращает true, если ключ "key" присутствует в коллекции, иначе false.
 5) "map.delete(key)" – удаляет элемент (пару ключ/значение) по ключу "key".
 6) "map.clear()" – очищает коллекцию от всех элементов.
 7) "map.size" – возвращает текущее количество элементов.*/
 let map1 = new Map();
+console.log(map1); // Map(0)
 
 map1.set('1', 'str1');
 map1.set(1, 'num1');
 map1.set(true, 'bool1');
-console.log(map1); // Map(3) { '1' → "str1", 1 → "num1", true → "bool1" }
-console.log(map1.size); // 3
+console.log(map1); // Map(3) { 1 → "str1", 1 → "num1", true → "bool1" }
+
 console.log(map1.get('1')); // 'str1'
-console.log(map1.get(1)); // 'num1' 
+console.log(map1.get(1)); // 'num1'
+
+console.log(map1.has(true)); // true
+console.log(map1.has(false)); // false
+
+function func1() {
+};
+
+map1.set(func1, 'func1');
+console.log(map1); // Map(4) { 1 → "str1", 1 → "num1", true → "bool1", func1() → "func1" }
+map1.delete(func1);
+console.log(map1); // Map(3) { 1 → "str1", 1 → "num1", true → "bool1" }
+
+console.log(map1.size); // 3
+map1.clear();
+console.log(map1.size); // 0
 
 console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+/*В сравнении с другими типами данных, Map обладает высокой производительностью при работе с большими объемами данных. 
+Например, метод "has()" у Map более производителен, чем аналогичный "includes()" у массивов.*/
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
@@ -32,13 +53,28 @@ console.log('--------------------------------------');
 бы как обычный объект, таким образом это приводит ко всем соответствующим ограничениям (только строки/символьные ключи 
 и так далее). Поэтому лучше использовать методы "get", "set" и так далее.*/
 
+let map2 = new Map();
+map2['a'] = 1;
+console.log(map2['a']);
+console.log(map2); // Map(0), создали новое свойство в "map2", а не новый элемент в коллекции.
+console.log(map2.get('a')); // undefined, так как коллекция пустая
+map2[true] = 2;
+console.log(map2[true]); // true будет приведено к строке 'true'
+
+for (const key in map2) {
+    console.log(key); // 'a' => 'true'
+}
+
+console.log('--------------------------------------');
+
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Map может использовать объекты в качестве ключей.*/
 let obj1 = {a: 1};
-let map2 = new Map();
-map2.set(obj1, 2);
-console.log(map2.get(obj1)); // 2
+let map3 = new Map();
+map3.set(obj1, 2);
+console.log(map3); // Map { { a: 1 } → 2 }
+console.log(map3.get(obj1)); // 2
 
 console.log('--------------------------------------');
 
@@ -48,16 +84,23 @@ console.log('--------------------------------------');
 той лишь разницей, что NaN считается равным NaN. Так что NaN также может использоваться в качестве ключа. Этот 
 алгоритм не может быть заменен или модифицирован.*/
 
+let map4 = new Map();
+map4.set(NaN, 1);
+map4.set(NaN, 2);
+console.log(map4); // Map { NaN → 2 }
+
+console.log('--------------------------------------');
+
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*При использовании Map можно использовать цепочку вызовов.*/
-let map3 = new Map();
+let map5 = new Map();
 
-map3.set(1, 1)
+map5.set(1, 1)
     .set(2, 2)
     .set(3, 3);
 
-console.log(map3); // Map(3) { 1 → 1, 2 → 2, 3 → 3 }
+console.log(map5); // Map(3) { 1 → 1, 2 → 2, 3 → 3 }
 
 console.log('--------------------------------------');
 
@@ -72,27 +115,31 @@ console.log('--------------------------------------');
 /*В отличие от обычных объектов Object, в Map перебор происходит в том же порядке, в каком происходило добавление 
 элементов. При создании Map мы можем указать массив (или другой итерируемый объект) с парами ключ-значение для 
 инициализации.*/
-let map4 = new Map([
-    ['a', 1],
-    ['b', 2],
-    ['c', 3]
-]);
+let map6 = new Map(
+    [
+        ['a', 1],
+        ['b', 2],
+        ['c', 3]
+    ]
+);
 
-// map4.set('a', 1);
-// map4.set('b', 2);
-// map4.set('c', 3);
+console.log(map6); // Map(3) { a → 1, b → 2, c → 3 }
 
-console.log(map4); // Map(3) { a → 1, b → 2, c → 3 }
+console.log(map6.keys()); // Map Iterator {  }
 
-for (const k of map4.keys()) {
+for (const k of map6.keys()) {
     console.log(k); // 'a' => 'b' => 'c'
 }
 
-for (const v of map4.values()) {
+console.log(map6.values()); // Map Iterator {  }
+
+for (const v of map6.values()) {
     console.log(v); // 1 => 2 => 3
 }
 
-for (const e of map4.entries()) {
+console.log(map6.entries()); // Map Iterator {  }
+
+for (const e of map6.entries()) {
     console.log(e); // Array [ "a", 1 ] => Array [ "b", 2 ] => Array [ "c", 3 ]
 }
 
@@ -102,12 +149,12 @@ console.log('--------------------------------------');
 
 /*Map имеет встроенный метод "forEach()", схожий со встроенным методом массивов. Функция внутри метода "forEach()"
 может принимать до трех параметров: значение по ключу, сам ключ и весь Map.*/
-let map5 = new Map();
-map5.set('a', 1);
-map5.set('b', 2);
-map5.set('c', 3);
+let map7 = new Map();
+map7.set('a', 1);
+map7.set('b', 2);
+map7.set('c', 3);
 
-map5.forEach((value, key, map) => {
+map7.forEach((value, key, map) => {
     console.log(value);
     console.log(key);
     console.log(map);
@@ -121,8 +168,8 @@ console.log('--------------------------------------');
 возвращает массив массивов пар ключ-значение.*/
 let obj2 = {a: 1, b: 2, c: 3};
 console.log(Object.entries(obj2));
-let map6 = new Map(Object.entries(obj2));
-console.log(map6); // Map(3) { a → 1, b → 2, c → 3 }
+let map8 = new Map(Object.entries(obj2));
+console.log(map8); // Map(3) { a → 1, b → 2, c → 3 }
 
 console.log('--------------------------------------');
 
@@ -130,7 +177,6 @@ console.log('--------------------------------------');
 
 /*Чтобы из Map получить объект, можно использовать метод "Object.fromEntries()". Метод "Object.fromEntries()" 
 возвращает объект из массива массивов пар ключ-значение.*/
-
 let obj3 = Object.fromEntries([
     ['a', 1],
     ['b', 2],
@@ -139,18 +185,18 @@ let obj3 = Object.fromEntries([
 
 console.log(obj3); // Object { a: 1, b: 2, c: 3 }
 
-let map7 = new Map([
+let map9 = new Map([
     ['a', 1],
     ['b', 2],
     ['c', 3]
 ]);
 
-let obj4 = Object.fromEntries(map7.entries());
+let obj4 = Object.fromEntries(map9.entries());
 console.log(obj4); // Object { a: 1, b: 2, c: 3 }
 
 /*Можно написать и так, поскольку метод "Object.fromEntries()" ожидает перебираемый объект в качестве аргумента, не 
 обязательно массив. А перебор Map как раз возвращает пары ключ/значение, так же, как и "map.entries()".*/
-let obj5 = Object.fromEntries(map7);
+let obj5 = Object.fromEntries(map9);
 console.log(obj5); // Object { a: 1, b: 2, c: 3 }
 
 console.log('--------------------------------------');
@@ -158,9 +204,7 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Объект Set – это особый вид коллекции. Это "множество" значений (без ключей), где каждое значение может появляться 
-только один раз. Set лучше массивов при поиске значений. Set ищет у себя значения, используя хэш-таблицы. Множество 
-Set лучше оптимизировано для добавлений, оно автоматически проверяет на уникальность, когда при использовании массивов
-необходимо пройти по всем элементам.*/
+только один раз.*/
 
 /*Методы Set:
 1) "new Set(iterable)" – создает Set, и если в качестве аргумента был предоставлен итерируемый объект (обычно это 
@@ -170,20 +214,54 @@ Set лучше оптимизировано для добавлений, оно 
 4) "set.has(value)" – возвращает true, если значение присутствует в множестве, иначе false.
 5) "set.clear()" – удаляет все имеющиеся значения.
 6) "set.size" – возвращает количество элементов в множестве.*/
-let set1 = new Set();
+let set1 = new Set([1, 2, 2, 3]);
+console.log(set1); // Set(3) [ 1, 2, 3 ]
+
 let obj6 = {a: 1};
-let obj7 = {b: 2};
-let obj8 = {c: 3};
-set1.add(obj6);
-set1.add(obj7);
-set1.add(obj8);
-set1.add(obj6);
-set1.add(obj7);
-console.log(set1.size); // 3
-console.log(set1); // Set(3) [ {…}, {…}, {…} ]
+
+console.log(set1.add(obj6)); // Set(4) [ 1, 2, 3, { a: 1 } ]
+console.log(set1.add(2)); // Set(4) [ 1, 2, 3, { a: 1 } ]
+
+console.log(set1.delete(2)); // true
+console.log(set1); // Set(3) [ 1, 3, { a: 1 } ]
+console.log(set1.delete(4)); // false
+console.log(set1); // Set(3) [ 1, 3, { a: 1 } ]
+
+console.log(set1.has(3)); // true
+console.log(set1.has(2)); // false
 
 for (const value of set1) {
-    console.log(value); // { a: 1 } => { b: 2 } => { c: 3 }
+    console.log(value); // 1 => 3 => { a: 1 }
+}
+
+console.log(set1.size); // 3
+set1.clear();
+console.log(set1); // Set []
+console.log(set1.size); // 0
+
+console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+/*Set лучше массивов при поиске значений. Set ищет у себя значения, используя хэш-таблицы.*/
+
+/*Set лучше оптимизирован для добавлений, он автоматически проверяет на уникальность, когда при использовании массивов 
+необходимо пройти по всем элементам.*/
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+/*Чтобы получить или установить какое-то значение в Set можно использовать "[]", но в этом случае Set рассматривался 
+бы как обычный объект, таким образом это приводит ко всем соответствующим ограничениям (только строки/символьные ключи 
+и так далее). Поэтому лучше использовать встроенные методы Set.*/
+
+let set2 = new Set();
+set2['a'] = 1;
+console.log(set2['a']);
+console.log(set2); // Set [], создали новое свойство в "set2", а не новый элемент в множестве.
+console.log(set2.has(1)); // false, так как множество пустое
+
+for (const key in set2) {
+    console.log(key); // 'a'
 }
 
 console.log('--------------------------------------');
@@ -193,16 +271,16 @@ console.log('--------------------------------------');
 /*Set можно перебрать как циклом "for..of", так и методом "forEach()". Функция внутри метода "forEach()" принимает до
 трех параметров: значение, еще раз это значение и весь Set. Три параметра здесь сделано ради совместимости с объектом
 Map, чтобы если что можно было поменять Set на Map.*/
-let set2 = new Set([
+let set3 = new Set([
     ['a', 1],
     ['b', 2],
     ['c', 3]
 ]);
 
-set2.forEach((value, valueAgain, set) => {
+set3.forEach((value, valueAgain, set) => {
     console.log(value); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
     console.log(valueAgain); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
-    console.log(set); // Set(3) [ (2) […], (2) […], (2) […] ]
+    console.log(set); // Set(3) [ (2) [ "a", 1 ], (2) [ "a", 1 ], (2) [ "a", 1 ] ]
 });
 
 console.log('--------------------------------------');
@@ -212,22 +290,28 @@ console.log('--------------------------------------');
 /*Set имеет те же встроенные методы, что и Map:
 1) "set.values()" – возвращает перебираемый объект для значений.
 2) "set.keys()" – то же самое, что и "set.values()", присутствует для обратной совместимости с Map.
-3) "set.entries()" – возвращает перебираемый объект для пар вида [значение, значение], присутствует для обратной 
+3) "set.entries()" – возвращает перебираемый объект для пар вида [значение, значение], присутствует для обратной
 совместимости с Map.*/
-let set3 = new Set([
+let set4 = new Set([
     ['a', 1],
     ['b', 2],
     ['c', 3]
 ]);
 
-for (const v of set3.values()) {
+console.log(set4.values()); // Set Iterator {  }
+
+for (const v of set4.values()) {
     console.log(v); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
 }
 
-for (const k of set3.keys()) {
+console.log(set4.keys()); // Set Iterator {  }
+
+for (const k of set4.keys()) {
     console.log(k); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
 }
 
-for (const e of set3.entries()) {
+console.log(set4.entries()); // Set Iterator {  }
+
+for (const e of set4.entries()) {
     console.log(e); // Array [ [ "a", 1 ] [ "a", 1 ] ] => Array [ [ "b", 2 ] [ "b", 2 ] ] => Array [ [ "c", 3 ] [ "c", 3 ] ]
 }
