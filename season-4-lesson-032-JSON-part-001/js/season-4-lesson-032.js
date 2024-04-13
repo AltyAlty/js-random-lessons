@@ -197,7 +197,7 @@ console.log('--------------------------------------');
 /*Как и метод "toString()" для преобразования строк, объект может предоставлять метод "toJSON()" для преобразования в 
 JSON. Метод "JSON.stringify()" автоматически вызывает его, если он есть.*/
 let obj09 = { a: 1 };
-let obj10 = { b: 2, obj09};
+let obj10 = { b: 2, obj09 };
 // let obj10 = { b: 2, obj09: obj09 };
 
 console.log(JSON.stringify(obj09)); // "{"a":1}"
@@ -205,10 +205,53 @@ console.log(JSON.stringify(obj10)); // "{"b":2,"obj09":{"a":1}}"
 
 obj09.toJSON = function (key) {
     console.log('key is ' + key);
-    return this.a
+    return this.a;
 };
 
 /*Метод "toJSON()" используется как при прямом вызове метод "JSON.stringify()", так и когда объект "obj09" вложен в 
 другой сериализуемый объект.*/
 console.log(JSON.stringify(obj09)); // "1"
-console.log(JSON.stringify(obj10)); // "{"b":2,"obj09":1}" // {"b":2,"obj09":1}
+console.log(JSON.stringify(obj10)); // "{"b":2,"obj09":1}"
+
+console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+/*Чтобы декодировать JSON-строку, нам нужен метод "JSON.parse()". Первым параметром принимает строку в формате JSON для
+перевода ее в объект. Вторым необязательным параметром "reviver" можно указать функцию, которая будет вызываться для 
+каждой пары ключ/значение и преобразовывать значение.*/
+
+let strJSON01 = '[0, 1, 2, 3]';
+console.log(JSON.parse(strJSON01)); // Array(4) [ 0, 1, 2, 3 ]
+
+let strJSON02 = '{ "a": "a", "b": 2, "c": false, "d": [0,1,2,3] }';
+console.log(JSON.parse(strJSON02)); // Object { a: "a", b: 2, c: false, d: (4) […] }
+
+/*JSON не поддерживает комментарии. Но существует еще один формат JSON5, который поддерживает ключи без кавычек, 
+комментарии и так далее. Но это самостоятельная библиотека, а не спецификация языка.*/
+
+console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+/*Метод "JSON.parse()" не умеет автоматически приводить к объектам типа Date.*/
+let strJSON03 = '{"b":"b","c":[{"cc":"c1"},{"cc":"c2"}],"d":{"a":"a"},"date":"2017-11-30T12:00:00.000Z"}';
+let obj11 = JSON.parse(strJSON03);
+console.log(obj11); // Object { b: "b", c: (2) […], d: {…}, date: "2017-11-30T12:00:00.000Z" }
+// console.log(obj11.date.getDate()); // Uncaught TypeError: obj11.date.getDate is not a function
+
+console.log('   ');
+
+/*Чтобы избежать проблемы выше, можно использовать второй параметр метода "JSON.parse()".*/
+let obj12 = JSON.parse(
+    strJSON03,
+
+    function (key, value) {
+        console.log(`${key}: ${value}`);
+        if (key === 'date') return new Date(value);
+        return value;
+    }
+);
+
+console.log(obj12); // Object { b: "b", c: (2) […], d: {…}, date: Date Thu Nov 30 2017 15:00:00 GMT+0300 (Москва, стандартное время) }
+console.log(obj12.date.getDate()); // 30
