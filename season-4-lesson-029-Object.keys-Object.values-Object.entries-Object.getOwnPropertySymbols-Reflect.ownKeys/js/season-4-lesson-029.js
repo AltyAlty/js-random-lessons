@@ -39,7 +39,6 @@ console.log('--------------------------------------');
 
 /*"Object.keys()", "Object.values()" и "Object.entries()" игнорируют символьные свойства, так же, как и цикл 
 "for..in".*/
-
 let symbol01 = Symbol('a');
 let obj02 = {b: 2};
 obj02[symbol01] = 1;

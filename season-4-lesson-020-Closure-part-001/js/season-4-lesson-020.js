@@ -20,9 +20,9 @@ function foo() {
     };
 };
 
-const obj1 = foo();
+const obj1 = foo(); // + дополнительная информация, что контекст вызова функции "foo()" был window
 
-console.log(obj1); // x = 20
+console.log(obj1); // Object { x: 20, bar: bar(), baz: baz() }
 console.log(obj1.x); // 20
 
 obj1.bar(); // window --- undefined
@@ -30,9 +30,9 @@ obj1.baz(); // obj1 --- 20
 
 console.log('--------------------------------------');
 
-const obj2 = foo.call({x: 30});
+const obj2 = foo.call({ x: 30 });
 
-console.log(obj2); // x = 20
+console.log(obj2); // Object { x: 20, bar: bar(), baz: baz() } + дополнительная информация, что контекст вызова функции "foo()" был {x: 30}
 console.log(obj2.x); // 20
 
 console.log('--------------------------------------');
@@ -66,6 +66,6 @@ function func1() {
     }
 };
 
-let func2 = func1();
+let func2 = func1(); // + дополнительная информация, что контекст вызова функции "foo()" был window, а также локальная переменная f = 25;
 func2.a() // func2 --- 25
 func2.b() // window --- 25

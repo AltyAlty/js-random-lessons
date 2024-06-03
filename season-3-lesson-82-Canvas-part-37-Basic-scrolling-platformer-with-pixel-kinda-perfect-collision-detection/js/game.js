@@ -27,10 +27,10 @@ const game = {
     start: function () {
         document.getElementsByClassName('play-button')[0].disabled = true;
         document.getElementsByClassName('restart-button')[0].disabled = false;
-        
+
         audio.playSound(audio.backgroundMusic);
         this.tick();
-        
+
         setTimeout(function () {
             world.fillWorldGrid();
             console.log(world.worldGrid);

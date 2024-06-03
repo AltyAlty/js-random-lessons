@@ -10,6 +10,9 @@ const world = {
     collisionMapHeight: 480,
     worldGrid: [],
     worldGridCellSize: worldDefaultSettings.worldGridCellSizeForNormalSpeeds, // if you have a high speed, then the smaller the size is, the better the optimization is (for example 5)
+    worldGridRows: 0,
+    worldGridCollumns: 0,
+    worldGridCellCount: 0,
 
     loadLevelImage: function () {
         this.levelImage = new Image();
@@ -30,6 +33,7 @@ const world = {
     },
 
     fillWorldGrid: function () { // method to get data about solid pixels by using sets in order to have better optimization
+        /*If our x-speed is greater than our width or our y-speed is greater than our height, then we choose the cell size larger, otherwise we choose the cell size smaller.*/
         if (Math.abs(playerDefaultSettings.currentSpeedXToTheRight) > playerDefaultSettings.width ||
             Math.abs(playerDefaultSettings.currentSpeedXToTheLeft) > playerDefaultSettings.width ||
             Math.abs(playerDefaultSettings.downwardForce) > playerDefaultSettings.height ||
@@ -39,13 +43,15 @@ const world = {
             this.worldGridCellSize = worldDefaultSettings.worldGridCellSizeForNormalSpeeds;
         };
 
-        let rows = this.collisionMapHeight / this.worldGridCellSize;
-        let columns = this.collisionMapWidth / this.worldGridCellSize;
+        /*Find how many rows and collumns we need for our world grid.*/
+        this.worldGridRows = this.collisionMapHeight / this.worldGridCellSize;
+        this.worldGridCollumns = this.collisionMapWidth / this.worldGridCellSize;
+        this.worldGridCellCount = this.worldGridRows * this.worldGridCollumns;
 
-        for (let i = 0; i < rows; i++) { // y - iterate through every row
+        for (let i = 0; i < this.worldGridRows; i++) { // y - iterate through every row
             this.worldGrid.push([]); // add data about a row
 
-            for (let j = 0; j < columns; j++) { // x - iterate through every column
+            for (let j = 0; j < this.worldGridCollumns; j++) { // x - iterate through every column
 
                 // check if a cell contains any solid pixels
                 if (helper.checkPixelCollisionUpDownLeftRight(j * this.worldGridCellSize, i * this.worldGridCellSize, this.worldGridCellSize, this.worldGridCellSize)) {
@@ -112,14 +118,11 @@ const world = {
     findIfPlayerIsAtLevelEnd: function () { return this.distanceTravelledFromSpawnPoint >= this.findXOfBeginningOfLevelEnd() },
 
     drawWordlGrid: function (drawAtX) {
-        let rows = this.collisionMapHeight / this.worldGridCellSize;
-        let columns = this.collisionMapWidth / this.worldGridCellSize;
-
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'orange';
 
-        for (let i = 0; i < rows; i++) { // y
-            for (let j = 0; j < columns; j++) { // x
+        for (let i = 0; i < this.worldGridRows; i++) { // y
+            for (let j = 0; j < this.worldGridCollumns; j++) { // x
                 ctx.strokeRect(j * this.worldGridCellSize + drawAtX, i * this.worldGridCellSize, this.worldGridCellSize, this.worldGridCellSize);
             };
         };
