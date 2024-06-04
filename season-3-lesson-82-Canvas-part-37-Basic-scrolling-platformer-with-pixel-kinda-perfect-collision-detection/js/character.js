@@ -73,6 +73,21 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
     };
 
     this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell = function (currentIntersection, worldGridCell) { // function to check if any pixel inside an intersection is a solid one
+        const pixelCount = (currentIntersection.width + 1) * (currentIntersection.height + 1);
+
+        for (let i = 0; i < pixelCount; i++) { // iterate through every pixel
+            const x = currentIntersection.x + i % (currentIntersection.width + 1);
+            const y = currentIntersection.y + Math.floor(i / (currentIntersection.width + 1));
+
+            for (let value of worldGridCell[5]) { // iterate through every solid pixel in the cell
+                if (value.x === x && value.y === y) { return true }; // check if a pixel in the intersection is a solid one
+            };
+        };
+
+        return false;
+    };
+
+    this.checkPixelCollisionBetweenCurrentIntersectionAndGridCellOld1 = function (currentIntersection, worldGridCell) { // function to check if any pixel inside an intersection is a solid one
         for (let k = currentIntersection.x; k <= currentIntersection.x + currentIntersection.width; k++) { // iterate through X-Axis from left to right
             for (let l = currentIntersection.y; l <= currentIntersection.y + currentIntersection.height; l++) { // iterate through Y-Axis from top to bottom
                 for (let value of worldGridCell[5]) { // iterate through every solid pixel in the cell
@@ -102,10 +117,10 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         let isPredictedPositionChanged = false; // if our raw prediction has changed or not
 
         if (this.currentSpeedX !== 0) { // if we have any X-movement
-            let predictedHorizontalWayToTheRight = null; // variable for our predicted way to the right
-            let predictedHorizontalWayToTheLeft = null; // variable for our predicted way to the left
-
             if (Math.abs(this.currentSpeedX) > this.width) { // in order to prevent from teleportation through objects we check if our speed is greater than our width
+                let predictedHorizontalWayToTheRight = null; // variable for our predicted way to the right
+                let predictedHorizontalWayToTheLeft = null; // variable for our predicted way to the left
+
                 if (this.currentSpeedX > 0) { // if we move to the right we prepare data about the way we are going to make
                     predictedHorizontalWayToTheRight = {
                         x: this.x + this.width,
@@ -251,11 +266,11 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         let nextY = this.y + this.downwardForce; // raw prediction of our next Y-coordinate
         let isPredictedPositionChanged = false; // if our raw prediction has changed or not
 
-        if (this.downwardForce !== 0) { // if we have any Y-movement
-            let predictedVerticalWayDown = null; // variable for our predicted way down
-            let predictedVerticalWayUp = null; // variable for our predicted way up
-
+        if (this.downwardForce !== 0) { // if we have any Y-movement         
             if (Math.abs(this.downwardForce) > this.height) { // in order to prevent from teleportation through objects we check if our speed is greater than our height
+                let predictedVerticalWayDown = null; // variable for our predicted way down
+                let predictedVerticalWayUp = null; // variable for our predicted way up
+
                 if (this.downwardForce > 0) { // if we move down we prepare data about the way we are going to make
                     predictedVerticalWayDown = {
                         x: this.x,
@@ -1700,7 +1715,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         };
     };
 
-    this.collidesWith = function (other) { // is not used at this point
+    this.collidesWith = function (other) {
         if (this.x >= other.x &&
             this.x <= other.x + other.width &&
             this.y >= other.y &&

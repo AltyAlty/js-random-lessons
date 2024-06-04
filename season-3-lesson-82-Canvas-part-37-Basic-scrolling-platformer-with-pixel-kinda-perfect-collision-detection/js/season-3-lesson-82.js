@@ -8,10 +8,10 @@ window.onload = function () { controls.initializePlayersControlsListening() };
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 // "FPS"
-// setInterval(() => {
-//     let currentTicks = game.ticks;
+setInterval(() => {
+    let currentTicks = game.ticks;
 
-//     setTimeout(() => {
-//         console.log(game.ticks - currentTicks);
-//     }, 125);
-// }, 250);
+    setTimeout(() => {
+        console.log(game.ticks - currentTicks);
+    }, 1000);
+}, 1000);
