@@ -11,8 +11,10 @@ const world = {
     worldGrid: [],
     worldGridCellSize: worldDefaultSettings.worldGridCellSizeForNormalSpeeds, // if you have a high speed, then the smaller the size is, the better the optimization is (for example 5)
     worldGridRows: 0,
-    worldGridCollumns: 0,
+    worldGridColumns: 0,
     worldGridCellCount: 0,
+    rowsData: [],
+    columnsData: [],
 
     loadLevelImage: function () {
         this.levelImage = new Image();
@@ -43,15 +45,15 @@ const world = {
             this.worldGridCellSize = worldDefaultSettings.worldGridCellSizeForNormalSpeeds;
         };
 
-        /*Find how many rows and collumns we need for our world grid.*/
+        /*Find how many rows and columns we need for our world grid.*/
         this.worldGridRows = this.collisionMapHeight / this.worldGridCellSize;
-        this.worldGridCollumns = this.collisionMapWidth / this.worldGridCellSize;
-        this.worldGridCellCount = this.worldGridRows * this.worldGridCollumns;
+        this.worldGridColumns = this.collisionMapWidth / this.worldGridCellSize;
+        this.worldGridCellCount = this.worldGridRows * this.worldGridColumns;
 
         for (let i = 0; i < this.worldGridRows; i++) { // y - iterate through every row
             this.worldGrid.push([]); // add data about a row
 
-            for (let j = 0; j < this.worldGridCollumns; j++) { // x - iterate through every column
+            for (let j = 0; j < this.worldGridColumns; j++) { // x - iterate through every column
 
                 // check if a cell contains any solid pixels
                 if (helper.checkPixelCollisionUpDownLeftRight(j * this.worldGridCellSize, i * this.worldGridCellSize, this.worldGridCellSize, this.worldGridCellSize)) {
@@ -91,6 +93,14 @@ const world = {
                 };
             };
         };
+
+        for (let [i, j] = [0, 0]; i < this.collisionMapHeight; i += this.worldGridCellSize, j++) {
+            this.rowsData.push([i, i + this.worldGridCellSize, j]); // [y1, y1 + height, rowID]
+        };
+
+        for (let [i, j] = [0, 0]; i < this.collisionMapWidth; i += this.worldGridCellSize, j++) {
+            this.columnsData.push([i, i + this.worldGridCellSize, j]); // [x1, x1 + width, columnID]
+        };
     },
 
     findIfPixelIsSolidSurface: function (x, y) { return this.getPixelType(x, y) === '#' },
@@ -122,7 +132,7 @@ const world = {
         ctx.strokeStyle = 'orange';
 
         for (let i = 0; i < this.worldGridRows; i++) { // y
-            for (let j = 0; j < this.worldGridCollumns; j++) { // x
+            for (let j = 0; j < this.worldGridColumns; j++) { // x
                 ctx.strokeRect(j * this.worldGridCellSize + drawAtX, i * this.worldGridCellSize, this.worldGridCellSize, this.worldGridCellSize);
             };
         };
@@ -144,4 +154,3 @@ const world = {
         // this.drawWordlGrid(drawAtX);
     },
 };
-

@@ -30,6 +30,7 @@ const game = {
 
         audio.playSound(audio.backgroundMusic);
         this.tick();
+        this.showFPS();
 
         setTimeout(function () {
             world.fillWorldGrid();
@@ -42,5 +43,15 @@ const game = {
         audio.pauseSound(audio.backgroundMusic);
         window.clearTimeout(this.setTimeoutID);
         alert(reason === 'win' ? 'You won!' : 'You lost!');
+    },
+
+    showFPS: function () {
+        setInterval(() => {
+            let currentTicks = game.ticks;
+
+            setTimeout(() => {
+                console.log('FPS: ' + (game.ticks - currentTicks));
+            }, 1000);
+        }, 1000);
     },
 };
