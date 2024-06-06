@@ -11,7 +11,7 @@ const playerDefaultSettings = {
 
 const worldDefaultSettings = {
     gravity: 10,
-    worldGridCellSizeForNormalSpeeds: 20,
+    worldGridCellSizeForNormalSpeeds: 10,
     worldGridCellSizeForHighSpeeds: 10,
 };
 

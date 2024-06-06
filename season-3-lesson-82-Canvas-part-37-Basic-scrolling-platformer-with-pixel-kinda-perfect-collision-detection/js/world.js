@@ -9,7 +9,7 @@ const world = {
     collisionMapWidth: 8000,
     collisionMapHeight: 480,
     worldGrid: [],
-    worldGridCellSize: worldDefaultSettings.worldGridCellSizeForNormalSpeeds, // if you have a high speed, then the smaller the size is, the better the optimization is (for example 5)
+    worldGridCellSize: worldDefaultSettings.worldGridCellSizeForNormalSpeeds, // if you have a high speed, then the smaller the size is, the better the optimization is (for example 5) [PROBABLY THIS IS NOT TRUE ANYMORE]
     worldGridRows: 0,
     worldGridColumns: 0,
     worldGridCellCount: 0,

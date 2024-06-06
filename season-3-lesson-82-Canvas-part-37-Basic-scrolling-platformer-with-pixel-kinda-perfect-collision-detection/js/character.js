@@ -23,6 +23,10 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.applyMovementY();
 
         // this.applyGravity();
+        // this.applyMovementXOld10();
+        // this.applyMovementYOld10();
+
+        // this.applyGravity();
         // this.applyMovementXOld9();
         // this.applyMovementYOld9();
 
@@ -60,6 +64,8 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         // this.applyGravityOld1();
         // this.applyMovementOld1();
     };
+
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     this.calculateIntersection = function (predictedPosition, worldGridCell) { // function to calculate data about an intersection
         const currentIntersection = {};
@@ -107,7 +113,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         return false;
     };
 
-    this.prepareDataForTheCellsWeCollideWith = function (position) {
+    this.prepareDataAboutTheCellsCharacterCollidesWith = function (position) {
         let firstRowID = Math.trunc(position.y / world.worldGridCellSize);
         let firstColumnID = Math.trunc(position.x / world.worldGridCellSize);
         let lastRowID;
@@ -149,7 +155,187 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         };
     };
 
-    this.applyMovementX = function () { // the eights non-bugged version, now it checks only the cells we collide with, stable 55-58 fps?
+    this.applyMovementX = function () { // the ninth non-bugged version, simplified a lot of moments, stable 58-59 fps?
+        let nextX = this.x + this.currentSpeedX; // raw prediction of next X
+        let isPredictedXChanged = false; // if our raw prediction of next X has changed or not
+
+        if (this.currentSpeedX !== 0) { // if we have any X-movement
+            if (Math.abs(this.currentSpeedX) > this.width) { // in order to prevent from teleportation through objects we check if our speed is greater than our width
+                let predictedHorizontalWayToTheRight = null; // variable for our predicted way to the right
+                let predictedHorizontalWayToTheLeft = null; // variable for our predicted way to the left
+
+                if (this.currentSpeedX > 0) { // if we move to the right, we prepare data about the way we are going to make
+                    predictedHorizontalWayToTheRight = {
+                        x: this.x + this.width,
+                        y: this.y,
+                        width: this.currentSpeedX - this.width,
+                        height: this.height
+                    };
+                };
+
+                if (this.currentSpeedX < 0) { // if we move to the left, we prepare data about the way we are going to make
+                    predictedHorizontalWayToTheLeft = {
+                        x: this.x - Math.abs(this.currentSpeedX) + this.width,
+                        y: this.y,
+                        width: Math.abs(this.currentSpeedX) - this.width,
+                        height: this.height
+                    };
+                };
+
+                let chosenPredictedWay = predictedHorizontalWayToTheRight ? predictedHorizontalWayToTheRight : predictedHorizontalWayToTheLeft; // choose one of the predicted ways
+                const { rowsIDs, columnsIDs } = this.prepareDataAboutTheCellsCharacterCollidesWith(chosenPredictedWay); // prepare data about the cells we collide with in order to ignore checking every cell
+                const cellCount = (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1) * (columnsIDs[columnsIDs.length - 1] - columnsIDs[0] + 1);
+
+                for (let i = 0; i < cellCount; i++) { // iterate through every cell we collide with
+                    const row = rowsIDs[0] + i % (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1);
+                    const col = columnsIDs[0] + Math.floor(i / (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1));
+
+                    if (world.worldGrid[row][col][4] === true) { // check if the cell contains any solid pixels
+                        let currentIntersection = this.calculateIntersection(chosenPredictedWay, world.worldGrid[row][col]); // we use data about solid pixels only in intersection between the predicted way and the cell in order to ignore checking every solid pixel in the cell
+
+                        if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                            while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                                chosenPredictedWay.x -= Math.sign(this.currentSpeedX);
+                                currentIntersection = this.calculateIntersection(chosenPredictedWay, world.worldGrid[row][col]);
+                            };
+
+                            nextX = predictedHorizontalWayToTheRight ? predictedHorizontalWayToTheRight.x + predictedHorizontalWayToTheRight.width - this.width : predictedHorizontalWayToTheLeft.x;
+                            isPredictedXChanged = true;
+                        };
+                    };
+                };
+            };
+
+            if (!isPredictedXChanged) { // if we have not changed our raw prediction of next X yet
+                const predictedHorizontalPosition = { // predict our position
+                    x: nextX,
+                    y: this.y,
+                    width: this.width,
+                    height: this.height
+                };
+
+                const { rowsIDs, columnsIDs } = this.prepareDataAboutTheCellsCharacterCollidesWith(predictedHorizontalPosition); // prepare data about the cells we collide with in order to ignore checking every cell
+                const cellCount = (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1) * (columnsIDs[columnsIDs.length - 1] - columnsIDs[0] + 1);
+
+                for (let i = 0; i < cellCount; i++) { // iterate through every cell we collide with
+                    const row = rowsIDs[0] + i % (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1);
+                    const col = columnsIDs[0] + Math.floor(i / (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1));
+
+                    if (world.worldGrid[row][col][4] === true) { // check if if the cell contains any solid pixels
+                        let currentIntersection = this.calculateIntersection(predictedHorizontalPosition, world.worldGrid[row][col]); // we use data about solid pixels only in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                        if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                            while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                                predictedHorizontalPosition.x -= Math.sign(this.currentSpeedX);
+                                currentIntersection = this.calculateIntersection(predictedHorizontalPosition, world.worldGrid[row][col]);
+                            };
+
+                            nextX = predictedHorizontalPosition.x;
+                            isPredictedXChanged = true;
+                        };
+                    };
+                };
+            };
+        };
+
+        if (isPredictedXChanged) { this.currentSpeedX = 0 }; // if we have changed our raw prediction of next X, then it means that we hit a solid object, so we need to stop
+        this.x = nextX;
+    };
+
+    this.applyMovementY = function () { // the ninth non-bugged version, simplified a lot of moments, stable 58-59 fps?
+        let nextY = this.y + this.downwardForce; // raw prediction of next Y
+        let isPredictedYChanged = false; // if our raw prediction of next Y has changed or not
+
+        if (this.downwardForce !== 0) { // if we have any Y-movement         
+            if (Math.abs(this.downwardForce) > this.height) { // in order to prevent from teleportation through objects we check if our speed is greater than our height
+                let predictedVerticalWayDown = null; // variable for our predicted way down
+                let predictedVerticalWayUp = null; // variable for our predicted way up
+
+                if (this.downwardForce > 0) { // if we move down, we prepare data about the way we are going to make
+                    predictedVerticalWayDown = {
+                        x: this.x,
+                        y: this.y + this.height,
+                        width: this.width,
+                        height: this.downwardForce - this.height
+                    };
+                };
+
+                if (this.downwardForce < 0) { // if we move up, we prepare data about the way we are going to make
+                    predictedVerticalWayUp = {
+                        x: this.x,
+                        y: this.y - Math.abs(this.downwardForce) + this.height,
+                        width: this.width,
+                        height: Math.abs(this.downwardForce) - this.height
+                    };
+                };
+
+                let chosenPredictedWay = predictedVerticalWayDown ? predictedVerticalWayDown : predictedVerticalWayUp; // choose one of the predicted ways
+                const { rowsIDs, columnsIDs } = this.prepareDataAboutTheCellsCharacterCollidesWith(chosenPredictedWay); // prepare data about the cells we collide with in order to ignore checking every cell
+                const cellCount = (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1) * (columnsIDs[columnsIDs.length - 1] - columnsIDs[0] + 1);
+
+                for (let i = 0; i < cellCount; i++) { // iterate through every cell we collide with
+                    const row = rowsIDs[0] + i % (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1);
+                    const col = columnsIDs[0] + Math.floor(i / (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1));
+
+                    if (world.worldGrid.length !== 0 && world.worldGrid[row][col][4] === true) { // check if the cell contains any solid pixels
+                        let currentIntersection = this.calculateIntersection(chosenPredictedWay, world.worldGrid[row][col]); // we use data about solid pixels only in intersection between the predicted way and the cell in order to ignore checking every solid pixel in the cell
+
+                        if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                            while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                                chosenPredictedWay.y -= Math.sign(this.downwardForce);
+                                currentIntersection = this.calculateIntersection(chosenPredictedWay, world.worldGrid[row][col]);
+                            };
+
+                            nextY = predictedVerticalWayDown ? predictedVerticalWayDown.y + predictedVerticalWayDown.height - this.height : predictedVerticalWayUp.y;
+                            isPredictedYChanged = true;
+                        };
+                    };
+                };
+            };
+
+            if (!isPredictedYChanged) { // if we have not changed our raw prediction of next Y yet
+                const predictedVerticalPosition = { // predict our position
+                    x: this.x,
+                    y: nextY,
+                    width: this.width,
+                    height: this.height
+                };
+
+                const { rowsIDs, columnsIDs } = this.prepareDataAboutTheCellsCharacterCollidesWith(predictedVerticalPosition); // prepare data about the cells we collide with in order to ignore checking every cell
+                const cellCount = (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1) * (columnsIDs[columnsIDs.length - 1] - columnsIDs[0] + 1);
+
+                for (let i = 0; i < cellCount; i++) { // iterate through every cell we collide with
+                    const row = rowsIDs[0] + i % (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1);
+                    const col = columnsIDs[0] + Math.floor(i / (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1));
+
+                    if (world.worldGrid.length !== 0 && world.worldGrid[row][col][4] === true) { // check if if the cell contains any solid pixels
+                        let currentIntersection = this.calculateIntersection(predictedVerticalPosition, world.worldGrid[row][col]); // we use data about solid pixels only in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
+
+                        if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                            while (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
+                                predictedVerticalPosition.y -= Math.sign(this.downwardForce);
+                                currentIntersection = this.calculateIntersection(predictedVerticalPosition, world.worldGrid[row][col]);
+                            };
+
+                            nextY = predictedVerticalPosition.y;
+                            isPredictedYChanged = true;
+                        };
+                    };
+                };
+            };
+        };
+
+        if (isPredictedYChanged) { // if we have changed our raw prediction of next Y, then it means that we hit a solid object, so we need to stop
+            this.downwardForce = 0;
+            this.currentJumpHeight = 0;
+        };
+
+        this.y = nextY;
+    };
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    this.applyMovementXOld10 = function () { // the eights non-bugged version, now it checks only the cells we collide with, stable 55-58 fps?
         let nextX = this.x + this.currentSpeedX; // raw prediction of our next X-coordinate
         let isPredictedPositionChanged = false; // if our raw prediction has changed or not
 
@@ -180,7 +366,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
 
                 if (predictedHorizontalWayToTheRight) { // if we move to the right
                     // prepare data for the cells we collide with in order to ignore checking every cell
-                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsWeCollideWith(predictedHorizontalWayToTheRight);
+                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsCharacterCollidesWith(predictedHorizontalWayToTheRight);
 
                     // iterate through every cell we collide with
                     for (let i = rowsIDs[0]; i < rowsIDs[0] + rowsIDs.length; i++) {
@@ -208,7 +394,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
 
                 } else if (predictedHorizontalWayToTheLeft) { // if we move to the left
                     // prepare data for the cells we collide with in order to ignore checking every cell
-                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsWeCollideWith(predictedHorizontalWayToTheLeft);
+                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsCharacterCollidesWith(predictedHorizontalWayToTheLeft);
 
                     // iterate through every cell we collide with
                     for (let i = rowsIDs[0]; i < rowsIDs[0] + rowsIDs.length; i++) {
@@ -245,7 +431,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
                 };
 
                 // prepare data for the cells we collide with in order to ignore checking every cell
-                const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsWeCollideWith(predictedHorizontalPosition);
+                const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsCharacterCollidesWith(predictedHorizontalPosition);
 
                 // iterate through every cell we collide with
                 for (let i = rowsIDs[0]; i < rowsIDs[0] + rowsIDs.length; i++) {
@@ -272,7 +458,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         this.x = nextX;
     };
 
-    this.applyMovementY = function () { // the eights non-bugged version, now it checks only the cells we collide with, stable 55-58 fps?
+    this.applyMovementYOld10 = function () { // the eights non-bugged version, now it checks only the cells we collide with, stable 55-58 fps?
         let nextY = this.y + this.downwardForce; // raw prediction of our next Y-coordinate
         let isPredictedPositionChanged = false; // if our raw prediction has changed or not
 
@@ -303,7 +489,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
 
                 if (predictedVerticalWayDown) { // if we move down
                     // prepare data for the cells we collide with in order to ignore checking every cell
-                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsWeCollideWith(predictedVerticalWayDown);
+                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsCharacterCollidesWith(predictedVerticalWayDown);
 
                     // iterate through every cell we collide with
                     for (let i = rowsIDs[0]; i < rowsIDs[0] + rowsIDs.length; i++) {
@@ -331,7 +517,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
 
                 } else if (predictedVerticalWayUp) { // if we move up
                     // prepare data for the cells we collide with in order to ignore checking every cell
-                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsWeCollideWith(predictedVerticalWayUp);
+                    const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsCharacterCollidesWith(predictedVerticalWayUp);
 
                     // iterate through every cell we collide with
                     for (let i = rowsIDs[0]; i < rowsIDs[0] + rowsIDs.length; i++) {
@@ -368,7 +554,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
                 };
 
                 // prepare data for the cells we collide with in order to ignore checking every cell
-                const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsWeCollideWith(predictedVerticalPosition);
+                const { rowsIDs, columnsIDs } = this.prepareDataForTheCellsCharacterCollidesWith(predictedVerticalPosition);
 
                 // iterate through every cell we collide with
                 for (let i = rowsIDs[0]; i < rowsIDs[0] + rowsIDs.length; i++) {
@@ -2019,8 +2205,6 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         if (this.currentDirectionX === 'left' && this.currentDirectionY === 'up') { // ⇖
             let solidDot = null;
 
-            console.log('HERE');
-
             if (solidDot = this.checkPixelCollisionDownUpRightLeft(nextX, nextY, this.width, this.height)) {
                 // nextX = solidDot.x;
                 // nextY = solidDot.y;
@@ -2140,8 +2324,6 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
             let solidDot = null;
 
             if (this.currentDirectionX === 'right') {
-
-                console.log('HERE');
 
                 if (solidDot = this.checkPixelCollisionUpDownLeftRight(nextX, this.y, this.width, this.height)) {
                     nextX = solidDot.x - this.width;
@@ -2271,7 +2453,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
         else if (this.currentDirectionXForDrawing === 'left') { sprite = this.runningSpriteLeft };
 
         if (!game.finished) {
-            this.drawHitbox(drawAtX);
+            // this.drawHitbox(drawAtX);
             // this.drawSpawnPosition();
             // this.drawPredictedWays(drawAtX);
 
