@@ -190,7 +190,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
                     const row = rowsIDs[0] + i % (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1);
                     const col = columnsIDs[0] + Math.floor(i / (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1));
 
-                    if (world.worldGrid[row][col][4] === true) { // check if the cell contains any solid pixels
+                    if (world.worldGrid.length !== 0 && world.worldGrid[row][col][4] === true) { // check if the cell contains any solid pixels
                         let currentIntersection = this.calculateIntersection(chosenPredictedWay, world.worldGrid[row][col]); // we use data about solid pixels only in intersection between the predicted way and the cell in order to ignore checking every solid pixel in the cell
 
                         if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
@@ -221,7 +221,7 @@ function Character(x, y, width, height, maxJumpHeight, runningSpriteRight, runni
                     const row = rowsIDs[0] + i % (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1);
                     const col = columnsIDs[0] + Math.floor(i / (rowsIDs[rowsIDs.length - 1] - rowsIDs[0] + 1));
 
-                    if (world.worldGrid[row][col][4] === true) { // check if if the cell contains any solid pixels
+                    if (world.worldGrid.length !== 0 && world.worldGrid[row][col][4] === true) { // check if if the cell contains any solid pixels
                         let currentIntersection = this.calculateIntersection(predictedHorizontalPosition, world.worldGrid[row][col]); // we use data about solid pixels only in intersection between the predicted position and the cell in order to ignore checking every solid pixel in the cell
 
                         if (this.checkPixelCollisionBetweenCurrentIntersectionAndGridCell(currentIntersection, world.worldGrid[row][col])) {
