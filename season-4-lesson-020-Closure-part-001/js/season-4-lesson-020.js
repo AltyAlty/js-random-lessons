@@ -30,15 +30,18 @@ obj1.baz(); // obj1 --- 20
 
 console.log('--------------------------------------');
 
-const obj2 = foo.call({ x: 30 });
+const obj2 = foo.call({ x: 30 }); // + дополнительная информация, что контекст вызова функции "foo()" был {x: 30}
 
-console.log(obj2); // Object { x: 20, bar: bar(), baz: baz() } + дополнительная информация, что контекст вызова функции "foo()" был {x: 30}
+console.log(obj2); // Object { x: 20, bar: bar(), baz: baz() }
 console.log(obj2.x); // 20
 
 console.log('--------------------------------------');
 
 let y = obj2.bar;
 let z = obj2.baz;
+
+console.log(y === obj2.bar); // true
+console.log(z === obj2.baz); // true
 
 y(); // { x: 30 } --- 30, стрелочная функция связана с контекстом функции, в которой была вызвана, из-за замыкания
 z(); // window --- undefined
