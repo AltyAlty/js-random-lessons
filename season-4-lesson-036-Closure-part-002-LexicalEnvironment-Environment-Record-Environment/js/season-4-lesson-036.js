@@ -150,6 +150,8 @@ console.log('--------------------------------------');
 let y = 0;
 
 function func06() {
+    // let y = 1;
+
     return function () {
         console.log(y);
     };
@@ -160,7 +162,36 @@ let func07 = func06();
 function func08() {
     let y = 2;
 
-    func07(); // 1
+    func07(); // 0
 };
 
 func08();
+
+console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+let z = 0;
+
+function func09() {
+    // let z = 1;
+
+    return function () {
+        console.log(z);
+    };
+};
+
+let func10 = func09();
+
+function func11() {
+    let z = 2;
+
+    function func12() {
+        let z = 3;
+        func10(); // 0
+    };
+
+    func12()
+};
+
+func11();
