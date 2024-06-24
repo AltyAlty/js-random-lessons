@@ -191,7 +191,41 @@ function func11() {
         func10(); // 0
     };
 
-    func12()
+    func12();
 };
 
 func11();
+
+console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+let v = 0
+
+function func13() {
+    let v = 1;
+
+    return function () {
+        // let v = 2;
+
+        return function () {
+            console.log(v);
+        };
+    };
+};
+
+let func14 = func13();
+let func15 = func14();
+
+function func16() {
+    let v = 3;
+
+    return function () {
+        let v = 4;
+        func15(); // 1
+    };
+};
+
+let func17 = func16();
+
+func17();
