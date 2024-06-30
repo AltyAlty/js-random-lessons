@@ -48,7 +48,6 @@ console.log('--------------------------------------');
 /*Все функции помнят лексическое окружение, в котором они были созданы. Все функции имеют скрытое свойство 
 "[[Environment]]", которое хранит ссылку на лексическое окружение, в котором была создана функция. Ссылка на 
 "[[Environment]]" устанавливается один раз и навсегда при создании функции.*/
-
 function makeCounter() {
     let count = 0;
 
@@ -58,11 +57,11 @@ function makeCounter() {
 };
 
 let counter = makeCounter();
-// "[[Environment]]" of counter = -> "LexicalEnvironment" of makeCounter
-// "LexicalEnvironment" of counter = "Environment Record": [] | -> "LexicalEnvironment" of makeCounter
-
-// "[[Environment]]" of makeCounter = -> Global "LexicalEnvironment"
-// "LexicalEnvironment" of makeCounter = "Environment Record": [count: 0] | -> Gobal "LexicalEnvironment"
+// 1) "LexicalEnvironment" of counter = "Environment Record": [] | -> outer "LexicalEnvironment"
+// 2) "[[Environment]]" of counter = -> "LexicalEnvironment" of makeCounter
+// 3) "LexicalEnvironment" of makeCounter = "Environment Record": [count: 0] | -> outer "LexicalEnvironment"
+// 4) "[[Environment]]" of makeCounter = -> Global "LexicalEnvironment"
+// 5) Global "LexicalEnvironment" = "Environment Record": [] | -> null
 
 console.log(counter()); // 0
 console.log(counter()); // 1
@@ -74,6 +73,18 @@ console.log(counter()); // 2
 доступ к внешним переменным.*/
 
 console.log('--------------------------------------');
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+{
+    let a = 111;
+    {
+        console.log(a);
+    }
+}
+// 1) "LexicalEnvironment" of the inner code block = "Environment Record": [] | -> "LexicalEnvironment" of the outer code block
+// 2) "LexicalEnvironment" of the outer code block = "Environment Record": [a: 111] | -> Global "LexicalEnvironment"
+// 3) Global "LexicalEnvironment" = "Environment Record": [] | -> null
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
@@ -90,7 +101,6 @@ console.log('--------------------------------------');
 побочных эффектов в V8 (Chrome, Edge, Opera) является то, что такая переменная становится недоступной при отладке. Если
 запустить код ниже и во время остановки написать "console.log(value)", то мы получим ответ, что такой переменной нет. 
 В теории, она должна быть доступна, но попала под оптимизацию движка.*/
-
 function f() {
     let value = Math.random();
 
@@ -200,7 +210,7 @@ console.log('--------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-let v = 0
+let v = 0;
 
 function func13() {
     let v = 1;
