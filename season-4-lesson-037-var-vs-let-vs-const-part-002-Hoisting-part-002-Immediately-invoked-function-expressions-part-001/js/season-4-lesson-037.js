@@ -6,7 +6,6 @@
 
 /*Для var не существует блочной области видимости. Область видимости переменных var ограничивается либо функцией, либо, 
 если переменная глобальная, то скриптом. Такие переменные доступны за пределами блока.*/
-
 if (true) {
     {
         var var01 = 1;
@@ -39,7 +38,6 @@ console.log('--------------------------------------');
 
 /*Если в блоке кода дважды объявить одну и ту же переменную let, то будет ошибка. Тоже самое будет при повторном 
 инициализации переменной const. Используя var, можно переобъявлять переменную сколько угодно раз.*/
-
 // let let01 = 1;
 // let let01 = 1; // Uncaught SyntaxError: redeclaration of let let01
 
@@ -58,16 +56,15 @@ console.log('--------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-/*Объявления переменных var обрабатываются в начале выполнения функции (или запуска скрипта, если переменная является
-глобальной). То есть переменные var считаются объявленными с самого начала исполнения функции вне зависимости от того, 
+/*Объявления переменных var обрабатываются в начале выполнения функции или запуска скрипта, если переменная является
+глобальной. То есть переменные var считаются объявленными с самого начала исполнения функции вне зависимости от того, 
 в каком месте функции реально находятся их объявления (при условии, что они не находятся во вложенной функции). То есть
 переменные var не имеют изначально состояния "Uninitialized", а доступны с самого начала со значением undefined. Это 
 поведение называется "hoisting" (всплытие, поднятие), потому что все объявления переменных var и все Function 
-Declaration "всплывают" в самый верх функции. Разница в этом моменте между переменными var и Function Declaration в 
-том, что если тело Function Declaration доступно в месте объявления, то функция будет полностью доступна с самого 
-начала, когда даже если мы полностью инициализировали переменную var, то "вверх поднимется" только сам идентификатор
-переменной, но не ее значение.*/
-
+Declaration "всплывают" в самый верх функции или глобальной области видимости. Разница в этом моменте между переменными 
+var и Function Declaration в том, что если тело Function Declaration доступно в месте объявления, то функция будет 
+полностью доступна с самого начала, когда даже если мы полностью инициализировали переменную var, то "вверх поднимется" 
+только сам идентификатор переменной, но не ее значение.*/
 function func02() {
     console.log(var04); // undefined
     var var04 = 4;
@@ -87,8 +84,10 @@ function func02() {
 
     console.log('3-----');
 
-    console.log(func03); // undefined, а с use sctrict ошибка: Uncaught ReferenceError: func03 is not defined 
+    // console.log(func03); // undefined, а с "use sctrict" ошибка: Uncaught ReferenceError: func03 is not defined 
 
+    /*Поскольку этот if никогда не сработает, то поднялось только лишь создание переменной "func03", но не тело 
+    функции.*/
     if (false) {
         function func03() {
             console.log(33);
@@ -97,8 +96,11 @@ function func02() {
 
     console.log('4-----');
 
-    console.log(func04); // undefined, а с use sctrict ошибка: Uncaught ReferenceError: func03 is not defined 
+    // console.log(func04); // undefined, а с "use sctrict" ошибка: Uncaught ReferenceError: func03 is not defined 
 
+    /*Хоть этот if и сработает, но поднимется снова только лишь создание переменной "func04", но не тело функции.
+    Из чего можно сделать вывод, что hoisting для Function Declaration полностью работает только в рамках одной
+    области видимости. А переменные var в любой ситуации не будут поднимает присваивание значения.*/
     if (true) {
         function func04() {
             console.log(44);
@@ -114,7 +116,7 @@ function func02() {
     };
 };
 
-// func02();
+func02();
 
 console.log('--------------------------------------');
 
@@ -147,7 +149,6 @@ console.log('--------------------------------------');
 контексте другого выражения, а значит, что это Function Expression: ей не нужно имя и ее можно вызвать немедленно.*/
 
 /*Помимо круглых скобок существуют и другие способы сообщить JavaScript, что мы имеем в виду Function Expression.*/
-
 (function () {
     console.log('Круглые скобки вокруг функции');
 })();
@@ -171,11 +172,20 @@ function func07(v) {
         func08(var10); // 10
     })();
 
-    // var var10 = 11;
-    console.log(var10);
+    // {
+    //     var var10 = 10;
+    //     console.log('here1');
+    //     func08(var10); // 10
+    // }
+
+    // {
+    //     var var10 = 11;
+    // }
+
+    // console.log(var10);
 };
 
-// func07(); // Uncaught ReferenceError: var10 is not defined
+func07();
 
 function func08(v) { console.log('func08 ' + v) };
 
@@ -202,28 +212,28 @@ console.log(b); // undefined
 // console.log(c); //  Uncaught ReferenceError: c is not defined
 console.log(d); // undefined
 
-/*Как будто после срабатывания этой строчки добавится строка "var a = 0". С use sctrict будет ошибка: 
+/*Как будто после срабатывания этой строчки добавится строка "var a = 0". С "use sctrict" будет ошибка: 
 Uncaught ReferenceError: assignment to undeclared variable a.*/
 // a = 0;
 var b = 1;
 
 {
     {
-        /*Как будто после срабатывания этой строчки добавится строка "var c = 2". С use sctrict будет ошибка: 
+        /*Как будто после срабатывания этой строчки добавится строка "var c = 2". С "use sctrict" будет ошибка: 
         Uncaught ReferenceError: assignment to undeclared variable c.*/
         // c = 2;
         var d = 3;
     }
 };
 
-// console.log(a); // 0, с use sctrict будет ошибка: Uncaught ReferenceError: a is not defined
+// console.log(a); // 0, с "use sctrict" будет ошибка: Uncaught ReferenceError: a is not defined
 console.log(b); // 1
-// console.log(c); // 2, с use sctrict будет ошибка: Uncaught ReferenceError: c is not defined
+// console.log(c); // 2, с "use sctrict" будет ошибка: Uncaught ReferenceError: c is not defined
 console.log(d); // 3
 
 function func09() {
     e = 4;
 };
 
-func09();
-console.log(e); // 4, с use sctrict будет ошибка: Uncaught ReferenceError: assignment to undeclared variable e
+// func09();
+// console.log(e); // 4, с "use sctrict" будет ошибка: Uncaught ReferenceError: assignment to undeclared variable e
