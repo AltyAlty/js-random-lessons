@@ -18,7 +18,6 @@ for (var varI01 = 0; varI01 < 5; varI01++) { };
 console.log(varI01); // 5
 
 /*Если блок кода находится внутри функции, то var становится локальной переменной в этой функции.*/
-
 function func01() {
     if (true) {
         {
@@ -106,6 +105,8 @@ function func02() {
             console.log(44);
         };
     };
+
+    // console.log(func04); // function func04(), а с "use sctrict" ошибка:  Uncaught ReferenceError: func04 is not defined
 
     console.log('5-----');
 
