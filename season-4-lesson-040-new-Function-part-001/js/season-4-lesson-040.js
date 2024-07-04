@@ -20,6 +20,7 @@ console.log('--------------------------------------');
 function func03() {
     let value = 123;
     let func04 = new Function('console.log(value)');
+    // function func04() { console.log(value) };
     return func04;
 };
 
