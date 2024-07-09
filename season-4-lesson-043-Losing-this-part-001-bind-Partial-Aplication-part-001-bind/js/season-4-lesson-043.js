@@ -37,6 +37,10 @@ function func01() { console.log(this.a) };
 
 let func01WithObj03 = func01.bind(obj03);
 func01WithObj03(); // 1
+func01WithObj03(); // 1
+// func01(); // undefined, с "use strict" будет ошибка: Uncaught TypeError: this is undefined
+console.log(typeof func01WithObj03); // function
+console.log(func01WithObj03); // BoundFunctionObject { … }
 
 console.log('--------------------------------------');
 
