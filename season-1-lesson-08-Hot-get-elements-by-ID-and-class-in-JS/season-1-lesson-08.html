@@ -1,0 +1,24 @@
+<!--JS может находить HTML-элементы на странице. При загрузке страницы в бразуре JS создает объект для каждого
+HTML-элемента и может работать с этими объектами. Чтобы мы могли найти какой-то HTML-элемент при помощи JS, мы должны
+указать что-нибудь, что бы идентифицировало этот HTML-элемент.
+"window" - глобальная переменная, которая содержит все окно, в котором отображается страница.
+Атрибут "id" должен быть уникальным. Если у нескольких HTML-элементов указан один и тот же атрибут "id", то при поиске
+по этому атрибуту "id" в JS будет находить самый верхний HTML-элемент с таким атрибутом "id".-->
+
+<input value='hello' class='hello-message input' id='hello-message' />
+<input value='bye' class='hello-message input' id='hello-message' />
+
+<script>
+    /*Создаем переменную для хранения значения атрибута "id" HTML-элементов.*/
+    var helloMessageID = 'hello-message';
+
+    /*Создаем переменную для хранения HTML-элемента, который получаем по атрибуту "id".*/
+    var helloMessageElement = document.getElementById(helloMessageID);
+
+    /*Выводим значение атрибута "value" полученного HTML-элемента c атрибутом "id", имеющего значение "hello-message".*/
+    window.alert(helloMessageElement.value);
+    /*Выводим значение атрибута "id" полученного HTML-элемента c атрибутом "id", имеющего значение "hello-message".*/
+    window.alert(helloMessageElement.id);
+    /*Выводим значение атрибута "class" полученного HTML-элемента c атрибутом "id", имеющего значение "hello-message".*/
+    window.alert(helloMessageElement.className);
+</script>

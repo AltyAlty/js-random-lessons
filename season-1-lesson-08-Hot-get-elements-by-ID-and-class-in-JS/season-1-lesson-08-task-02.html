@@ -1,0 +1,51 @@
+<div class='ourForm'>
+    <form>
+        <div>
+            <input value='' class='emailEl' />
+        </div>
+
+        <div>
+            <input value='' class='passEl' type='password' />
+        </div>
+
+        <div>
+            Remember?
+            <input type='checkbox' class='checkboxEl' checked>
+            <button class='login'>Log in</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    /*Создаем переменные для хранения значений атрибута "class" HTML-элементов.*/
+    var emailElClass = 'emailEl';
+    var passElClass = 'passEl';
+    var checkboxElClass = 'checkboxEl';
+    var loginClass = 'login';
+
+    /*Создаем переменную для хранения HTML-элемента "button".*/
+    var loginButton = document.getElementsByClassName(loginClass);
+
+    /*Для события "onClick" HTML-элемента "button" создаем функцию.*/
+    loginButton[0].onclick = function () {
+        var emailElElement = document.getElementsByClassName(emailElClass);
+        var passElElement = document.getElementsByClassName(passElClass);
+        var checkboxElElement = document.getElementsByClassName(checkboxElClass);
+
+        window.alert('email is ' + emailElElement[0].value + '; pass is ' + passElElement[0].value + '; remember is ' + checkboxElElement[0].checked);
+    };
+</script>
+
+<style>
+    .ourForm {
+        /*Для выравнивания HTML-элемента "div" по центру нужно задать ему ширину и "margin" в значении "auto".*/
+        width: 150px;
+        /*Ширина элемента в пикселах.*/
+        margin: auto;
+        /*Выравниваем по центру.*/
+    }
+
+    .checkboxEl {
+        float: left
+    }
+</style>
