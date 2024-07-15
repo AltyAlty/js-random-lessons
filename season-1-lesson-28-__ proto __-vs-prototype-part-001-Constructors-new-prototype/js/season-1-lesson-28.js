@@ -14,21 +14,24 @@ function Car(name) {
         v: 1,
         horses: 100,
         isTurnedOn: false
-    };    
+    };
 };
 
 Car.prototype.start = function () {
     this.isTurnedOn = true;
     this.speed = 50;
     this.engine.isTurnedOn = true;
-    console.log(this.name + ' ' + this.speed);    
+    console.log(this.name + ' ' + this.speed);
 };
 
 var car1 = new Car('kek');
-car1.start();
-
 var car2 = new Car('lol');
-car2.start();
+car1.start(); // kek 50
+console.log(car1); // { ... speed: 50 }
+console.log(car2); // { ... speed: 0 }
+car2.start(); // lol 50
+console.log(car1); // { ... speed: 50 }
+console.log(car2); // { ... speed: 50 }
 
 console.log('--------------------------------------------------------------------------------');
 
@@ -41,24 +44,24 @@ console.log('-------------------------------------------------------------------
 прототипе. А дальше если вызвать упомянутый ранее метод от лица этого созданного объекта, то уже будет создано новое
 свойство для этого объекта.*/
 function Car2(name) {
-    this.name = name;       
+    this.name = name;
 };
 
 Car2.prototype.speed = 0;
 
 Car2.prototype.changeSpeed = function () {
-    this.speed = 5;    
+    this.speed = 5;
 };
 
 var car3 = new Car2('lel');
 
 console.log(car3.speed); /*0, берется из прототипа.*/
-console.log(car3);
+console.log(car3); // { name: "lel" }
 
 car3.changeSpeed(); /*Поскольку в контексте объекта "car3" нет свойства "speed", то оно там будет создано.*/
 
 console.log(car3.speed); /*5, берется уже из объекта поскольку в контексте объекта "car3" уже есть свойство "speed".*/
-console.log(car3);
+console.log(car3); // { name: "lel", speed: 5 }
 
 console.log('--------------------------------------------------------------------------------');
 
@@ -69,12 +72,12 @@ console.log('-------------------------------------------------------------------
 этот объект не будет иметь этого свойства, но это свойство будет в прототипе. И если затем попытаться прочитать это
 свойство у этого объекта, например, при помощи "console.log()", то внутри этого объекта свойство найдено не будет, но
 будет найдено в прототипе. А дальше если вызвать упомянутый ранее метод от лица этого созданного объекта, то не будет
-создано нового свойство для этого объекта, а будет изменено свойство в прототипе. Так происходит потому, что объекты это
-ссылочные типы данных, и потому, что все созданные объекты при помощи какого-то конструктора ссылаются на один и тот же
-объект прототипа своего конструктора. Исходя из этого лучше избегать указывать свойства в прототипах, лучше делать такое
-только для методов.*/
+создано нового свойство для этого объекта, а будет изменено свойство в прототипе. Так происходит потому, что объекты 
+это ссылочные типы данных, и потому, что все созданные объекты при помощи какого-то конструктора ссылаются на один и 
+тот же объект прототипа своего конструктора. Исходя из этого лучше избегать указывать свойства в прототипах, лучше 
+делать такое только для методов.*/
 function Car3(name) {
-    this.name = name;       
+    this.name = name;
 };
 
 Car3.prototype.engine = {
@@ -88,15 +91,16 @@ Car3.prototype.changeSpeed = function () {
 
 var car4 = new Car3('kuk');
 console.log(car4.engine.speed); /*10, из прототипа.*/
-console.log(car4);
+console.log(car4); // { name: "kuk" }
 car4.changeSpeed(); /*20, изменилось значение в прототипе.*/
-console.log(car4);
+console.log(car4); // { name: "kuk" }
+console.log(Car3.prototype.engine.speed); // 20
 
 var car5 = new Car3('lal');
 console.log(car5.engine.speed); /*20, из прототипа.*/
-console.log(car5);
+console.log(car5);  // { name: "lal" }
 car5.changeSpeed(); /*20, снова изменилось значение в прототипе.*/
-console.log(car5);
+console.log(car5);  // { name: "lal" }
 
 console.log('--------------------------------------------------------------------------------');
 
@@ -113,11 +117,16 @@ var garage2 = new Garage('second');
 
 /*Но если в последнем случае не менять внутренности данных ссылочного типа в прототипе, а сделать переопределение, то
 прототип не изменится, а создастся новое свойство в экзмепляре класса.*/
+console.log(garage1); // { name: "first" }
 garage1.cars = [1, 2, 3];
 console.log(garage1); // Есть свойство "cars" равное [1, 2, 3]
-console.log(garage2); // Свойства "cars" нет
+console.log(' ');
+
+console.log(garage2); // { name: "second" }
 console.log(garage2.cars); // [] из прототипа
 console.log(Garage.prototype.cars); // В "prototype" класса свойство "cars" равно []
+console.log(garage2.cars === Garage.prototype.cars); // true
+console.log(' ');
 
 /*Хотя если опять попробуем все-таки изменить внутренности данных ссылочного типа в прототипе, то снова изменим сам
 прототип.*/
@@ -126,5 +135,33 @@ console.log(garage1); // Есть свойство "cars" равное [1, 2, 3]
 console.log(garage2); // Свойства "cars" нет
 console.log(garage2.cars); // [4] из прототипа
 console.log(Garage.prototype.cars); // В "prototype" класса свойство "cars" равно [4]
+console.log(' ');
+
+garage1.cars.push(5);
+console.log(garage1); // Есть свойство "cars" равное [1, 2, 3, 5]
+garage2.cars.push(5);
+console.log(garage2.cars); // [4, 5] из прототипа
+console.log(Garage.prototype.cars); // В "prototype" класса свойство "cars" равно [4, 5]
+console.log(' ');
 
 /*Из стрелочных функций нельзя делать конструкторы.*/
+
+/*Если мы ищем какое-то свойство в объекте, его не находим, идем в прототип, там его находим и сразу пытаемся сделать
+set-операцию, то нам это не будет разрешено, а будет выполнена эта set-операция в самом объекте. 
+
+Если же мы ищем какое-то свойство в объекте, его не находим, идем в прототип, там его находим и дальше ищем какое-то 
+еще другое более вложенное свойство, и если мы его находим и пытаемся сделать set-операцию, то эта операция будет
+проведена в прототипе.*/
+
+garage2.cars.quantity = 2;
+console.log(garage2); // Object { name: "second" }
+console.log(Garage.prototype.cars); // В "prototype" "cars" имеет свойство "quantity" равное 2
+console.log(' ');
+
+garage2.cars = 10;
+console.log(garage2); // { name: "second", cars: 10 }
+console.log(Garage.prototype.cars); // [4, 5]
+console.log(' ');
+
+garage2.mechanics = 4;
+console.log(garage2); // { name: "second", cars: 10, mechanics: 4 }
