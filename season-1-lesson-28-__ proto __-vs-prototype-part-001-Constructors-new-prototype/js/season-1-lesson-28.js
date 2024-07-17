@@ -152,7 +152,6 @@ set-операцию, то нам это не будет разрешено, а 
 Если же мы ищем какое-то свойство в объекте, его не находим, идем в прототип, там его находим и дальше ищем какое-то 
 еще другое более вложенное свойство, и если мы его находим и пытаемся сделать set-операцию, то эта операция будет
 проведена в прототипе.*/
-
 garage2.cars.quantity = 2;
 console.log(garage2); // Object { name: "second" }
 console.log(Garage.prototype.cars); // В "prototype" "cars" имеет свойство "quantity" равное 2
@@ -165,3 +164,33 @@ console.log(' ');
 
 garage2.mechanics = 4;
 console.log(garage2); // { name: "second", cars: 10, mechanics: 4 }
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+function Obj() {
+    this.age = 25;
+    this.name = 'Kek';
+};
+
+Obj.prototype.head = { brain: 1 };
+Obj.prototype.stomach = ['food', 10];
+Obj.prototype.shoes = { poorOnes: 2 };
+
+let objTwo = new Obj();
+let objThree = new Obj();
+
+/*Здесь изменения произошли в прототипе. Свойство "head" было найдено в прототипе, значение которого ссылалось на 
+объект "{ brain: 1 }". Мы поменяли в этом объекте значение свойства "brain", но ссылка осталась на этот же объект.*/
+objTwo.head.brain = 2;
+
+console.log(objTwo.head.brain); // 2 из прототипа, так как ссылка на объект в свойстве "head" не изменилась.
+console.log(objThree.head.brain); // 2 из прототипа по той же причине.
+
+/*Здесь изменения произошли в объекте "objTwo". Здесь мы устанавливаем новое свойство "stomach" в месте, которое уже
+существует, то есть в объекте  "objTwo". Нет необходимости обращаться к прототипу.*/
+objTwo.stomach = [];
+
+console.log(objTwo);
+console.log(objThree);
+console.log(objTwo.stomach.length); // 0 из объекта "objTwo"
+console.log(objThree.stomach.length); // 2 из прототипа
