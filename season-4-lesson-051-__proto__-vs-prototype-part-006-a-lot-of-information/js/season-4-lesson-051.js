@@ -17,16 +17,19 @@ console.log(' ');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-/*1) Объекты прототипов конструкторов предоставляет методы доступные через прототипное наследование, а сами 
+/*1) По умолчанию свойство "__proto__" какого-либо объекта ссылается на свойство "prototype" конструктора, на основе
+которого был этот объект создан. 
+
+2) Объекты прототипов конструкторов предоставляет методы доступные через прототипное наследование, а сами 
 конструкторы предоставляет методы доступные через объекты самих конструкторов. 
 
-2) У всех функций (кроме стрелочных) и классов есть и свойство "prototype", и свойство "__proto__". Остальные типы 
+3) У всех функций (кроме стрелочных) и классов есть и свойство "prototype", и свойство "__proto__". Остальные типы 
 данных имеют только свойство "__proto__".
 
-3) У конструктора function Function() (new Function) свойства "__proto__" и "prototype" оба ссылаются на одно и тоже: 
+4) У конструктора function Function() (new Function) свойства "__proto__" и "prototype" оба ссылаются на одно и тоже: 
 на объект прототипа конструктора function ().
 
-4) Любой встроенный конструктор или любая функция всегда наследует от объекта прототипа конструктора function () 
+5) Любой встроенный конструктор или любая функция всегда наследует от объекта прототипа конструктора function () 
 (Function.prototype), который в свою очередь наследует от объекта прототипа конструктора Object { … } 
 (Object.prototype), а последний в свойстве "__proto__" содержит null.
 
@@ -308,13 +311,13 @@ console.log(' ');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-/*Свойство "__proto___" разных по типу объектов - разные, а свойство "__proto___" одинаковых по типу объектов - 
+/*Свойство "__proto__" разных по типу объектов - разные, а свойство "__proto__" одинаковых по типу объектов - 
 одинаковые.*/
 let obj02 = {};
 let obj03 = {};
 let number02 = 7;
-console.log(obj02.__proto__ === obj03.__proto__); //
-console.log(obj02.__proto__ === number02.__proto__); //
+console.log(obj02.__proto__ === obj03.__proto__); // true
+console.log(obj02.__proto__ === number02.__proto__); // false
 console.log(' ');
 
 console.log('02----------------------------------------------------------------------------');
@@ -326,15 +329,15 @@ console.log(' ');
 
 /*В JS есть встроенные функции-конструкторы, такие как "Object", "Promise", "Function", "Boolean", "Number", "String",
 "Array", "Function". Когда мы создаем новые данные какого-либо типа, то на самом деле где-то вызываются такие
-конструкторы. Чтобы понять, что стоит за каким-либо свойством "__proto___", нужно знать с помощью какой 
-функции-конструктора или класса были созданы какие-то данные, свойство "__proto___" которых нас интересует.*/
+конструкторы. Чтобы понять, что стоит за каким-либо свойством "__proto__", нужно знать с помощью какой 
+функции-конструктора или класса были созданы какие-то данные, свойство "__proto__" которых нас интересует.*/
 let obj04 = {}
 let array05 = [1, 2];
 function func02() { };
 let obj05 = new func02();
-// console.log(obj04.__proto__ === ???); // true
-// console.log(array05.__proto__ === ???); // true
-// console.log(obj05.__proto__ === ???); // true
+console.log(obj04.__proto__ === Object.prototype); // true
+console.log(array05.__proto__ === Array.prototype); // true
+console.log(obj05.__proto__ === func02.prototype); // true
 console.log(' ');
 
 console.log('03----------------------------------------------------------------------------');
@@ -345,17 +348,17 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Любой класс или функция имеет свойство "prototype". Каждое свойство "prototype" это независимый объект со свойствами
-и методами. Свойство "__proto___" любого объекта ссылается на свойство "prototype" функции-конструктора или класса, при 
-помощи которого этот объект был создан. Свойство "__proto___" нужен для того, чтобы объект связался со свойством 
+и методами. Свойство "__proto__" любого объекта ссылается на свойство "prototype" функции-конструктора или класса, при 
+помощи которого этот объект был создан. Свойство "__proto__" нужен для того, чтобы объект связался со свойством 
 "prototype" своего "завещателя". Свойство "prototype" по умолчанию является объектом с единственным свойством 
 "constructor", которое ссылается на саму функцию или класс.*/
-console.log(Object.prototype); //
-console.log(Promise.prototype); //
-console.log(Function.prototype); //
-console.log(Boolean.prototype); //
-console.log(Number.prototype); //
-console.log(String.prototype); //
-console.log(Array.prototype); //
+console.log(Object.prototype); // объект прототипа
+console.log(Promise.prototype); // объект прототипа
+console.log(Function.prototype); // объект прототипа
+console.log(Boolean.prototype); // объект прототипа
+console.log(Number.prototype); // объект прототипа
+console.log(String.prototype); // объект прототипа
+console.log(Array.prototype); // объект прототипа
 console.log(' ');
 
 console.log('04----------------------------------------------------------------------------');
@@ -365,9 +368,9 @@ console.log(' ');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-console.log(({}).prototype === ({}).__proto__); //
-console.log(({}).prototype); //
-console.log(({}).__proto__); //
+console.log(({}).prototype === ({}).__proto__); // false
+console.log(({}).prototype); // undefined
+console.log(({}).__proto__); // объект прототипа
 console.log(' ');
 
 console.log('05----------------------------------------------------------------------------');
@@ -378,10 +381,10 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 function func03() { console.log(func03.prototype === func03.__proto__) };
-func03(); //
-console.log(func03.prototype); //
-console.log(func03.__proto__); //
-console.log(func03.__proto__ === Function.prototype); //
+func03(); // false
+console.log(func03.prototype); // объект прототипа функции func03
+console.log(func03.__proto__); // объект прототипа функции Function
+console.log(func03.__proto__ === Function.prototype); // true
 console.log(' ');
 
 console.log('06----------------------------------------------------------------------------');
@@ -393,13 +396,13 @@ console.log(' ');
 
 function func04() { };
 function func05() { };
-console.log(func04.__proto__ === func05.__proto__); //
-console.log(func04.__proto__ === Function.prototype); //
-console.log(func04.prototype === func05.prototype); //
-console.log(func04.__proto__); //
-console.log(func05.__proto__); //
-console.log(func04.prototype); //
-console.log(func05.prototype); //
+console.log(func04.__proto__ === func05.__proto__); // true
+console.log(func04.__proto__ === Function.prototype); // true
+console.log(func04.prototype === func05.prototype); // false
+console.log(func04.__proto__); // объект прототипа функции Function
+console.log(func05.__proto__); // объект прототипа функции Function
+console.log(func04.prototype); // объект прототипа функции func04
+console.log(func05.prototype); // объект прототипа функции func05
 console.log(' ');
 
 console.log('07----------------------------------------------------------------------------');
@@ -410,10 +413,10 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 let arrowFunc02 = (props) => { return '<div>I know nothing</div>' };
-console.log(arrowFunc02.prototype === Object.prototype); //
-console.log(arrowFunc02.prototype); //
-console.log(arrowFunc02.__proto__ === Function.prototype); //
-console.log(arrowFunc02.__proto__); //
+console.log(arrowFunc02.prototype === Object.prototype); // false
+console.log(arrowFunc02.prototype); // underfined
+console.log(arrowFunc02.__proto__ === Function.prototype); // true
+console.log(arrowFunc02.__proto__); // объект прототипа функции Function
 console.log(' ');
 
 console.log('08----------------------------------------------------------------------------');
@@ -424,10 +427,10 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 let number03 = 24;
-console.log(number03.prototype === Number.prototype); //
-console.log(number03.prototype); //
-console.log(number03.__proto__ === Number.prototype); //
-console.log(number03.__proto__); //
+console.log(number03.prototype === Number.prototype); // false
+console.log(number03.prototype); // undefined
+console.log(number03.__proto__ === Number.prototype); // true
+console.log(number03.__proto__); // объект прототипа функции Number
 console.log(' ');
 
 console.log('09----------------------------------------------------------------------------');
@@ -438,9 +441,9 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 class Class02 { };
-console.log(Class02.__proto__ === Function.prototype); //
-console.log(Class02.__proto__); //
-console.log(Class02.prototype); //
+console.log(Class02.__proto__ === Function.prototype); // true
+console.log(Class02.__proto__); // объект прототипа функции Function
+console.log(Class02.prototype); // объект прототипа функции (класса) Class02
 console.log(' ');
 
 console.log('10----------------------------------------------------------------------------');
@@ -451,8 +454,8 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 function func06() { let d = 0 };
-console.log(func06.__proto__ === Function.prototype); //
-console.log(func06.__proto__); //
+console.log(func06.__proto__ === Function.prototype); // true
+console.log(func06.__proto__); // объект прототипа функции Function
 console.log(' ');
 
 console.log('11----------------------------------------------------------------------------');
@@ -467,7 +470,7 @@ console.log(' ');
 через ссылку на свойство "prototype" своего родителя. Поэтому при создании функций-конструкторов методы лучше указывать
 в их свойстве "prototype".*/
 let obj06 = { a: 'abc' };
-console.log(obj06.toString()); //
+console.log(obj06.toString()); // "[Object object]": { a: 'abc' } => Object.prototype
 console.log(' ');
 
 console.log('12----------------------------------------------------------------------------');
