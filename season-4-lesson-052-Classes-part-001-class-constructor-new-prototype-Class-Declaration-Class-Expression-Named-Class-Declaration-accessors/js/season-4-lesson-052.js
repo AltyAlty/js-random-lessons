@@ -7,7 +7,7 @@
 function Constructor01(a, b) { // Часть #1, создание начальных свойств объектов
     this.a = a;
     this.b = b;
-    // this.method01 = function () { console.log('Hello') };
+    // this.method01 = function (c) { console.log(c) };
 };
 
 Constructor01.prototype.method01 = function (c) { console.log(c) }; // Часть #2, реализация методов объектов
