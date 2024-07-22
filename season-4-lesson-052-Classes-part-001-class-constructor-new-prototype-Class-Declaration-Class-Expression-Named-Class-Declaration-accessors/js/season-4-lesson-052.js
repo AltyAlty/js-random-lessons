@@ -95,7 +95,7 @@ class Class03 { };
 /*Class Expression.*/
 let Class04 = class { };
 
-/*Names Class Expression.*/
+/*Named Class Expression.*/
 let Class05 = class hiddenClass05 { };
 
 console.log('--------------------------------------');
