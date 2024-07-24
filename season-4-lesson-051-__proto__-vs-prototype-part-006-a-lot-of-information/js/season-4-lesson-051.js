@@ -679,10 +679,11 @@ console.log(' ');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Свойство "prototype" это всегда какой-то объект. Свойство "__proto__" может быть объектом, функцией или классом. 
-При наследовании классов в свойство "__proto__" у класса-наследника кладется ссылка на весь класс-завещатель, а не 
-свойство "prototype" этого класса-завещателя. Получается, что во время поиска по прототипному наследования, когда
-нужно перейти искать из класса-наследника в класс-завещатель, мы идем в "Class.__proto__.prototype", а не просто в 
-"Class.__proto__".*/
+При наследовании классов в свойство "__proto__" у класса-наследника кладется ссылка на весь класс-завещатель, а не на
+свойство "prototype" этого класса-завещателя. То есть общее правило для поиска свойства "__proto__" остается 
+неизменным, за исключением работы с классами, которые наследуются от другого класса:
+Свойство "__proto__" экземпляра данных равно свойству "prototype" конструктора или класса, на основе которых был 
+создан это экземпляр данных. А свойство "__proto__" класса-наследника равно всему классу-завещателю.*/
 class Class04 {
     showA() { console.log(`It's A!`) }
 };
@@ -698,15 +699,14 @@ obj13.showB(); // "It's B!" (obj13 => Class05.prototype)
 obj13.showA(); // "It's A!" (obj13 => Class05.prototype => Class04.prototype)
 console.log(' ');
 
-console.log(Class05.prototype); // { constructor: class Class05 {}, showA: function showB() } объект-прототип функции-конструктора (класса) Class05
-console.log(Class05.__proto__); // class Class04 {} функция-конструктор (класс) Class04, а не объект-прототип функции-конструктора (класса) Class04
-console.log(Class04.prototype); // { constructor: class Class04 {}, showA: function showA() } объект-прототип функции-конструктора (класса) Class05
-console.log(Class04.__proto__); // объект-прототип функции-конструктора Function
+console.log(Class04.prototype); // { constructor: class Class04 {}, showA: function showA() } объект-прототип функции-конструктора (класса) Class04
+console.log(Class05.prototype); // { constructor: class Class05 {}, showB: function showB() } объект-прототип функции-конструктора (класса) Class05
+console.log(Class04.__proto__); // объект-прототип функции-конструктора Function ("Function.prototype")
+console.log(Class05.__proto__); // class Class04 {} функция-конструктор (класс) Class04 ("Class04"), а не объект-прототип функции-конструктора (класса) Class04 ("Class04.prototype")
 console.log(' ');
 
-console.log(Class05.__proto__ === Class04.prototype); // false
+console.log(Class04.__proto__ === Function.prototype); // true
 console.log(Class05.__proto__ === Class04); // true
-console.log(Class05 === Class05.prototype.constructor); // true
 console.log(' ');
 
 console.log('19----------------------------------------------------------------------------');
