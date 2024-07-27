@@ -75,7 +75,7 @@ class Class02 {
     };
 
     method01(c) { console.log(c) };
-}
+};
 // let obj05 = Class02(); // Uncaught TypeError: class constructors must be invoked with 'new'
 let obj05 = new Class02();
 
