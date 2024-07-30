@@ -6,11 +6,11 @@
 ключевое слове "extends".*/
 class Class01 {
     constructor() { this.a = 1 };
-    method01() { console.log('aa'); };
+    method01() { console.log('aa') };
 };
 
 class Class02 extends Class01 {
-    method02() { console.log('bb'); };
+    method02() { console.log('bb') };
 };
 
 console.log(Class01.prototype); // Object { constructor: class Class01 {};​ method01: function method01() }
