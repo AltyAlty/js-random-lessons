@@ -43,7 +43,6 @@ console.log('--------------------------------------');
 
 /*Есть метод "objA.isPrototypeOf(objB)", который возвращает true, если объект "objA" есть где-то в прототипной цепочке 
 объекта "objB". Так что "obj instanceof Class" можно перефразировать как "Class.prototype.isPrototypeOf(obj)".*/
-
 let obj04 = {}
 let obj05 = { __proto__: obj04 };
 console.log(obj04.isPrototypeOf(obj05)); // true
