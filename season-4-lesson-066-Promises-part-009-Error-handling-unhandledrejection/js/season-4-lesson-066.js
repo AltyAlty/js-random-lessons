@@ -76,8 +76,8 @@ new Promise((resolve, reject) => {
 ситуации и генерирует в этом случае глобальную ошибку. В браузере мы можем поймать такие ошибки, используя событие 
 "unhandledrejection".*/
 window.addEventListener('unhandledrejection', function (event) {
-    console.log(event.promise); // [object Promise] - промис, который сгенерировал ошибку
-    console.log(event.reason); // Error: Ошибка! - объект ошибки, которая не была обработана
+    console.log(event.promise); // [object Promise]
+    console.log(event.reason);
 });
 
 // new Promise(function () {
