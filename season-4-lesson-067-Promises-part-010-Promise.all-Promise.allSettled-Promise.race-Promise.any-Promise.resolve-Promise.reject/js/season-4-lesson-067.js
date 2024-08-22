@@ -108,7 +108,6 @@ Promise.all(promises01) // это похоже на "new Promise( result: [ prom
 
 /*Если любой из промисов завершится с ошибкой, то промис, возвращенный методом "Promise.all()", немедленно 
 завершается с этой ошибкой.*/
-
 let promise01 = new Promise((resolve, reject) => setTimeout(() => resolve(1), 2000));
 let promise02 = new Promise((resolve, reject) => setTimeout(() => reject(new Error('ERROR')), 2500));
 let promise03 = new Promise((resolve, reject) => setTimeout(() => resolve(3), 5000));
