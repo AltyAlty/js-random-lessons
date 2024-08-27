@@ -8,12 +8,18 @@ let promise01 = Promise.resolve();
 console.log(1);
 
 promise01
-    .then(() => {
-        console.log(2);
-        console.log('--------------------------------------');
-    });
+    .then(
+        (result) => {
+            console.log(2);
+        }
+    )
+    .then(
+        (result) => {
+            console.log(3);
+        }
+    );
 
-console.log(3); // 1 => 3 => 2
+console.log(4); // 1 => 3 => 2
 
 /*Асинхронные задачи попадают в специальную очередь микрозадач (PromiseJobs/microtask queue). Это очередь работает
 по принципу FIFO: первым пришел - первым вышел. Выполнение микрозадач, то есть их попадание в callstack, происходит 
