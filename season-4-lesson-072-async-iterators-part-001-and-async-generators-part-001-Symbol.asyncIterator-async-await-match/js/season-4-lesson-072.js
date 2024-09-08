@@ -13,7 +13,7 @@ obj01[Symbol.asyncIterator] = function () { // Используем "Symbol.asyn
 
     return {
         current: this.a, // 1 -> 2 -> 3 -> 4
-        last: this.b, // 6
+        last: this.b, // 3
 
         async next() { // Используем async-функцию, чтобы использовать ключевое слово "await" внутри.
             console.log('next01'); // Вызовется 4 раза.
@@ -107,7 +107,7 @@ async function* fetchCommits(repo) {
     по 30 коммитов за один раз и ссылку на новую партию коммитов.*/
     let url = `https://api.github.com/repos/${repo}/commits`;
 
-    while (url) { // Цикл "while" будет работать пока у нас есть ссылка на следующую страницу с данными
+    while (url) { // Цикл "while" будет работать пока у нас есть ссылка на следующую страницу с данными.
         /*Делаем запрос на API Github и ждем. После ответа результат промиса, который вернет метод "fetch()", кладем в
         переменную "response" при помощи ключевого слова "await".*/
         const response = await fetch(
@@ -149,9 +149,11 @@ async function* fetchCommits(repo) {
 
 setTimeout(() => {
     (async () => { // Используем самовызывавющуюся async-функция, так как нам нужно использовать "await" в "for..of".
+
         for await (const commit of fetchCommits('AltyAlty/js-random-lessons')) { // Перебираем генератор.
             console.log(commit.commit.message);
         };
+        
     })();
 },
     6000);
