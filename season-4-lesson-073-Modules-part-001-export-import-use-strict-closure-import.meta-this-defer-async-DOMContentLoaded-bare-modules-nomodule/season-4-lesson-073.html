@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>season 4 lesson 073 Modules part 001: export, import, use strict, closure, import.meta, this, defer, async,
+            DOMContentLoaded, bare modules, nomodule</title>
+      <meta name="description"
+            content="season 4 lesson 073 Modules part 001: export, import, use strict, closure, import.meta, this, defer, async, DOMContentLoaded, bare modules, nomodule">
+      <meta name="author" content="me">
+
+      <meta property="og:title"
+            content="season 4 lesson 073 Modules part 001: export, import, use strict, closure, import.meta, this, defer, async, DOMContentLoaded, bare modules, nomodule">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://.com/">
+      <meta property="og:description"
+            content="season 4 lesson 073 Modules part 001: export, import, use strict, closure, import.meta, this, defer, async, DOMContentLoaded, bare modules, nomodule">
+      <meta property="og:image" content="image.png">
+
+      <link rel="shortcut icon" href="#">
+
+      <link rel="stylesheet" href="css/season-3-lesson-073.css">
+</head>
+
+<body>
+      <script src="js/season-4-lesson-073.js" type="module"></script>
+      <!-- <script src="js/season-4-lesson-073.js" type="module"></script> -->
+      <script src="js/module02.js" type="module"></script>
+
+
+      <!-- <script type="module">
+            console.log(' ');
+            console.log(typeof button01); // "object"
+      </script>
+
+      <script>
+            /*Не-модульный скрипт выполнится раньше всех потому, что модули начинают выполняться после полной 
+            загрузки страницы. Обычные скрипты запускаются сразу же, поэтому сообщение из обычного скрипта мы видим 
+            первым.*/
+            console.log(typeof button01); // "undefined"
+      </script> -->
+
+
+      <script src="js/module03.js" type="module" async></script>
+      <script src="js/module04.js" type="module" async></script>
+
+
+      <!-- <script type="module">
+            console.log('Работает в современных браузерах');
+      </script>
+
+      <script nomodule>
+            console.log('Современные браузеры понимают оба атрибута - и type=module, и nomodule, поэтому пропускают этот тег script');
+            console.log('Старые браузеры игнорируют скрипты с неизвестным атрибутом type=module, но выполняют этот.');
+      </script> -->
+
+
+      <button id="button01">button01</button>
+</body>
+
+</html>
