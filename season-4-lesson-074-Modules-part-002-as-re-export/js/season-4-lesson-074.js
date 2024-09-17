@@ -11,14 +11,14 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Можно использовать "as", чтобы импортировать под другими именами.*/
-import {c as cFromModule02} from './module02.js';
+import { c as cFromModule02 } from './module02.js';
 console.log(cFromModule02); // 3
 
 console.log('--------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-import {dFromModule02} from './module02.js';
+import { dFromModule02 } from './module02.js';
 console.log(dFromModule02); // 4
 
 console.log('--------------------------------------');
@@ -40,7 +40,7 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Можно в одном месте сделать импорт по умолчанию и именновый импорт.*/
-import {default as fFromModule05, g} from './module05.js';
+import { default as fFromModule05, g } from './module05.js';
 console.log(fFromModule05); // 7
 console.log(g); // 8
 
@@ -56,7 +56,7 @@ console.log('--------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-import {jFromModule07FromModule08, kFromModule07FromModule08} from './module08.js';
+import { jFromModule07FromModule08, kFromModule07FromModule08 } from './module08.js';
 console.log(jFromModule07FromModule08); // 11
 console.log(kFromModule07FromModule08); // 12
 
@@ -64,7 +64,7 @@ console.log('--------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-import {l, m} from './module10.js';
+import { l, m } from './module10.js';
 console.log(l); // 13
 console.log(m); // 14
 
