@@ -18,8 +18,8 @@ console.log(Class02.prototype); // Object { constructor: class Class02 {};​ me
 
 let obj01 = new Class02(); // функция "constructor()" была вызвана из класса "Class01", так как у класса "Class02" такой функции указано не было
 console.log(obj01); // Object { a: 1 }
-obj01.method02(); // "bb"; obj01 => Class02.prototype
-obj01.method01(); // "aa"; obj01 => Class02.prototype => Class01.prototype
+obj01.method02(); // "bb"; obj01 -> Class02.prototype
+obj01.method01(); // "aa"; obj01 -> Class02.prototype -> Class01.prototype
 
 console.log('--------------------------------------');
 
@@ -70,7 +70,7 @@ class Class05 extends Class04 {
 
 let obj03 = new Class05;
 console.log(obj03); // Object { a: 1, b: 2 }
-obj03.method01(); // 45 => 67
+obj03.method01(); // 45 -> 67
 
 console.log('--------------------------------------');
 
@@ -93,7 +93,7 @@ class Class07 extends Class06 {
 };
 
 let obj04 = new Class07();
-obj04.method01(); // 89 => 89 => 90
+obj04.method01(); // 89 -> 89 -> 90
 
 console.log('--------------------------------------');
 
@@ -156,12 +156,12 @@ class Class11 extends Class10 {
 
 /*Здесь сначала создается поле "a = 1" в классе-завещателе, затем запускается функция "constructor()" 
 класса-завещателя.*/
-let obj06 = new Class10(); // "aa" => 1
+let obj06 = new Class10(); // "aa" -> 1
 
 /*Здесь сначала запускается автоматически созданная функция "constructor()" в классе-наследнике, в которой вызывается 
 функция "super()", которая в свою очередь запускает функцию "constructor()" класса-завещателя, у которого уже есть 
 поле "a = 1", и только уже после этого создается поле "a = 2" в классе-наследнике.*/
-let obj07 = new Class11(); // "bb" => 1
+let obj07 = new Class11(); // "bb" -> 1
 
 console.log(obj06); // Object { a: 1 }
 console.log(obj07); // Object { a: 2 }
@@ -244,7 +244,7 @@ class Class13 extends Class12 {
 };
 
 let obj11 = new Class13(); // { }
-obj11.method01(); // "aa" => "bb"
+obj11.method01(); // "aa" -> "bb"
 console.log(' ');
 
 /*Для решения этой проблемы в JavaScript было добавлено специальное внутреннее свойство для функций: "[[HomeObject]]".

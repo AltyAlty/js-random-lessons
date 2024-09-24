@@ -142,7 +142,7 @@ let obj13 = {
 console.log(Object.keys(obj13)); // [ "c" ]
 
 for (const key in obj13) {
-    console.log(key); // "c" => "a" => "b"
+    console.log(key); // "c" -> "a" -> "b"
 };
 
 console.log(' ');

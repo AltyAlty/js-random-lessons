@@ -10,7 +10,7 @@ function powWithoutRecursion(x, n) {
     let result = x; // 2
 
     for (let i = 1; i < n; i++) {
-        result = result * x; // 2 * 2 = 4 => 4 * 2 = 8 => 8 * 2 => 16
+        result = result * x; // 2 * 2 = 4 -> 4 * 2 = 8 -> 8 * 2 -> 16
     };
 
     return result;
@@ -76,7 +76,7 @@ function powWithRecursion2(x, n) {
     return (n === 1) ? x : (x * powWithRecursion2(x, n - 1));
 };
 
-// let powWithRecursion2 = (x, n) => (n === 1) ? x : (x * powWithRecursion2(x, n - 1));
+// let powWithRecursion2 = (x, n) -> (n === 1) ? x : (x * powWithRecursion2(x, n - 1));
 
 console.log(powWithRecursion2(2, 4)); // 16
 

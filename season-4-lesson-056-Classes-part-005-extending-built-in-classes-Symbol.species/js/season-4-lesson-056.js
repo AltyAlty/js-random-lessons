@@ -47,7 +47,7 @@ class Class01 {
 };
 
 class Class02 extends Class01 {};
-console.log(Class02.method01()); // 123, Class02 => Class02.__proto__ => Class03
+console.log(Class02.method01()); // 123, Class02 -> Class02.__proto__ -> Class03
 
-console.log(Array.keys); // undefined, Array => Array.__proto__ => Function.prototype => Function.prototype.__proto__ => Object.prototype => Object.prototype.__proto__ => null
+console.log(Array.keys); // undefined, Array -> Array.__proto__ -> Function.prototype -> Function.prototype.__proto__ -> Object.prototype -> Object.prototype.__proto__ -> null
 console.log(Object.keys); // function keys()

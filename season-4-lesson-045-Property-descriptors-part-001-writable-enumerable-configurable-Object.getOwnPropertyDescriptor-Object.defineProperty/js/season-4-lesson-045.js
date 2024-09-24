@@ -67,7 +67,7 @@ let obj03 = {
 };
 
 for (const key in obj03) {
-    console.log(key); // 'a' => 'toString'
+    console.log(key); // 'a' -> 'toString'
 };
 
 Object.defineProperty(obj03, 'toString', {

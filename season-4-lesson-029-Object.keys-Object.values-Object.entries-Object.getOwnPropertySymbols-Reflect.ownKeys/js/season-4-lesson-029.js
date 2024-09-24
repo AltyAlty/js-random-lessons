@@ -8,15 +8,15 @@
 let arr01 = ['a', 'b', 'c'];
 
 for (const key of arr01.keys()) {
-    console.log(key); // 0 => 1 => 2
+    console.log(key); // 0 -> 1 -> 2
 }
 
 for (const value of arr01.values()) {
-    console.log(value); // 'a' => 'b' => 'c'
+    console.log(value); // 'a' -> 'b' -> 'c'
 }
 
 for (const entry of arr01.entries()) {
-    console.log(entry); // Array [ 0, "a" ] => Array [ 1, "b" ] => Array [ 2, "c" ]
+    console.log(entry); // Array [ 0, "a" ] -> Array [ 1, "b" ] -> Array [ 2, "c" ]
 }
 
 console.log('--------------------------------------');

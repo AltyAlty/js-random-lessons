@@ -15,7 +15,7 @@ let funcExample02 = function asdasd() {
 funcExample02(); // '02'
 // asdasd(); // is not defined
 /*Любая функция что-то возвращает, если не указано что, то вернется undefined.*/
-console.log(funcExample02); // '02' => undefined
+console.log(funcExample02); // '02' -> undefined
 console.log(funcExample02()); // function asdasd(params)
 
 console.log('--------------------------------------');
@@ -55,7 +55,7 @@ function funcExample08() {
     funcExample09();
 };
 
-funcExample08(); // '08' => '09' => '09'
+funcExample08(); // '08' -> '09' -> '09'
 // funcExample09(); // funcExample09 is not defined
 
 console.log('--------------------------------------');
@@ -74,7 +74,7 @@ function funcExample10() {
     funcExample11();
 };
 
-funcExample10(); // '10' => '11' => '11'
+funcExample10(); // '10' -> '11' -> '11'
 /*Если запустить без 'use strict', то получим funcExample11 is not a function. Так происходит потому, что создание 
 идентификатора funcExample11 ниже в блоке if подтянется на самый вверх, но не произойдет его инициализация.*/
 // funcExample11();

@@ -42,7 +42,7 @@ const counter = initial => {
         return f; // Возвращаем саму эту функцию, чтобы обеспечить чейнинг.
     };
 
-    /*Метод "Object.setPrototypeOf()" устанавливает прототип (то есть, внутреннее свойство "[[Prototype]]"") указанного
+    /*Метод "Object.setPrototypeOf()" устанавливает прототип (то есть, внутреннее свойство "[[Prototype]]") указанного
     объекта в другой объект или null.*/
     Object.setPrototypeOf(f, Counter.prototype); // Присвоили функции прототип конструктора "Counter".
 

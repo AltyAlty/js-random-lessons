@@ -28,7 +28,7 @@ let promise001 = new Promise(
 
 console.log(promise001.state); // undefined, скрытое свойство
 console.log(promise001.result); // undefined, скрытое свойство
-console.log(promise001); // { <state>: "pending", <result>: undefined } => { <state>: "fulfilled", <result>: "done" }
+console.log(promise001); // { <state>: "pending", <result>: undefined } -> { <state>: "fulfilled", <result>: "done" }
 
 let promise002 = new Promise(
 
@@ -38,7 +38,7 @@ let promise002 = new Promise(
 
 );
 
-console.log(promise002);  // { <state>: "pending", <result>: undefined } => { <state>: "rejected", <result>: "not done" }
+console.log(promise002);  // { <state>: "pending", <result>: undefined } -> { <state>: "rejected", <result>: "not done" }
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 

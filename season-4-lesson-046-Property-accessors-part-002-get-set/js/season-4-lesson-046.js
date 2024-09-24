@@ -86,7 +86,7 @@ let obj04 = {
     }
 };
 
-obj04.aa++; // 3 + 1 => 4 * 2 => 8 + 1 => 9
+obj04.aa++; // 3 + 1 -> 4 * 2 -> 8 + 1 -> 9
 console.log(obj04.aa); // 9
 
 console.log('--------------------------------------');
@@ -121,7 +121,7 @@ Object.defineProperty(obj05, 'ab', {
 console.log(obj05.ab); // "2 3"
 
 for (const key in obj05) {
-    console.log(key); // "a" => "b"
+    console.log(key); // "a" -> "b"
 };
 
 console.log('--------------------------------------');

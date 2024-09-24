@@ -10,23 +10,23 @@ let array0 = [1, 4];
 let obj0 = { a: 1, b: 4 };
 
 for (const key in string0) {
-    console.log(string0[key]); // '1' =>  '4'
+    console.log(string0[key]); // '1' ->  '4'
 }
 
 for (const key in array0) {
-    console.log(array0[key]); // 1 =>  4
+    console.log(array0[key]); // 1 ->  4
 }
 
 for (const key in obj0) {
-    console.log(obj0[key]); // 1 =>  4
+    console.log(obj0[key]); // 1 ->  4
 }
 
 for (const iterator of string0) {
-    console.log(iterator); // '1' =>  '4'
+    console.log(iterator); // '1' ->  '4'
 }
 
 for (const iterator of array0) {
-    console.log(iterator); // 1 =>  4
+    console.log(iterator); // 1 ->  4
 }
 
 // for (const iterator of obj0) { //  Uncaught TypeError: obj0 is not iterable
@@ -56,7 +56,7 @@ obj1[Symbol.iterator] = function () {
     console.log('Symbol.iterator'); // вызовется только один раз.
 
     return {
-        current: this.a, // 1 => 2 => 3 => 4 => 5 => 6 => 7
+        current: this.a, // 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
         last: this.b, // 6
 
         next() {
@@ -72,7 +72,7 @@ obj1[Symbol.iterator] = function () {
 };
 
 for (const num of obj1) {
-    console.log(num); // 1 => 2 => 3 => 4 => 5 => 6
+    console.log(num); // 1 -> 2 -> 3 -> 4 -> 5 -> 6
 }
 
 /*Пошаговая инструкция как сделать объект итериуремым:
@@ -142,8 +142,8 @@ for (const num of obj2) {
     console.log(obj2.current); // 6
 
     for (const num of obj2) {
-        console.log(`inner ${num}`); // 5 => 6 => 7 => 8
-        console.log(obj2.current); // 6 => 7 => 8 => 9
+        console.log(`inner ${num}`); // 5 -> 6 -> 7 -> 8
+        console.log(obj2.current); // 6 -> 7 -> 8 -> 9
     }
 }
 
@@ -267,7 +267,7 @@ let array3 = Array.from(
     objThis
 );
 
-console.log(array3); // [ 1 * 2, 2 * 2, 3 * 2, 4 * 2 ] => [ 1, 4, 6, 8 ]
+console.log(array3); // [ 1 * 2, 2 * 2, 3 * 2, 4 * 2 ] -> [ 1, 4, 6, 8 ]
 
 console.log('--------------------------------------');
 
@@ -335,7 +335,7 @@ obj7['3'] = 'C';
 obj7.length++;
 
 for (const value of obj7) {
-    console.log(value); // 'A' => 'B' => function 2() => 'C'
+    console.log(value); // 'A' -> 'B' -> function 2() -> 'C'
 }
 
 console.log('--------------------------------------');

@@ -5,7 +5,7 @@
 let a = 0;
 
 while (a < 3) {
-    console.log(a); // 0 => 1 => 2
+    console.log(a); // 0 -> 1 -> 2
     a++;
 }
 
@@ -19,7 +19,7 @@ console.log('--------------------------------------');
 let b = 0;
 
 do {
-    console.log(b); // 0 => 1 => 2
+    console.log(b); // 0 -> 1 -> 2
     b++;
 } while (b < 3);
 

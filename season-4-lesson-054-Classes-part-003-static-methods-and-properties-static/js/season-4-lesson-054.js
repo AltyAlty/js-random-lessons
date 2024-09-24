@@ -46,4 +46,4 @@ class Class04 extends Class03 {
     method02() { console.log(2) };
 };
 
-Class04.method01(); // 1, Class04 => Class04.__proto__ => Class03
+Class04.method01(); // 1, Class04 -> Class04.__proto__ -> Class03

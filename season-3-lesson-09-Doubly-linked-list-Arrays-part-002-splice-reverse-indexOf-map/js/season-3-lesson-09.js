@@ -158,22 +158,22 @@ function showDataFromMyList(l) {
     };
 };
 
-showDataFromMyList(list); // 111 => 222 => 333
+showDataFromMyList(list); // 111 -> 222 -> 333
 console.log(list.head); // { data: 111, prev: null, next: null }
 console.log(list.tail); // { data: 333, prev: null, next: null }
 
 list.insertNodeAt(1, 444);
-showDataFromMyList(list); // 111 => 444 => 222 => 333
+showDataFromMyList(list); // 111 -> 444 -> 222 -> 333
 console.log(list.head); // { data: 111, prev: null, next: null }
 console.log(list.tail); // { data: 333, prev: null, next: null }
 
 list.insertNodeAt(0, 'AAA');
-showDataFromMyList(list); // "AAA" => 111 => 444 => 222 => 333
+showDataFromMyList(list); // "AAA" -> 111 -> 444 -> 222 -> 333
 console.log(list.head); // { data: "AAA", prev: null, next: null }
 console.log(list.tail); // { data: 333, prev: null, next: null }
 
 list.insertNodeAt(5, 555);
-showDataFromMyList(list); // "AAA" => 111 => 444 => 222 => 333 => 555
+showDataFromMyList(list); // "AAA" -> 111 -> 444 -> 222 -> 333 -> 555
 console.log(list.head); // { data: "AAA", prev: null, next: null }
 console.log(list.tail); // { data: 555, prev: null, next: null }
 console.log('5------------------------------------------------------');
@@ -188,17 +188,17 @@ list.appendNode(111);
 list.appendNode(222);
 list.appendNode(333);
 list.appendNode(444);
-showDataFromMyList(list); // 111 => 222 => 333 => 444
+showDataFromMyList(list); // 111 -> 222 -> 333 -> 444
 console.log(list.head); // { data: 111, prev: null, next: null }
 console.log(list.tail); // { data: 444, prev: null, next: null }
 
 list.deleteNodeAt(1);
-showDataFromMyList(list); // 111 => 333 => 444
+showDataFromMyList(list); // 111 -> 333 -> 444
 console.log(list.head); // { data: 111, prev: null, next: null }
 console.log(list.tail); // { data: 444, prev: null, next: null }
 
 list.deleteNodeAt(0);
-showDataFromMyList(list); // 333 => 444
+showDataFromMyList(list); // 333 -> 444
 console.log(list.head); // { data: 333, prev: null, next: null }
 console.log(list.tail); // { data: 444, prev: null, next: null }
 
@@ -213,7 +213,7 @@ list.appendNode(111);
 list.appendNode(222);
 list.appendNode(333);
 list.reverseList();
-showDataFromMyList(list); // 333 => 222 => 111
+showDataFromMyList(list); // 333 -> 222 -> 111
 console.log('8------------------------------------------------------');
 
 console.log(list.indexOfData(111)); // 2
@@ -223,7 +223,7 @@ console.log(list.indexOfData(444)); // -1
 console.log('9------------------------------------------------------');
 
 list.clearList().appendNode(333).appendNode(111).reverseList().appendNode(222).deleteNodeAt(1).appendNode(444).insertNodeAt(2, 333);
-showDataFromMyList(list); // 111 => 222 => 333 => 444
+showDataFromMyList(list); // 111 -> 222 -> 333 -> 444
 console.log('10-----------------------------------------------------');
 
 list.clearList();

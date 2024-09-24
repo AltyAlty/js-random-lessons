@@ -5,7 +5,7 @@
 /*Оператор "instanceof" возращает true если объект является экземпляром какого-то класса или функции-конструктора.*/
 class Class01 { };
 let obj01 = new Class01();
-// obj01 => Class01.prototype => Object.prototype => null
+// obj01 -> Class01.prototype -> Object.prototype -> null
 console.log(obj01 instanceof Class01); // true
 console.log(obj01 instanceof Object); // true
 console.log(' ');
@@ -84,7 +84,7 @@ console.log('--------------------------------------');
 
 /*Оператор "instanceof" не учитывает саму функцию при проверке, а только свойство "prototype", которое проверяется на 
 совпадения в прототипной цепочке. В примере ниже прототипная цепочка объекта "obj07" будет выглядеть так:
-obj07 => constructor02.prototype => Object.prototype => null. Каждый элемент этой цепочки сравнивается с 
+obj07 -> constructor02.prototype -> Object.prototype -> null. Каждый элемент этой цепочки сравнивается с 
 "constructor03.prototype", и в какой-то момент "constructor02.prototype === constructor03.prototype" вернет true.*/
 function constructor02() { };
 function constructor03() { };

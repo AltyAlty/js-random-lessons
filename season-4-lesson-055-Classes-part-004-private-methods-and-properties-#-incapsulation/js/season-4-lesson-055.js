@@ -38,7 +38,7 @@ console.log(Class01.prototype); // Object { constructor, method01, getPrivateA, 
 console.log(Class01); // нет метода "#method01"
 console.log(' ');
 
-console.log(obj01.privateA); // 2 => 2
+console.log(obj01.privateA); // 2 -> 2
 obj01.privateA = 3; // 3
 console.log(' ');
 

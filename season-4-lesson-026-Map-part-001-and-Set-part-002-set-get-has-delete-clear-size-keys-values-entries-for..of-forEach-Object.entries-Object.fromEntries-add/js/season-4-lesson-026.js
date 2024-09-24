@@ -62,7 +62,7 @@ map2[true] = 2;
 console.log(map2[true]); // true будет приведено к строке 'true'
 
 for (const key in map2) {
-    console.log(key); // 'a' => 'true'
+    console.log(key); // 'a' -> 'true'
 }
 
 console.log('--------------------------------------');
@@ -127,19 +127,19 @@ console.log(map6); // Map(3) { a → 1, b → 2, c → 3 }
 console.log(map6.keys()); // Map Iterator {  }
 
 for (const k of map6.keys()) {
-    console.log(k); // 'a' => 'b' => 'c'
+    console.log(k); // 'a' -> 'b' -> 'c'
 }
 
 console.log(map6.values()); // Map Iterator {  }
 
 for (const v of map6.values()) {
-    console.log(v); // 1 => 2 => 3
+    console.log(v); // 1 -> 2 -> 3
 }
 
 console.log(map6.entries()); // Map Iterator {  }
 
 for (const e of map6.entries()) {
-    console.log(e); // Array [ "a", 1 ] => Array [ "b", 2 ] => Array [ "c", 3 ]
+    console.log(e); // Array [ "a", 1 ] -> Array [ "b", 2 ] -> Array [ "c", 3 ]
 }
 
 console.log('--------------------------------------');
@@ -230,7 +230,7 @@ console.log(set1.has(3)); // true
 console.log(set1.has(2)); // false
 
 for (const value of set1) {
-    console.log(value); // 1 => 3 => { a: 1 }
+    console.log(value); // 1 -> 3 -> { a: 1 }
 }
 
 console.log(set1.size); // 3
@@ -277,8 +277,8 @@ let set3 = new Set([
 ]);
 
 set3.forEach((value, valueAgain, set) => {
-    console.log(value); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
-    console.log(valueAgain); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
+    console.log(value); // [ "a", 1 ] -> [ "b", 2 ] -> [ "c", 3 ]
+    console.log(valueAgain); // [ "a", 1 ] -> [ "b", 2 ] -> [ "c", 3 ]
     console.log(set); // Set(3) [ (2) [ "a", 1 ], (2) [ "a", 1 ], (2) [ "a", 1 ] ]
 });
 
@@ -300,17 +300,17 @@ let set4 = new Set([
 console.log(set4.values()); // Set Iterator {  }
 
 for (const v of set4.values()) {
-    console.log(v); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
+    console.log(v); // [ "a", 1 ] -> [ "b", 2 ] -> [ "c", 3 ]
 }
 
 console.log(set4.keys()); // Set Iterator {  }
 
 for (const k of set4.keys()) {
-    console.log(k); // [ "a", 1 ] => [ "b", 2 ] => [ "c", 3 ]
+    console.log(k); // [ "a", 1 ] -> [ "b", 2 ] -> [ "c", 3 ]
 }
 
 console.log(set4.entries()); // Set Iterator {  }
 
 for (const e of set4.entries()) {
-    console.log(e); // Array [ [ "a", 1 ] [ "a", 1 ] ] => Array [ [ "b", 2 ] [ "b", 2 ] ] => Array [ [ "c", 3 ] [ "c", 3 ] ]
+    console.log(e); // Array [ [ "a", 1 ] [ "a", 1 ] ] -> Array [ [ "b", 2 ] [ "b", 2 ] ] -> Array [ [ "c", 3 ] [ "c", 3 ] ]
 }

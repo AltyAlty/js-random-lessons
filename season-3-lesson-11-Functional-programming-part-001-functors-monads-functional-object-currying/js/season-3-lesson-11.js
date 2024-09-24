@@ -143,14 +143,14 @@ function lookAtArguments(fOne, fTwo) {
 };
 
 const partOne = lookAtArguments(someFuncOne, someFuncTwo); // nothing
-const partTwo = partOne(1, 2, 3, 4, 5, 6); // 1 => 2 => 3 => 4 => 5 => 6
+const partTwo = partOne(1, 2, 3, 4, 5, 6); // 1 -> 2 -> 3 -> 4 -> 5 -> 6
 partTwo(); // "6 120"
 /*Последни три строчки можно заменить одной.*/
 // lookAtArguments(someFuncOne, someFuncTwo)(1, 2, 3, 4, 5, 6)();
 
 // lookAtArguments(someFuncOne, someFuncTwo); // nothing
-// lookAtArguments(someFuncOne, someFuncTwo)(1, 2, 3, 4, 5, 6); // 1 => 2 => 3 => 4 => 5 => 6
-// lookAtArguments(someFuncOne, someFuncTwo)(1, 2, 3, 4, 5, 6)(); // 1 => 2 => 3 => 4 => 5 => 6 => "6 120"
+// lookAtArguments(someFuncOne, someFuncTwo)(1, 2, 3, 4, 5, 6); // 1 -> 2 -> 3 -> 4 -> 5 -> 6
+// lookAtArguments(someFuncOne, someFuncTwo)(1, 2, 3, 4, 5, 6)(); // 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> "6 120"
 console.log('6------------------------------------------------------');
 
 /*-------------------------------------------------------------------------------------------------------------------*/
@@ -171,13 +171,13 @@ function functorForFunction(value, func) { // Здесь будут параме
 
 const firstCall = functorForFunction(function (x) { return x * x }, sumSomethingAndSix);
 const secondCall = firstCall(2); // 2
-secondCall(7); // 7 => 10
+secondCall(7); // 7 -> 10
 /*Последни три строчки можно заменить одной.*/
 // functorForFunction(function (x) { return x * x }, sumSomethingAndSix)(2)(7);
 
 // functorForFunction(function (x) { return x * x }, sumSomethingAndSix); // nothing
 // functorForFunction(function (x) { return x * x }, sumSomethingAndSix)(2); // 2
-// functorForFunction(function (x) { return x * x }, sumSomethingAndSix)(2)(7); // 2 => 7 => 10
+// functorForFunction(function (x) { return x * x }, sumSomethingAndSix)(2)(7); // 2 -> 7 -> 10
 
 
 /*Вариант с 4-мя вызовами.*/
@@ -204,7 +204,7 @@ secondCall(7); // 7 => 10
 // const firstCall = functorForFunction(function (x) { return x * x }, sumSomethingAndSix); // nothing
 // const secondCall = firstCall(someArrayEight); // 2
 // const thirdCall = secondCall(7); // 7
-// const fourthCall = thirdCall(11); // 11 => 10
+// const fourthCall = thirdCall(11); // 11 -> 10
 // console.log(someArrayEight); // [2]
 // console.log(fourthCall);// [10]
 // console.log(someArrayEight === fourthCall); // false
@@ -218,8 +218,8 @@ function canWeUseIt(value, func) {
 
 console.log(canWeUseIt(undefined, compose(sumSomethingAndSix, multiplySomethingAndThree))); // undefined
 console.log(canWeUseIt(canWeUseIt(undefined, multiplySomethingAndThree), sumSomethingAndSix)); // undefined
-console.log(canWeUseIt(1, compose(sumSomethingAndSix, multiplySomethingAndThree))); // 1 * 3 = 3 => 3 + 6 => 9
-console.log(canWeUseIt(canWeUseIt(1, multiplySomethingAndThree), sumSomethingAndSix)); // 1 * 3 = 3 => 3 + 6 => 9
+console.log(canWeUseIt(1, compose(sumSomethingAndSix, multiplySomethingAndThree))); // 1 * 3 = 3 -> 3 + 6 -> 9
+console.log(canWeUseIt(canWeUseIt(1, multiplySomethingAndThree), sumSomethingAndSix)); // 1 * 3 = 3 -> 3 + 6 -> 9
 
 /*Функтор "canWeUseIt()" полезен для короткой проверки на неопределенность значения (монада Maybe). Его можно его
 использовать как замену для следующего кода:*/
