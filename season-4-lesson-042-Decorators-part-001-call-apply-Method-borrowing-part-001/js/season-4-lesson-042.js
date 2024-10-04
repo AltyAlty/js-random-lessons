@@ -54,7 +54,7 @@ function cachingDecorator02(func) {
     };
 };
 
-obj01.method02 = cachingDecorator02(obj01.method02); // теперь сделаем её кеширующей
+obj01.method02 = cachingDecorator02(obj01.method02); // теперь сделаем ее кеширующей
 
 console.log(obj01.method02(3)); // 6, расчитывываем результат с параметром 3 и кешируем этот результат
 console.log(obj01.method02(3)); // 6, возвращаем из кеша ранее расчитанный результат
