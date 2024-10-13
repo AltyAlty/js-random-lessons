@@ -74,9 +74,10 @@ console.log('--------------------------------------');
 срабатывает при попытке прочитать свойство объекта, с аргументами:
 1) "target" - это оригинальный объект, который передавался первым аргументом в конструктор "new Proxy",
 2) "property" - имя свойства,
-3) "receiver" - если свойство объекта является геттером, то receiver - это объект, который будет использован как this 
+3) "receiver" - если свойство объекта является геттером, то "receiver" - это объект, который будет использован как this 
 при его вызове. Обычно это сам объект прокси (или наследующий от него объект).*/
 let array01 = [1, 2, 3];
+
 let proxy02 = new Proxy(array01, {
     get(target, property) {
 
@@ -113,6 +114,7 @@ console.log('--------------------------------------');
 Ловушка "set" должна вернуть true, если запись прошла успешно, и false в противном случае (будет сгенерирована ошибка
 TypeError).*/
 let array02 = [4, 5, 6];
+
 array02 = new Proxy(array02, {
     set(target, property, value) {
 
@@ -235,12 +237,12 @@ obj05 = new Proxy(obj05, {
 
     },
 
-    set(target, property, val) { // Перехватываем запись свойства.
+    set(target, property, value) { // Перехватываем запись свойства.
 
         if (property.startsWith('_')) {
             throw new Error('Nope');
         } else {
-            target[property] = val;
+            target[property] = value;
             return true;
         };
 
@@ -299,9 +301,11 @@ let obj06 = {
 };
 
 obj06 = new Proxy(obj06, {
+
     has(target, property) {
         return property >= target.a && property <= target.b;
     }
+
 });
 
 console.log(0 in obj06); // false
@@ -329,9 +333,7 @@ function funcDecorator01(f, ms) {
     });
 };
 
-function func01(a) {
-    console.log(a);
-};
+function func01(a) { console.log(a) };
 
 func01 = funcDecorator01(func01, 1000);
 
@@ -344,11 +346,12 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*"Reflect" - это встроенный объект, упрощающий создание прокси. Внутренние методы, такие как "[[Get]]", "[[Set]]" и 
-другие, существуют только в спецификации, что к ним нельзя обратиться напрямую. Объект "Reflect" делает это возможным.
-Его методы - минимальные обертки вокруг внутренних методов. Вот примеры операций и вызовы "Reflect", которые делают
+другие, существуют только в спецификации и к ним нельзя обратиться напрямую. Объект "Reflect" делает это возможным. Его
+методы - минимальные обертки вокруг внутренних методов. Вот примеры операций и вызовы "Reflect", которые делают
 то же самое:
 
 Операция 	        Вызов Reflect 	                    Внутренний метод
+
 obj[prop] 	        Reflect.get(obj, prop) 	            [[Get]]
 obj[prop] = value 	Reflect.set(obj, prop, value) 	    [[Set]]
 delete obj[prop] 	Reflect.deleteProperty(obj, prop) 	[[Delete]]
@@ -370,9 +373,7 @@ console.log('--------------------------------------');
 
 /*В этом примере обе ловушки "get" и "set" прозрачно (как будто их нет) перенаправляют операции чтения и записи на 
 объект, при этом выводя сообщение.*/
-let obj08 = {
-    a: 17,
-};
+let obj08 = { a: 17 };
 
 obj08 = new Proxy(obj08, {
 
@@ -401,14 +402,14 @@ console.log('--------------------------------------');
 вызывает этот геттер в рамках оригинального объекта "obj09". В итоге мы получаем 19, а не 20.*/
 let obj09 = {
     _a: 19,
-    get a() {
-        return this._a;
-    }
+
+    get a() { return this._a; }
 };
 
 let obj09Proxy = new Proxy(obj09, {
 
     get(target, property, receiver) {
+        console.log(receiver); // Object { _a: 20 }        
         return target[property];
     }
 
@@ -426,14 +427,14 @@ console.log(obj10.a); // 19
 вызывает этот геттер в рамках объекта "obj12". В итоге мы получаем 22.*/
 let obj11 = {
     _a: 21,
-    get a() {
-        return this._a;
-    }
+
+    get a() { return this._a }
 };
 
 let obj11Proxy = new Proxy(obj11, {
 
     get(target, property, receiver) {
+        console.log(receiver); // Object { _a: 22 }        
         return Reflect.get(target, property, receiver);
         // return Reflect.get(...arguments);
     }
@@ -452,7 +453,7 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Многие встроенные объекты, например "Map", "Set", "Date", "Promise" и другие используют так называемые "внутренние 
-слоты". Это как свойства, но только для внутреннего использования в самой спецификациии. Например, "Map" хранит 
+слоты". Это как свойства, но только для внутреннего использования в самой спецификации. Например, "Map" хранит 
 элементы во внутреннем слоте "[[MapData]]". Встроенные методы обращаются к слотам напрямую, не через 
 "[[Get]]"/"[[Set]]". Таким образом, прокси не может перехватить их. Если встроенный объект проксируется, то в прокси не
 будет этих "внутренних слотов", так что попытка вызвать на таком прокси встроенный метод приведет к ошибке.
@@ -471,7 +472,7 @@ let map02 = new Map();
 
 let map02proxy = new Proxy(map02, {
 
-    get(target, property, receiver) {
+    get(target, property) {
         let value = Reflect.get(target, property);
         // let value = Reflect.get(...arguments);
         console.log(value); // function set() -> function get()
@@ -497,9 +498,7 @@ console.log('--------------------------------------');
 class Class01 {
     #a = 25;
 
-    getA() {
-        return this.#a;
-    };
+    getA() { return this.#a };
 };
 
 let obj13 = new Class01();
@@ -512,16 +511,14 @@ obj13 = new Proxy(obj13, {});
 class Class02 {
     #a = 26;
 
-    getA() {
-        return this.#a;
-    };
+    getA() { return this.#a };
 };
 
 let obj14 = new Class02();
 
 obj14 = new Proxy(obj14, {
 
-    get(target, property, receiver) {
+    get(target, property) {
         let value = Reflect.get(target, property);
         // let value = Reflect.get(...arguments);
         console.log(value); // function getA()
@@ -543,9 +540,7 @@ console.log('--------------------------------------');
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 /*Отключаемый (revocable) прокси - это прокси, который может быть отключен вызовом специальной функции.*/
-let obj15 = {
-    a: 27
-};
+let obj15 = { a: 27 };
 
 let { proxy: obj15Proxy, revoke: revokeObj15Proxy } = Proxy.revocable(obj15, {});
 console.log(obj15Proxy); // Proxy { <target>: {…}, <handler>: {} }
@@ -556,6 +551,7 @@ console.log(obj15Proxy.a); // 27
 /*Вызов "revoke()" удаляет все внутренние ссылки на оригинальный объект из прокси, так что между ними больше нет связи,
 и оригинальный объект теперь может быть очищен сборщиком мусора.*/
 revokeObj15Proxy();
+console.log(obj15Proxy); // Proxy { <target>: null, <handler>: null }
 // console.log(obj15Proxy.a); // Uncaught TypeError: illegal operation attempted on a revoked proxy
 
 console.log(obj15); // Object { a: 27 }
@@ -565,14 +561,9 @@ console.log(obj15); // Object { a: 27 }
 то "WeakMap" позволяет сборщику мусора удалить его из памяти вместе с соответствующей функцией "revoke()", которая в этом
 случае больше не нужна.*/
 let revokes = new WeakMap();
-
-let obj16 = {
-    a: 28
-};
-
+let obj16 = { a: 28 };
 let { proxy: obj16Proxy, revoke: revokeObj16Proxy } = Proxy.revocable(obj16, {});
 revokes.set(obj16Proxy, revokeObj16Proxy);
-
 
 revokeObj16Proxy = revokes.get(obj16Proxy);
 revokeObj16Proxy();
