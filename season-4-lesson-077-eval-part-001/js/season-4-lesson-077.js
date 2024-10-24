@@ -13,12 +13,12 @@ eval('console.log(a)'); // 3
 
 /*При помощи функции "eval()" можно изменять значения внешних переменных.*/
 eval('a = 4');
-eval('console.log(a)'); // 4s
+eval('console.log(a)'); // 4
 
 /*В строгом режиме у функции "eval()" имеется свое лексическое окружение. Поэтому функции и переменные, объявленные
 внутри функции "eval()", нельзя увидеть снаружи.*/
 eval('let b = 5');
-// console.log(b); //Uncaught ReferenceError: b is not defined
+// console.log(b); // Uncaught ReferenceError: b is not defined
 
 console.log('--------------------------------------');
 
@@ -29,5 +29,6 @@ let c = 6;
 
 {
     let c = 7;
+    eval('console.log(c)'); // 7 
     window.eval('console.log(c)'); // 6
 };
