@@ -66,7 +66,7 @@ foo.x = foo = { n: 2 };
 в памяти.
 */
 
-console.log(foo.x); // undefined 
+console.log(foo.x); // undefined
 console.log(foo); // { n: 2 }
 console.log(bar); // { n: 1, x: {n: 2} }
 console.log(foo === bar.x); // true
