@@ -33,7 +33,7 @@ console.log('--------------------------------------');
 // let setTimeoutID02 = setTimeout(
 //     function tick() {
 //         console.log('tick');
-//         setTimeoutID02 = setTimeout(tick, 1000); // (*)
+//         setTimeoutID02 = setTimeout(tick, 1000);
 //     },
 
 //     1000);
