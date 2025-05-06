@@ -314,13 +314,13 @@ let obj7 = {
 
     [Symbol.iterator]: function () {
         this.i = 0;
-        console.log(this === obj6); // true, сам объект "obj7".
+        console.log(this === obj7); // true, сам объект "obj7".
         console.log(this); // объект "obj7".
         return this; // Вернется объект "obj7", но в нем изначально есть метод "next()".
     },
 
     next: function () {
-        console.log(this === obj6); // true
+        console.log(this === obj7); // true
 
         if (this.i < this.length) {
             return { done: false, value: this[this.i++] };
