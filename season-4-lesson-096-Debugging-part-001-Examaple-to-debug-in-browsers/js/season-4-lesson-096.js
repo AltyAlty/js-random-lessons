@@ -41,7 +41,7 @@ function formatInputsValues(inputsValues) {
     for (const key in inputsValues) {
         if (key !== 'info') {
             inputsValues[key] = key + ': ' + inputsValues[key];
-        }
+        };
     };
 
     inputsValues.info.status = 'formatted';
@@ -60,7 +60,6 @@ function showOutputTwo(inputTwoValue) {
     const outputTwo = document.getElementsByClassName('output-two')[0];
     outputTwo.innerHTML = inputTwoValue;
 };
-
 
 function showOutputThree(inputThreeValue) {
     // const outputThree = document.getElementsByClassName('output-three');
