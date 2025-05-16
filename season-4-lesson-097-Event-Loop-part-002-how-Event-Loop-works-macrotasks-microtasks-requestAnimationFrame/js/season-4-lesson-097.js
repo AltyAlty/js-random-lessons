@@ -608,3 +608,32 @@ Event Loop в Web Workers полностью идентичен основном
 // one();
 // two();
 // three();
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+// let itemsLeft = 2000;
+
+// function doBackgroundWork(deadline) {
+//     console.log(deadline);
+//     console.log(deadline.timeRemaining());
+//     console.log(deadline.didTimeout);
+
+//     /*Выполняем задачи, пока есть время.*/
+//     while (deadline.timeRemaining() > 0) {
+//         console.log('do a big task');
+//         itemsLeft--;
+//     };
+
+//     /*Продолжим выполнять задачи в следующий простой.*/
+//     if (itemsLeft > 0) {
+//         requestIdleCallback(doBackgroundWork);
+//     };
+// };
+
+// requestIdleCallback(doBackgroundWork);
+
+// console.log(1);
+// setTimeout(() => { console.log(2) }, 0);
+// requestAnimationFrame(() => { console.log(3) });
+// Promise.resolve().then(() => { console.log(4) });
+// console.log(5);
