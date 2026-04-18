@@ -1,8 +1,8 @@
-// 'use strict';
+'use strict';
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-/*Данный пример не работает в строгом режиме.*/
+/*Данный пример не работает в строгом режиме из-за свойств "caller" и "callee".*/
 function func01(a) {
     /*Свойство "caller" позволяет узнать функцию, в рамках которой была вызвана текущая функция.*/
     console.log(func01.caller); // function func02(a)
@@ -11,8 +11,5 @@ function func01(a) {
     console.log(arguments.callee.caller); // function func02(a)
 };
 
-function func02(a) {
-    func01(a);
-};
-
+function func02(a) { func01(a) };
 func02(1);
