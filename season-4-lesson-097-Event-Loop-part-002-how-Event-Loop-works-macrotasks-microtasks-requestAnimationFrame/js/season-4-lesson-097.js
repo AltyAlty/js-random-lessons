@@ -637,3 +637,54 @@ Event Loop в Web Workers полностью идентичен основном
 // requestAnimationFrame(() => { console.log(3) });
 // Promise.resolve().then(() => { console.log(4) });
 // console.log(5);
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+// async function func01() {
+//     console.log(1);
+
+//     await new Promise(
+//         (resolve) => setTimeout(() => {
+//             console.log(2);
+//             resolve();
+//         }, 1000));
+// };
+
+// func01();
+// console.log(3);
+
+// new Promise(
+//     (resolve) => setTimeout(() => {
+//         console.log(4);
+//         resolve()
+//     }, 100));
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+async function func_01() {
+    console.log(9);
+    await Promise.resolve(2).then(r => console.log(r));
+    console.log(0);
+    await Promise.resolve(3).then(r => console.log(r));
+    console.log(12);
+};
+
+async function func_02() {
+    console.log(10);
+    await Promise.resolve(4).then(r => console.log(r));
+    console.log(11);
+    await Promise.resolve(5).then(r => console.log(r));
+};
+
+func_01();
+func_02();
+
+const promises = Promise.resolve('new Promise');
+promises.then(str => console.log(str));
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+// const promise_01 = new Promise((resolve, reject) => { reject() });
+// promise_01.then(() => console.log(1), () => console.log(2)).then(() => console.log(3), () => console.log(4));
+// promise_01.then(() => console.log(5), () => console.log(6));
+// promise_01.then(() => console.log(7), () => console.log(8));
